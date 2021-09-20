@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:language_hack/screens/login.dart';
+import 'package:language_hack/screens/register.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -32,7 +34,12 @@ class HomeScreen extends StatelessWidget {
                     ),
                     icon: Icon(Icons.login),
                     label: Text("Login", style: TextStyle(fontSize: 20)),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return LoginScreens();
+                      }));
+                    },
                   ),
                 ),
                 Padding(padding: EdgeInsets.only(left: 10)),
@@ -45,7 +52,12 @@ class HomeScreen extends StatelessWidget {
                             MaterialStateProperty.all<Color>(Colors.black)),
                     icon: Icon(Icons.app_registration),
                     label: Text("Register", style: TextStyle(fontSize: 20)),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return RegisterScreens();
+                      }));
+                    },
                   ),
                 )
               ],
