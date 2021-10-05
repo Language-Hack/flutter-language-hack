@@ -17,7 +17,7 @@ class RegisterScreens extends StatefulWidget {
 
 class _RegisterScreensState extends State<RegisterScreens> {
   final formKey = GlobalKey<FormState>();
-  Profile profile = Profile(email: '', password: '');
+  Profile profile = Profile(email: '', password: '', displayName: '');
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
   @override
@@ -56,6 +56,23 @@ class _RegisterScreensState extends State<RegisterScreens> {
                               textAlign: TextAlign.left,
                               style:
                                   TextStyle(fontSize: 50, color: Colors.black),
+                            ),
+                          ),
+                          Container(
+                            margin:
+                                EdgeInsets.only(top: 20, left: 20, right: 20),
+                            child: TextFormField(
+                              keyboardType: TextInputType.emailAddress,
+                              onSaved: (input) {
+                                profile.displayName = input.toString();
+                              },
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText: "please fill in your name."),
+                              ]),
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Please! enter your name.'),
                             ),
                           ),
                           Container(
@@ -112,17 +129,32 @@ class _RegisterScreensState extends State<RegisterScreens> {
                                           .createUserWithEmailAndPassword(
                                               email: profile.email,
                                               password: profile.password)
-                                          .then((value) {
-                                        formKey.currentState!.reset();
-                                        Fluttertoast.showToast(
-                                            msg:
-                                                "registration completed successfully",
-                                            gravity: ToastGravity.TOP);
-                                        Navigator.pushReplacement(context,
-                                            MaterialPageRoute(
-                                                builder: (context) {
-                                          return HomeScreen();
-                                        }));
+                                          .then((value) async {
+                                        await value.user!
+                                            .updateDisplayName(
+                                                profile.displayName)
+                                            .then((value) {
+                                          formKey.currentState!.reset();
+                                          Fluttertoast.showToast(
+                                              msg:
+                                                  "registration completed successfully",
+                                              gravity: ToastGravity.TOP);
+                                          Navigator.pushReplacement(context,
+                                              MaterialPageRoute(
+                                                  builder: (context) {
+                                            return HomeScreen();
+                                          }));
+                                        });
+                                        // formKey.currentState!.reset();
+                                        // Fluttertoast.showToast(
+                                        //     msg:
+                                        //         "registration completed successfully",
+                                        //     gravity: ToastGravity.TOP);
+                                        // Navigator.pushReplacement(context,
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) {
+                                        //   return HomeScreen();
+                                        // }));
                                       });
                                     } on FirebaseAuthException catch (e) {
                                       Fluttertoast.showToast(

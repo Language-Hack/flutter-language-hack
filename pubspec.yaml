@@ -74,6 +74,7 @@ flutter:
     - assets/bg.png
     - assets/logo.png
     - assets/animal.png
+    - assets/card1.png
 
   # assets:
   #   - images/a_dot_burr.jpeg
