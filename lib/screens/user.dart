@@ -24,24 +24,77 @@ class _UserScreenState extends State<UserScreen> {
         ),
       ),
       body: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/bg.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Form(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text("name:   "),
-                Text(auth.currentUser!.displayName.toString())
+                Container(
+                  margin: EdgeInsets.only(top: 50, left: 20),
+                  child: const Text(
+                    "This is your informations",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 35, color: Colors.black),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+                  child: const Text(
+                    "Name:",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+                  height: 50,
+                  width: 50,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Padding(
+                      padding: EdgeInsets.all(13),
+                      child: Text(
+                        auth.currentUser!.displayName.toString(),
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+                  child: const Text(
+                    "Email:",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+                  height: 50,
+                  width: 50,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Padding(
+                      padding: EdgeInsets.all(13),
+                      child: Text(
+                        auth.currentUser!.email.toString(),
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
-            Row(
-              children: [
-                Text("Email:   "),
-                Text(auth.currentUser!.email.toString())
-              ],
-            )
-          ],
-        ),
-      ),
+          )),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:language_hack/screens/flashcard01.dart';
 import 'package:language_hack/screens/home.dart';
 import 'package:language_hack/screens/user.dart';
 
@@ -107,7 +108,7 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                           child: Container(
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    width: 8, color: Colors.green.shade300),
+                                    width: 5, color: Colors.green.shade300),
                                 borderRadius: BorderRadius.circular(10)),
                             width: 100,
                             height: 100,
@@ -118,13 +119,18 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return FlashCard01();
+                                }));
+                              },
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: <Widget>[
                                   const Text(
-                                    "Create your own flash card",
+                                    "First trial",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 18,
@@ -141,7 +147,7 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                           child: Container(
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    width: 8, color: Colors.green.shade300),
+                                    width: 5, color: Colors.green.shade300),
                                 borderRadius: BorderRadius.circular(10)),
                             width: 100,
                             height: 100,
@@ -176,7 +182,7 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                           child: Container(
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    width: 8, color: Colors.green.shade300),
+                                    width: 5, color: Colors.green.shade300),
                                 borderRadius: BorderRadius.circular(10)),
                             width: 100,
                             height: 100,
@@ -211,7 +217,7 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                           child: Container(
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    width: 8, color: Colors.green.shade300),
+                                    width: 5, color: Colors.green.shade300),
                                 borderRadius: BorderRadius.circular(10)),
                             width: 100,
                             height: 100,
@@ -245,7 +251,7 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                           child: Container(
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    width: 8, color: Colors.green.shade300),
+                                    width: 5, color: Colors.green.shade300),
                                 borderRadius: BorderRadius.circular(10)),
                             width: 100,
                             height: 100,
@@ -279,7 +285,7 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                           child: Container(
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    width: 8, color: Colors.green.shade300),
+                                    width: 5, color: Colors.green.shade300),
                                 borderRadius: BorderRadius.circular(10)),
                             width: 100,
                             height: 100,
