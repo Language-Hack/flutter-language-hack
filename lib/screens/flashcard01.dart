@@ -8,12 +8,15 @@ import 'package:language_hack/screens/welcome.dart';
 final List data = [
   {
     'color': Colors.red,
+    'word': "Calendar",
   },
   {
     'color': Colors.green,
+    'word': "Calendar",
   },
   {
     'color': Colors.blue,
+    'word': "Calendar",
   }
 ];
 
@@ -49,13 +52,30 @@ class _FlashCard01State extends State<FlashCard01> {
             backgroundColor: Colors.green.shade300,
           )),
       body: Center(
-        child: Container(
-          width: MediaQuery.of(context).size.width * 0.9,
-          height: MediaQuery.of(context).size.height * 0.7,
-          // Important to keep as a stack to have overlay of cards.
-          child: Stack(
-            children: cards,
-          ),
+        child: Column(
+          children: <Widget>[
+            Image.asset(
+              "assets/logo.png",
+              scale: 9,
+              alignment: Alignment.centerRight,
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 5),
+              decoration: BoxDecoration(boxShadow: [
+                BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3))
+              ]),
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: MediaQuery.of(context).size.height * 0.7,
+              // Important to keep as a stack to have overlay of cards.
+              child: Stack(
+                children: cards,
+              ),
+            ),
+          ],
         ),
       ),
       drawer: Drawer(
