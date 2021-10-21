@@ -30,7 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_swipable: ^1.1.0
+  flutter_swipable: ^1.2.1
 
   form_field_validator: ^1.1.0
 
@@ -43,6 +43,8 @@ dependencies:
   firebase_core: ^1.6.0
 
   fluttertoast: ^8.0.8
+
+  flutter_tts: ^3.2.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -79,10 +81,14 @@ flutter:
     - assets/logo.png
     - assets/animal.png
     - assets/card1.png
+
+    - assets/banana.png
+
     - assets/on-boarding1.png
     - assets/on-boarding2.png
     - assets/on-boarding3.png
     - assets/on-boarding4.png
+
 
   # assets:
   #   - images/a_dot_burr.jpeg

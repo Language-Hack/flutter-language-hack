@@ -135,13 +135,19 @@
     },
     {
       "name": "flutter_swipable",
-      "rootUri": "file:///Users/pongsathorn.p/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_swipable-1.1.0",
+      "rootUri": "file:///Users/pongsathorn.p/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_swipable-1.2.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "flutter_test",
       "rootUri": "file:///Users/pongsathorn.p/Developer/flutter/packages/flutter_test",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_tts",
+      "rootUri": "file:///Users/pongsathorn.p/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_tts-3.2.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -290,7 +296,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-10-07T14:11:06.311808Z",
+  "generated": "2021-10-15T05:53:11.513333Z",
   "generator": "pub",
   "generatorVersion": "2.14.2"
 }

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:language_hack/screens/basic_vocab/flash_card_color.dart';
+import 'package:language_hack/screens/basic_vocab/flash_card_fruit.dart';
 import 'package:language_hack/screens/createFlashcard.dart';
 import 'package:language_hack/screens/flashcard01.dart';
 import 'package:language_hack/screens/home.dart';
@@ -128,7 +130,7 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                               onPressed: () {
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return FlashCard01();
+                                  return Flash_Fruit();
                                 }));
                               },
                               child: Column(
@@ -136,7 +138,7 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: <Widget>[
                                   const Text(
-                                    "First trial",
+                                    "Fruits",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 18,
@@ -164,13 +166,18 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return Flash_Color();
+                                }));
+                              },
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: <Widget>[
                                   const Text(
-                                    "Create your own flash card",
+                                    "Colors",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 18,
