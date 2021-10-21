@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:language_hack/screens/home.dart';
 import 'package:language_hack/model/profile.dart';
-import 'package:language_hack/screens/welcome.dart';
+import 'package:language_hack/screens/onBoarding.dart';
 
 class LoginScreens extends StatefulWidget {
   const LoginScreens({Key? key}) : super(key: key);
@@ -119,7 +119,7 @@ class _LoginScreensState extends State<LoginScreens> {
                                         Navigator.pushReplacement(context,
                                             MaterialPageRoute(
                                                 builder: (context) {
-                                          return WelcomeScreens();
+                                          return OnboardingScreens();
                                         }));
                                       });
                                     } on FirebaseAuthException catch (e) {
