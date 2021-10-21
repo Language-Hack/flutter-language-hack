@@ -52,6 +52,8 @@ dependencies:
 
   hexcolor: ^2.0.5
 
+  introduction_screen: ^2.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -79,7 +81,14 @@ flutter:
     - assets/logo.png
     - assets/animal.png
     - assets/card1.png
+
     - assets/banana.png
+
+    - assets/on-boarding1.png
+    - assets/on-boarding2.png
+    - assets/on-boarding3.png
+    - assets/on-boarding4.png
+
 
   # assets:
   #   - images/a_dot_burr.jpeg

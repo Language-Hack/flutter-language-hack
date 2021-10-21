@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_color.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_fruit.dart';
+import 'package:language_hack/screens/createFlashcard.dart';
 import 'package:language_hack/screens/flashcard01.dart';
 import 'package:language_hack/screens/home.dart';
 import 'package:language_hack/screens/user.dart';
@@ -64,7 +65,12 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return CreateFlashcardScreens();
+                      }));
+                    },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -369,6 +375,25 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                 icon: Icon(Icons.person),
                 label: const Text(
                   "User Profile",
+                  style: TextStyle(fontSize: 20, color: Colors.black),
+                  textAlign: TextAlign.left,
+                )),
+            ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                    fixedSize: Size(20, 60),
+                    primary: Colors.white,
+                    onPrimary: Colors.black,
+                    side: BorderSide(color: Colors.white),
+                    alignment: Alignment.centerLeft),
+                onPressed: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
+                    return CreateFlashcardScreens();
+                  }));
+                },
+                icon: Icon(Icons.book),
+                label: const Text(
+                  "Notebook",
                   style: TextStyle(fontSize: 20, color: Colors.black),
                   textAlign: TextAlign.left,
                 )),

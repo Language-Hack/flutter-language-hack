@@ -37,7 +37,7 @@ class _UserScreenState extends State<UserScreen> {
                 Container(
                   margin: EdgeInsets.only(top: 50, left: 20),
                   child: const Text(
-                    "This is your informations",
+                    "This is your information",
                     textAlign: TextAlign.left,
                     style: TextStyle(fontSize: 35, color: Colors.black),
                   ),
