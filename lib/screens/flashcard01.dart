@@ -1,29 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:language_hack/screens/home.dart';
 import 'package:language_hack/screens/welcome.dart';
 
 // Link to DB
 final List data = [
-  {
-    'color': Colors.red,
-    'word': "Calendar",
-  },
-  {
-    'color': Colors.green,
-    'word': "Calendar",
-  },
-  {
-    'color': Colors.blue,
-    'word': "Calendar",
-  }
+  {'color': Colors.red, 'word': "Calendar", 'picture': "assets/banana.png"},
+  {'color': Colors.green, 'word': "Calendar1", 'picture': "assets/banana.png"},
+  {'color': Colors.yellow, 'word': "Banana", 'picture': "assets/banana.png"}
 ];
 
 class FlashCard01 extends StatefulWidget {
   @override
   _FlashCard01State createState() => _FlashCard01State();
 }
+
+////////// this is the speaking function in this flashcard ///////////
+final FlutterTts flutterTts = FlutterTts();
+
+Future speak(String text) async {
+  await flutterTts.setLanguage("en-US");
+  await flutterTts.setPitch(1);
+  await flutterTts.speak(text);
+}
+
+//////////////////////////////////////////////////////////////////////
 
 class _FlashCard01State extends State<FlashCard01> {
   final auth = FirebaseAuth.instance;
@@ -32,12 +35,18 @@ class _FlashCard01State extends State<FlashCard01> {
   List<Card> cards = [
     Card(
       data[0]['color'],
+      data[0]['word'],
+      data[0]['picture'],
     ),
     Card(
       data[1]['color'],
+      data[1]['word'],
+      data[1]['picture'],
     ),
     Card(
       data[2]['color'],
+      data[2]['word'],
+      data[2]['picture'],
     ),
   ];
 
@@ -151,19 +160,66 @@ class Card extends StatelessWidget {
   // Made to distinguish cards
   // Add your own applicable data here
   final Color color;
-  Card(this.color);
+  String word = "";
+  String picture;
+  Card(this.color, this.word, this.picture);
 
   @override
   Widget build(BuildContext context) {
     return Swipable(
       // Set the swipable widget
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.0),
-          color: color,
-        ),
-      ),
 
+      child: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16.0),
+              color: color,
+            ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                word,
+                style: TextStyle(fontSize: 50),
+                textAlign: TextAlign.center,
+              ),
+              IconButton(
+                onPressed: () => speak(word),
+                icon: Icon(Icons.volume_up),
+                iconSize: 45,
+              ),
+              // ElevatedButton.icon(
+              //     onPressed: () => speak(word),
+              //     icon: Icon(Icons.volume_up),
+              //     label: Text("")),
+              Image.asset(
+                picture,
+                scale: 4,
+              ),
+              const Text(
+                "กล้วย",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              const Padding(padding: EdgeInsets.all(10)),
+              const Text(
+                "Example Sentence:",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const Padding(padding: EdgeInsets.all(10)),
+              const Text(
+                "Bananas are yellow",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              )
+            ],
+          )
+        ],
+      ),
       // onSwipeRight, left, up, down, cancel, etc...
     );
   }
