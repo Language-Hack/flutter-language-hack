@@ -6,8 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:language_hack/screens/basic_vocab/flash_card_adjectives.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_color.dart';
+import 'package:language_hack/screens/basic_vocab/flash_card_countries.dart';
+import 'package:language_hack/screens/basic_vocab/flash_card_day.dart';
+import 'package:language_hack/screens/basic_vocab/flash_card_family.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_fruit.dart';
+import 'package:language_hack/screens/basic_vocab/flash_card_months.dart';
+import 'package:language_hack/screens/basic_vocab/flash_card_places.dart';
+import 'package:language_hack/screens/basic_vocab/flash_card_vegetables.dart';
+import 'package:language_hack/screens/basic_vocab/flash_card_verbs.dart';
 import 'package:language_hack/screens/createFlashcard.dart';
 import 'package:language_hack/screens/flashcard01.dart';
 import 'package:language_hack/screens/home.dart';
@@ -26,26 +34,22 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
+      backgroundColor: Colors.grey.shade200,
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(40),
           child: AppBar(
-            backgroundColor: Colors.green.shade300,
+            backgroundColor: Colors.amber.shade50,
+            iconTheme: IconThemeData(color: Colors.black),
           )),
       body: Container(
         child: Form(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image.asset(
-                "assets/logo.png",
-                width: 50,
-                height: 50,
-              ),
               Container(
-                margin: EdgeInsets.only(left: 20),
+                margin: EdgeInsets.only(top: 20, left: 20),
                 child: const Text(
-                  "Dashboard",
+                  "Choose what to learn today?",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       fontSize: 24,
@@ -53,49 +57,100 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.fromLTRB(30, 20, 30, 10),
-                child: SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      onPrimary: Colors.black,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                    ),
-                    onPressed: () {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) {
-                        return CreateFlashcardScreens();
-                      }));
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        const Text(
-                          "New Flash-Card",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+              Center(
+                child: Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 2, color: Colors.black),
+                          borderRadius: BorderRadius.circular(25)),
+                      margin: const EdgeInsets.fromLTRB(25, 20, 0, 10),
+                      child: SizedBox(
+                        width: 150,
+                        height: 150,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            onPrimary: Colors.black,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25)),
+                          ),
+                          onPressed: () {
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return CreateFlashcardScreens();
+                            }));
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: <Widget>[
+                              Image.asset(
+                                "assets/notebook.png",
+                                width: 10,
+                                height: 80,
+                              ),
+                              const Padding(padding: EdgeInsets.only(top: 10)),
+                              const Text(
+                                "Notebook",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
-                        const Padding(padding: EdgeInsets.only(top: 3)),
-                        Image.asset(
-                          "assets/card1.png",
-                          width: 10,
-                          height: 70,
-                        )
-                      ],
+                      ),
                     ),
-                  ),
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 2, color: Colors.black),
+                          borderRadius: BorderRadius.circular(25)),
+                      margin: const EdgeInsets.fromLTRB(30, 20, 0, 10),
+                      child: SizedBox(
+                        width: 150,
+                        height: 150,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            onPrimary: Colors.black,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25)),
+                          ),
+                          onPressed: () {
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return CreateFlashcardScreens();
+                            }));
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: <Widget>[
+                              Image.asset(
+                                "assets/reading-book.png",
+                                width: 10,
+                                height: 80,
+                              ),
+                              const Padding(padding: EdgeInsets.only(top: 10)),
+                              const Text(
+                                "Lesson",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(top: 20, left: 20),
                 child: const Text(
-                  "What you whant to learn?",
+                  "Recommended Lesson",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       fontSize: 24,
@@ -115,34 +170,37 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                           margin: const EdgeInsets.fromLTRB(30, 20, 30, 5),
                           child: Container(
                             decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 5, color: Colors.green.shade300),
-                                borderRadius: BorderRadius.circular(10)),
+                                border:
+                                    Border.all(width: 2, color: Colors.black),
+                                borderRadius: BorderRadius.circular(20)),
                             width: 100,
-                            height: 100,
+                            height: 150,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.white,
+                                primary: Colors.red.shade200,
                                 onPrimary: Colors.black,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
+                                    borderRadius: BorderRadius.circular(20)),
                               ),
                               onPressed: () {
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return Flash_Fruit();
+                                  return Flash_Color();
                                 }));
                               },
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                              child: Row(
                                 children: <Widget>[
+                                  Image.asset(
+                                    "assets/color.png",
+                                    width: 130,
+                                    height: 130,
+                                  ),
+                                  Padding(padding: EdgeInsets.only(left: 14)),
                                   const Text(
-                                    "Fruits",
-                                    textAlign: TextAlign.center,
+                                    "Color (Basic)",
                                     style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
+                                      fontSize: 20,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -154,34 +212,38 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                           margin: const EdgeInsets.fromLTRB(30, 20, 30, 5),
                           child: Container(
                             decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 5, color: Colors.green.shade300),
-                                borderRadius: BorderRadius.circular(10)),
+                                border:
+                                    Border.all(width: 2, color: Colors.black),
+                                borderRadius: BorderRadius.circular(20)),
                             width: 100,
-                            height: 100,
+                            height: 150,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.white,
+                                primary: Colors.blueAccent.shade100,
                                 onPrimary: Colors.black,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
+                                    borderRadius: BorderRadius.circular(20)),
                               ),
                               onPressed: () {
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return Flash_Color();
+                                  return Flash_Fruit();
                                 }));
                               },
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                              child: Row(
                                 children: <Widget>[
+                                  Image.asset(
+                                    "assets/fruit.png",
+                                    width: 130,
+                                    height: 130,
+                                  ),
+                                  Padding(padding: EdgeInsets.only(left: 14)),
                                   const Text(
-                                    "Colors",
+                                    "Fruit (Basic)",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
+                                      fontSize: 18,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -194,30 +256,52 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                           margin: const EdgeInsets.fromLTRB(30, 20, 30, 5),
                           child: Container(
                             decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 5, color: Colors.green.shade300),
-                                borderRadius: BorderRadius.circular(10)),
+                                border:
+                                    Border.all(width: 2, color: Colors.black),
+                                borderRadius: BorderRadius.circular(20)),
                             width: 100,
-                            height: 100,
+                            height: 150,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.white,
+                                primary: Colors.amber.shade50,
                                 onPrimary: Colors.black,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
+                                    borderRadius: BorderRadius.circular(20)),
                               ),
-                              onPressed: () {},
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                              onPressed: () {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return Flash_Family();
+                                }));
+                              },
+                              child: Row(
                                 children: <Widget>[
-                                  const Text(
-                                    "Create your own flash card",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
+                                  Image.asset(
+                                    "assets/family.png",
+                                    width: 130,
+                                    height: 130,
                                   ),
+                                  Padding(padding: EdgeInsets.only(left: 14)),
+                                  Column(
+                                    children: [
+                                      const Padding(
+                                          padding: EdgeInsets.only(top: 50)),
+                                      const Text(
+                                        "Family Member",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      const Text(
+                                        "(Basic)",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ],
                               ),
                             ),
@@ -229,30 +313,66 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                           margin: const EdgeInsets.fromLTRB(30, 20, 30, 5),
                           child: Container(
                             decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 5, color: Colors.green.shade300),
-                                borderRadius: BorderRadius.circular(10)),
+                                border:
+                                    Border.all(width: 2, color: Colors.black),
+                                borderRadius: BorderRadius.circular(20)),
                             width: 100,
-                            height: 100,
+                            height: 150,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.white,
+                                primary: Colors.pink.shade100,
                                 onPrimary: Colors.black,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
+                                    borderRadius: BorderRadius.circular(20)),
                               ),
-                              onPressed: () {},
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                              onPressed: () {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return Flash_Countries();
+                                }));
+                              },
+                              child: Row(
                                 children: <Widget>[
-                                  const Text(
-                                    "Create your own flash card",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
+                                  Image.asset(
+                                    "assets/countries.png",
+                                    width: 130,
+                                    height: 130,
                                   ),
+                                  Padding(padding: EdgeInsets.only(left: 14)),
+                                  Column(
+                                    children: [
+                                      const Padding(
+                                          padding: EdgeInsets.only(top: 30)),
+                                      const Text(
+                                        "Countries",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      const Text(
+                                        "&",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      const Text(
+                                        "Nationalities",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      const Text(
+                                        "(Basic)",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ],
                               ),
                             ),
@@ -263,30 +383,52 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                           margin: const EdgeInsets.fromLTRB(30, 20, 30, 5),
                           child: Container(
                             decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 5, color: Colors.green.shade300),
-                                borderRadius: BorderRadius.circular(10)),
+                                border:
+                                    Border.all(width: 2, color: Colors.black),
+                                borderRadius: BorderRadius.circular(20)),
                             width: 100,
-                            height: 100,
+                            height: 150,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.white,
+                                primary: Colors.blue.shade200,
                                 onPrimary: Colors.black,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
+                                    borderRadius: BorderRadius.circular(20)),
                               ),
-                              onPressed: () {},
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                              onPressed: () {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return Flash_Vegetables();
+                                }));
+                              },
+                              child: Row(
                                 children: <Widget>[
-                                  const Text(
-                                    "Create your own flash card",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
+                                  Image.asset(
+                                    "assets/vegetables.png",
+                                    width: 130,
+                                    height: 130,
                                   ),
+                                  Padding(padding: EdgeInsets.only(left: 14)),
+                                  Column(
+                                    children: [
+                                      const Padding(
+                                          padding: EdgeInsets.only(top: 50)),
+                                      const Text(
+                                        "Vegetables",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      const Text(
+                                        "(Basic)",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ],
                               ),
                             ),
@@ -297,30 +439,257 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                           margin: const EdgeInsets.fromLTRB(30, 20, 30, 5),
                           child: Container(
                             decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 5, color: Colors.green.shade300),
-                                borderRadius: BorderRadius.circular(10)),
+                                border:
+                                    Border.all(width: 2, color: Colors.black),
+                                borderRadius: BorderRadius.circular(20)),
                             width: 100,
-                            height: 100,
+                            height: 150,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.white,
+                                primary: Colors.green.shade100,
                                 onPrimary: Colors.black,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
+                                    borderRadius: BorderRadius.circular(20)),
                               ),
-                              onPressed: () {},
-                              child: Column(
+                              onPressed: () {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return Flash_Places();
+                                }));
+                              },
+                              child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: <Widget>[
-                                  const Text(
-                                    "Create your own flash card",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
+                                  Image.asset(
+                                    "assets/places.png",
+                                    width: 130,
+                                    height: 130,
                                   ),
+                                  Padding(padding: EdgeInsets.only(left: 14)),
+                                  Column(
+                                    children: [
+                                      const Padding(
+                                          padding: EdgeInsets.only(top: 50)),
+                                      const Text(
+                                        "Places (Basic)",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(30, 20, 30, 5),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(width: 2, color: Colors.black),
+                                borderRadius: BorderRadius.circular(20)),
+                            width: 100,
+                            height: 150,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.purple.shade100,
+                                onPrimary: Colors.black,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                              ),
+                              onPressed: () {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return Flash_Days();
+                                }));
+                              },
+                              child: Row(
+                                children: <Widget>[
+                                  Image.asset(
+                                    "assets/days.png",
+                                    width: 130,
+                                    height: 130,
+                                  ),
+                                  Padding(padding: EdgeInsets.only(left: 14)),
+                                  Column(
+                                    children: [
+                                      const Padding(
+                                          padding: EdgeInsets.only(top: 50)),
+                                      const Text(
+                                        "Days of the week",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                        ),
+                                      ),
+                                      const Text(
+                                        "(Basic)",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(30, 20, 30, 5),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(width: 2, color: Colors.black),
+                                borderRadius: BorderRadius.circular(20)),
+                            width: 100,
+                            height: 150,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.orange.shade100,
+                                onPrimary: Colors.black,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                              ),
+                              onPressed: () {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return Flash_Months();
+                                }));
+                              },
+                              child: Row(
+                                children: <Widget>[
+                                  Image.asset(
+                                    "assets/months.png",
+                                    width: 130,
+                                    height: 130,
+                                  ),
+                                  Padding(padding: EdgeInsets.only(left: 14)),
+                                  Column(
+                                    children: [
+                                      const Padding(
+                                          padding: EdgeInsets.only(top: 50)),
+                                      const Text(
+                                        "Months of the Year",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      const Text(
+                                        "(Basic)",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(30, 20, 30, 5),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(width: 2, color: Colors.black),
+                                borderRadius: BorderRadius.circular(20)),
+                            width: 100,
+                            height: 150,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.pink.shade50,
+                                onPrimary: Colors.black,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                              ),
+                              onPressed: () {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return Flash_Verbs();
+                                }));
+                              },
+                              child: Row(
+                                children: <Widget>[
+                                  Image.asset(
+                                    "assets/verb.png",
+                                    width: 130,
+                                    height: 130,
+                                  ),
+                                  Padding(padding: EdgeInsets.only(left: 14)),
+                                  Column(
+                                    children: [
+                                      const Padding(
+                                          padding: EdgeInsets.only(top: 50)),
+                                      const Text(
+                                        "Verbs (Basic)",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(30, 20, 30, 5),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(width: 2, color: Colors.black),
+                                borderRadius: BorderRadius.circular(20)),
+                            width: 100,
+                            height: 150,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.blue.shade100,
+                                onPrimary: Colors.black,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                              ),
+                              onPressed: () {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return Flash_Adjectives();
+                                }));
+                              },
+                              child: Row(
+                                children: <Widget>[
+                                  Image.asset(
+                                    "assets/adjectives.png",
+                                    width: 130,
+                                    height: 130,
+                                  ),
+                                  Padding(padding: EdgeInsets.only(left: 14)),
+                                  Column(
+                                    children: [
+                                      const Padding(
+                                          padding: EdgeInsets.only(top: 50)),
+                                      const Text(
+                                        "Adjectives (Basic)",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ],
                               ),
                             ),
