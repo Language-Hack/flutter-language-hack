@@ -54,6 +54,10 @@ dependencies:
 
   introduction_screen: ^2.1.0
 
+  showcaseview: ^1.1.2
+
+  shared_preferences: ^2.0.8
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -92,16 +96,34 @@ flutter:
     - assets/notebook.png
     - assets/reading-book.png
 
-    - assets/color.png
-    - assets/fruit.png
-    - assets/family.png
-    - assets/countries.png
-    - assets/vegetables.png
-    - assets/places.png
-    - assets/days.png
-    - assets/months.png
-    - assets/verb.png
     - assets/adjectives.png
+    - assets/colors.png
+    - assets/countries.png
+    - assets/days.png
+    - assets/family.png
+    - assets/fruits.png
+    - assets/month_31.png
+    - assets/place.png
+    - assets/vegetables_bucket.png
+    - assets/verbs_new.png
+    - assets/pre-test1.png
+    - assets/pre-test2.png
+    - assets/checked.png
+    - assets/clothes.png
+    - assets/foods.png
+    - assets/emotions.png
+    - assets/football.png
+    - assets/halloween.png
+    - assets/musicInstrument.png
+    - assets/officeEquipment.png
+    - assets/typeOfSports.png
+    - assets/typeOfFood.png
+    - assets/weather.png
+    - assets/environment.png
+    - assets/ielts.png
+    - assets/partOfCars.png
+    - assets/toefl.png
+    - assets/workshop.png
 
   # assets:
   #   - images/a_dot_burr.jpeg

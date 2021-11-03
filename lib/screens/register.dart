@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,8 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:language_hack/model/profile.dart';
 import 'package:language_hack/screens/home.dart';
+import 'package:language_hack/screens/login.dart';
+import 'package:language_hack/screens/onBoarding.dart';
 
 class RegisterScreens extends StatefulWidget {
   const RegisterScreens({Key? key}) : super(key: key);
@@ -16,9 +20,12 @@ class RegisterScreens extends StatefulWidget {
 }
 
 class _RegisterScreensState extends State<RegisterScreens> {
+  bool _isHidden = true;
   final formKey = GlobalKey<FormState>();
   Profile profile = Profile(email: '', password: '', displayName: '');
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
+
+  CollectionReference scores = FirebaseFirestore.instance.collection('scores');
 
   @override
   Widget build(BuildContext context) {
@@ -37,161 +44,96 @@ class _RegisterScreensState extends State<RegisterScreens> {
           }
           if (snapshot.connectionState == ConnectionState.done) {
             return Scaffold(
+                backgroundColor: Colors.amber.shade50,
                 body: Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/bg.png"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
                     child: Form(
-                      key: formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(top: 100, left: 20),
-                            child: const Text(
-                              "Register",
-                              textAlign: TextAlign.left,
-                              style:
-                                  TextStyle(fontSize: 50, color: Colors.black),
-                            ),
+                  key: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      buildHeader(),
+                      buildDisplayName(),
+                      buildEmail(),
+                      buildPassword(),
+                      Container(
+                        margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+                        child: SizedBox(
+                          height: 60,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: HexColor("#461482"),
+                                onPrimary: Colors.white,
+                                side:
+                                    BorderSide(width: 2, color: Colors.black)),
+                            child: const Text("CREATE ACCOUNT",
+                                style: TextStyle(fontSize: 20)),
+                            onPressed: () async {
+                              if (formKey.currentState!.validate()) {
+                                formKey.currentState?.save();
+                                try {
+                                  await register(context);
+                                } on FirebaseAuthException catch (e) {
+                                  Fluttertoast.showToast(
+                                      msg: e.message.toString(),
+                                      gravity: ToastGravity.CENTER);
+                                }
+                              }
+                            },
                           ),
-                          Container(
-                            margin:
-                                EdgeInsets.only(top: 20, left: 20, right: 20),
-                            child: TextFormField(
-                              keyboardType: TextInputType.emailAddress,
-                              onSaved: (input) {
-                                profile.displayName = input.toString();
-                              },
-                              validator: MultiValidator([
-                                RequiredValidator(
-                                    errorText: "please fill in your name."),
-                              ]),
-                              decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Please! enter your name.'),
-                            ),
-                          ),
-                          Container(
-                            margin:
-                                EdgeInsets.only(top: 20, left: 20, right: 20),
-                            child: TextFormField(
-                              keyboardType: TextInputType.emailAddress,
-                              onSaved: (input) {
-                                profile.email = input.toString();
-                              },
-                              validator: MultiValidator([
-                                RequiredValidator(
-                                    errorText: "please fill in your email."),
-                                EmailValidator(errorText: "This is not email.")
-                              ]),
-                              decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Please! enter your email.'),
-                            ),
-                          ),
-                          Container(
-                            margin:
-                                EdgeInsets.only(top: 20, left: 20, right: 20),
-                            child: TextFormField(
-                              obscureText: true,
-                              onSaved: (input) {
-                                profile.password = input.toString();
-                              },
-                              validator: RequiredValidator(
-                                  errorText: "please fill in the information"),
-                              decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Please! enter your password.'),
-                            ),
-                          ),
-                          Container(
-                            margin:
-                                EdgeInsets.only(top: 20, left: 20, right: 20),
-                            child: SizedBox(
-                              height: 60,
-                              child: ElevatedButton.icon(
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.black)),
-                                label: const Text("NEXT",
-                                    style: TextStyle(fontSize: 20)),
-                                icon: Icon(null),
-                                onPressed: () async {
-                                  if (formKey.currentState!.validate()) {
-                                    formKey.currentState?.save();
-                                    try {
-                                      await FirebaseAuth.instance
-                                          .createUserWithEmailAndPassword(
-                                              email: profile.email,
-                                              password: profile.password)
-                                          .then((value) async {
-                                        await value.user!
-                                            .updateDisplayName(
-                                                profile.displayName)
-                                            .then((value) {
-                                          formKey.currentState!.reset();
-                                          Fluttertoast.showToast(
-                                              msg:
-                                                  "registration completed successfully",
-                                              gravity: ToastGravity.TOP);
-                                          Navigator.pushReplacement(context,
-                                              MaterialPageRoute(
-                                                  builder: (context) {
-                                            return HomeScreen();
-                                          }));
-                                        });
-                                        // formKey.currentState!.reset();
-                                        // Fluttertoast.showToast(
-                                        //     msg:
-                                        //         "registration completed successfully",
-                                        //     gravity: ToastGravity.TOP);
-                                        // Navigator.pushReplacement(context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (context) {
-                                        //   return HomeScreen();
-                                        // }));
-                                      });
-                                    } on FirebaseAuthException catch (e) {
-                                      Fluttertoast.showToast(
-                                          msg: e.message.toString(),
-                                          gravity: ToastGravity.CENTER);
-                                    }
-                                  }
-                                },
-                              ),
-                            ),
-                          ),
-                          Container(
-                            margin:
-                                EdgeInsets.only(top: 20, left: 20, right: 20),
-                            child: SizedBox(
-                              height: 60,
-                              child: ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.white,
-                                    onPrimary: Colors.black,
-                                    side: BorderSide(
-                                        width: 2, color: Colors.black)),
-                                label: Text("BACK",
-                                    style: TextStyle(fontSize: 20)),
-                                icon: Icon(Icons.arrow_left_outlined),
-                                onPressed: () {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return HomeScreen();
-                                  }));
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    )));
+                      Row(children: <Widget>[
+                        Expanded(
+                          child: new Container(
+                              margin: const EdgeInsets.only(
+                                  left: 20.0, right: 15.0, top: 20),
+                              child: Divider(
+                                color: HexColor("#461482"),
+                                height: 50,
+                              )),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: Text(
+                            "Already have account ?",
+                            style: TextStyle(
+                                fontSize: 20, color: HexColor("#461482")),
+                          ),
+                        ),
+                        Expanded(
+                          child: new Container(
+                              margin: const EdgeInsets.only(
+                                  left: 15.0, right: 20.0, top: 20),
+                              child: Divider(
+                                color: HexColor("#461482"),
+                                height: 50,
+                              )),
+                        ),
+                      ]),
+                      Container(
+                        margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+                        child: SizedBox(
+                          height: 60,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.white,
+                                onPrimary: HexColor("#461482"),
+                                side: BorderSide(
+                                    width: 2, color: HexColor("#461482"))),
+                            child:
+                                Text("LOGIN", style: TextStyle(fontSize: 20)),
+                            onPressed: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return LoginScreens();
+                              }));
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )));
           }
           return const Scaffold(
             body: Center(
@@ -200,4 +142,152 @@ class _RegisterScreensState extends State<RegisterScreens> {
           );
         });
   }
+
+  Future<void> register(BuildContext context) async {
+    await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+            email: profile.email, password: profile.password)
+        .then((value) async {
+      await value.user!.updateDisplayName(profile.displayName).then((value) {
+        formKey.currentState!.reset();
+        createScore();
+        Fluttertoast.showToast(
+            msg: "Registration Completed", gravity: ToastGravity.TOP);
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) {
+          return OnboardingScreens();
+        }));
+      });
+    });
+  }
+
+  void createScore() {
+    scores.add({
+      "owner": FirebaseAuth.instance.currentUser!.displayName.toString(),
+      "color_score": 0,
+      "adjective_score": 0,
+      "countries_score": 0,
+      "days_score": 0,
+      "family_score": 0,
+      "fruit_score": 0,
+      "months_score": 0,
+      "places_score": 0,
+      "vegetable_score": 0,
+      "verbs_score": 0,
+      "clothes_score": 0,
+      "dbFood_score": 0,
+      "feeling_score": 0,
+      "football_score": 0,
+      "halloween_score": 0,
+      "music_score": 0,
+      "office_score": 0,
+      "sports_score": 0,
+      "typeFood_score": 0,
+      "weather_score": 0,
+      "environment_score": 0,
+      "ielts_score": 0,
+      "carPart_score": 0,
+      "toefl_score": 0,
+      "workshop_score": 0,
+    });
+  }
+
+  Container buildHeader() {
+    return Container(
+      margin: EdgeInsets.only(top: 100, left: 20),
+      child: Text(
+        "Register",
+        textAlign: TextAlign.left,
+        style: TextStyle(fontSize: 50, color: HexColor("#461482")),
+      ),
+    );
+  }
+
+  Container buildDisplayName() {
+    return Container(
+      margin: EdgeInsets.only(top: 30, left: 20, right: 20),
+      child: TextFormField(
+        keyboardType: TextInputType.emailAddress,
+        onSaved: (input) {
+          profile.displayName = input.toString();
+        },
+        validator: MultiValidator([
+          RequiredValidator(
+            errorText: "Please fill in your name.",
+          ),
+        ]),
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          hintText: 'Enter Your Display Name',
+          prefixIcon: Icon(Icons.face),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            borderSide: BorderSide(color: HexColor("#461482")),
+          ),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(color: Colors.red)),
+        ),
+      ),
+    );
+  }
+
+  Container buildEmail() {
+    return Container(
+      margin: EdgeInsets.only(top: 30, left: 20, right: 20),
+      child: TextFormField(
+        keyboardType: TextInputType.emailAddress,
+        onSaved: (input) {
+          profile.email = input.toString();
+        },
+        validator: MultiValidator([
+          RequiredValidator(errorText: "Please fill in your email."),
+          EmailValidator(errorText: "This is not email.")
+        ]),
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.perm_identity),
+          border: OutlineInputBorder(),
+          hintText: 'Enter Your Email',
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(color: HexColor("#461482"))),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(color: Colors.red)),
+        ),
+      ),
+    );
+  }
+
+  Container buildPassword() {
+    return Container(
+      margin: EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 20),
+      child: TextFormField(
+        obscureText: true,
+        onSaved: (input) {
+          profile.password = input.toString();
+        },
+        validator:
+            RequiredValidator(errorText: "Please fill in the information"),
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          hintText: 'Enter Your Password',
+          prefixIcon: Icon(Icons.lock_outline),
+          suffixIcon: IconButton(
+              icon: Icon(_isHidden ? Icons.visibility_off : Icons.visibility),
+              onPressed: togglePasswordVisibility),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(color: HexColor("#461482"))),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(color: Colors.red)),
+        ),
+      ),
+    );
+  }
+
+  void togglePasswordVisibility() => setState(() {
+        _isHidden = !_isHidden;
+      });
 }
