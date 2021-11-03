@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:language_hack/screens/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'screens/test.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
