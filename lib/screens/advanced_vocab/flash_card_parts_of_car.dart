@@ -8,13 +8,14 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:language_hack/screens/home.dart';
 import 'package:language_hack/screens/welcome.dart';
 
+
 import '../user.dart';
 
-class Flash_Environment extends StatefulWidget {
-  const Flash_Environment({Key? key}) : super(key: key);
+class Flash_PartOfCar extends StatefulWidget {
+  const Flash_PartOfCar({Key? key}) : super(key: key);
 
   @override
-  _Flash_EnvironmentState createState() => _Flash_EnvironmentState();
+  _Flash_PartOfCarState createState() => _Flash_PartOfCarState();
 }
 
 final List data = [
@@ -74,7 +75,7 @@ Future speak(String text) async {
   await flutterTts.speak(text);
 }
 
-class _Flash_EnvironmentState extends State<Flash_Environment> {
+class _Flash_PartOfCarState extends State<Flash_PartOfCar> {
   final auth = FirebaseAuth.instance;
 
   List<Card> cards = [

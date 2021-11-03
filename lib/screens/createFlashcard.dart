@@ -28,7 +28,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
       .collection('words')
       .where("owner",
           isEqualTo: FirebaseAuth.instance.currentUser!.displayName.toString())
-      .where("category", isEqualTo: "")
+      // .where("category", isEqualTo: "")
       .snapshots();
 
   UserFlashcard userFlashcard =
@@ -237,31 +237,47 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
         );
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.green.shade300,
-          title: Center(
-            child: Container(
-              margin: const EdgeInsets.fromLTRB(30.0, 0.0, 0.0, 0.0),
-              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 1),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.black)),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                  value: value,
-                  hint: Text("Uncategorize"),
-                  icon: Icon(Icons.arrow_drop_down),
-                  items: items.map(buildMenuItem).toList(),
-                  onChanged: (value) => setState(() => this.value = value),
-                ),
-              ),
-            ),
-          ),
-          actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.folder)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.add))
-          ],
-        ),
+        backgroundColor: Colors.amber.shade50,
+        appBar:
+            // AppBar(
+            //   backgroundColor: Colors.amber.shade100,
+            //   title: Center(
+            //     child: Container(
+            //       margin: const EdgeInsets.fromLTRB(30.0, 0.0, 0.0, 0.0),
+            //       padding: EdgeInsets.symmetric(horizontal: 25, vertical: 1),
+            //       decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(12),
+            //           border: Border.all(color: Colors.black)),
+            //       child: DropdownButtonHideUnderline(
+            //         child: DropdownButton<String>(
+            //           value: value,
+            //           hint: Text("Uncategorize"),
+            //           icon: Icon(Icons.arrow_drop_down),
+            //           items: items.map(buildMenuItem).toList(),
+            //           onChanged: (value) => setState(() => this.value = value),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            //   actions: [
+            //     IconButton(onPressed: () {}, icon: Icon(Icons.folder)),
+            //     IconButton(onPressed: () {}, icon: Icon(Icons.add))
+            //   ],
+            // ),
+            PreferredSize(
+                preferredSize: const Size.fromHeight(60),
+                child: AppBar(
+                  title: Image.asset(
+                    "assets/logo.png",
+                    width: 110,
+                    height: 110,
+                  ),
+                  backgroundColor: Colors.amber.shade100,
+                  iconTheme: IconThemeData(color: Colors.black),
+                  actions: [
+                    IconButton(onPressed: () {}, icon: Icon(Icons.folder)),
+                  ],
+                )),
         drawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
