@@ -16,70 +16,70 @@ final List data = [
   {
     'color': Colors.red.shade200,
     'word': "happy",
-    'picture': "assets/banana.png",
+    'picture': "assets/Adjectives/1.png",
     'meaing': "มีความสุข",
     'example': "I am happy when it is my birthday."
   },
   {
     'color': Colors.orange.shade200,
     'word': "sad",
-    'picture': "assets/banana.png",
+    'picture': "assets/Adjectives/2.png",
     'meaing': "เศร้า",
     'example': "She was sad when her puppy died."
   },
   {
     'color': Colors.yellow.shade200,
     'word': "beautiful",
-    'picture': "assets/banana.png",
+    'picture': "assets/Adjectives/3.png",
     'meaing': "สวยงาม",
     'example': "She is beautiful."
   },
   {
     'color': Colors.green.shade200,
     'word': "ugly",
-    'picture': "assets/banana.png",
+    'picture': "assets/Adjectives/4.png",
     'meaing': "น่าเกลียด",
     'example': "A witch is normally very ugly."
   },
   {
     'color': Colors.blue.shade200,
     'word': "noisy",
-    'picture': "assets/banana.png",
+    'picture': "assets/Adjectives/5.png",
     'meaing': "อึกทึก,เสียงดัง,หนวกหู",
     'example': "The party next door was noisy."
   },
   {
     'color': Colors.grey.shade200,
     'word': "quiet",
-    'picture': "assets/banana.png",
+    'picture': "assets/Adjectives/6.png",
     'meaing': "เงียบ",
     'example': "The mountains are very quiet when it snows."
   },
   {
     'color': Colors.grey.shade400,
     'word': "strong",
-    'picture': "assets/banana.png",
+    'picture': "assets/Adjectives/7.png",
     'meaing': "แข็งแรง,เข้มแข็ง",
     'example': "A weightlifter is very strong."
   },
   {
     'color': Colors.pink.shade200,
     'word': "weak",
-    'picture': "assets/banana.png",
+    'picture': "assets/Adjectives/8.png",
     'meaing': "อ่อนแอ,ไม่แข็งแรง",
     'example': "She became weak after the surgery."
   },
   {
     'color': Colors.brown.shade200,
     'word': "late",
-    'picture': "assets/banana.png",
+    'picture': "assets/Adjectives/9.png",
     'meaing': "ดึก,สาย",
     'example': "I was late to work so my boss was angry."
   },
   {
     'color': Colors.purple.shade200,
     'word': "early",
-    'picture': "assets/banana.png",
+    'picture': "assets/Adjectives/10.png",
     'meaing': "ก่อนเวลาที่กำหนดไว้",
     'example': "It is important to be early."
   },
@@ -322,10 +322,13 @@ class Card extends StatelessWidget {
               //     onPressed: () => speak(word),
               //     icon: Icon(Icons.volume_up),
               //     label: Text("")),
+              const Padding(padding: EdgeInsets.only(top: 25)),
               Image.asset(
                 picture,
-                scale: 4,
+                height: 200,
+                width: 100,
               ),
+              const Padding(padding: EdgeInsets.only(top: 25)),
               Text(
                 meaing,
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),

@@ -18,7 +18,6 @@ import 'package:language_hack/screens/basic_vocab/flash_card_places.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_vegetables.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_verbs.dart';
 import 'package:language_hack/screens/createFlashcard.dart';
-import 'package:language_hack/screens/flashcard01.dart';
 import 'package:language_hack/screens/home.dart';
 import 'package:language_hack/screens/user.dart';
 import 'package:showcaseview/showcaseview.dart';

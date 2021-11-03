@@ -8,6 +8,8 @@ HomeScreen homeScreen = new HomeScreen();
 WelcomeScreens welcomeScreen = new WelcomeScreens();
 Widget initialRoute = homeScreen;
 
+import 'screens/test.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

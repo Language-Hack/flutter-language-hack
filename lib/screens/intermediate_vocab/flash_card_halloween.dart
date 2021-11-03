@@ -1,9 +1,14 @@
+import 'package:cherry_toast/cherry_toast.dart';
+import 'package:cherry_toast/resources/arrays.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:language_hack/screens/home.dart';
 import 'package:language_hack/screens/welcome.dart';
+
+import '../user.dart';
 
 class Flash_Halloween extends StatefulWidget {
   const Flash_Halloween({Key? key}) : super(key: key);
@@ -16,74 +21,76 @@ final List data = [
   {
     'color': Colors.red.shade200,
     'word': "bat",
-    'picture': "assets/banana.png",
+    'picture': "assets/Halloween/1.png",
     'meaing': "ค้างคาว",
     'example': "Bats usually fly in the dark."
   },
   {
     'color': Colors.orange.shade200,
     'word': "zombies",
-    'picture': "assets/banana.png",
+    'picture': "assets/Halloween/2.png",
     'meaing': "ซอมบี้",
     'example': "This is zombies movie."
   },
   {
     'color': Colors.yellow.shade200,
     'word': "owl",
-    'picture': "assets/banana.png",
+    'picture': "assets/Halloween/3.pngg",
     'meaing': "นกฮูก",
     'example': "Owls cannot see in the daytime."
   },
   {
     'color': Colors.green.shade200,
     'word': "spider",
-    'picture': "assets/banana.png",
+    'picture': "assets/Halloween/4.png",
     'meaing': "แมงมุม",
     'example': "Spiders spin webs."
   },
   {
     'color': Colors.blue.shade200,
     'word': "wizard",
-    'picture': "assets/banana.png",
+    'picture': "assets/Halloween/5.png",
     'meaing': "พ่อมด",
     'example': "There is a witzard in the castle."
   },
   {
     'color': Colors.grey.shade200,
     'word': "ghost",
-    'picture': "assets/banana.png",
+    'picture': "assets/Halloween/6.png",
     'meaing': "ผี",
     'example': "I actually saw a ghost."
   },
   {
     'color': Colors.grey.shade400,
-    'word': "mummie",
-    'picture': "assets/banana.png",
+    'word': "mummy",
+    'picture': "assets/Halloween/7.png",
     'meaing': "มัมมี่",
     'example': "Mummies were found in Peru."
   },
   {
     'color': Colors.pink.shade200,
     'word': "skeleton",
-    'picture': "assets/banana.png",
+    'picture': "assets/Halloween/8.png",
     'meaing': "โครงกระดูก",
     'example': "There is a skeleton in science lab."
   },
   {
     'color': Colors.brown.shade200,
     'word': "vampire",
-    'picture': "assets/banana.png",
+    'picture': "assets/Halloween/9.png",
     'meaing': "ผีดูดเลือด",
     'example': "The vampire bit her."
   },
   {
     'color': Colors.purple.shade200,
     'word': "witches",
-    'picture': "assets/banana.png",
+    'picture': "assets/Halloween/10.png",
     'meaing': "แม่มด",
     'example': "There be no witches here."
   },
 ];
+List notRemember = [];
+List Remember = [];
 
 ////////// this is the speaking function in this flashcard ///////////
 final FlutterTts flutterTts = FlutterTts();
@@ -173,39 +180,135 @@ class _Flash_HalloweenState extends State<Flash_Halloween> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
+      backgroundColor: Colors.amber.shade50,
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(40),
+          preferredSize: const Size.fromHeight(60),
           child: AppBar(
-            backgroundColor: Colors.green.shade300,
+            title: Image.asset("assets/logo.png",
+                width: 110, height: 110, color: HexColor("#461482")),
+            backgroundColor: Colors.amber.shade100,
+            iconTheme: IconThemeData(color: HexColor("#461482")),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) {
+                      return UserScreen();
+                    }));
+                  },
+                  icon: Icon(Icons.person))
+            ],
           )),
       body: Center(
-        child: Column(
-          children: <Widget>[
-            Image.asset(
-              "assets/logo.png",
-              scale: 9,
-              alignment: Alignment.centerRight,
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 5),
-              decoration: BoxDecoration(boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3))
-              ]),
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.7,
-              // Important to keep as a stack to have overlay of cards.
-              child: Stack(
-                children: cards,
+          child: Stack(
+        children: [
+          Column(
+            children: [
+              Padding(padding: EdgeInsets.only(top: 40)),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.6,
+                decoration: BoxDecoration(
+                    color: Colors.amber.shade100,
+                    border: Border.all(color: Colors.black, width: 3.0),
+                    borderRadius: BorderRadius.all(Radius.circular(16))),
+                child: Column(
+                  children: [
+                    Padding(padding: EdgeInsets.only(top: 30)),
+                    Text(
+                      "Congratulations!!",
+                      style: TextStyle(
+                          fontSize: 30,
+                          color: HexColor("#461482"),
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Padding(padding: EdgeInsets.only(top: 30)),
+                    Text(
+                      "You have learned all the",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: HexColor("#461482"),
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Padding(padding: EdgeInsets.only(top: 30)),
+                    Text(
+                      "flash-cards",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: HexColor("#461482"),
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Padding(padding: EdgeInsets.only(top: 30)),
+                    Text(
+                      "Ready for a quiz?",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: HexColor("#461482"),
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Padding(padding: EdgeInsets.only(top: 50)),
+                    SizedBox(
+                      width: 150,
+                      height: 50,
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                          onPrimary: HexColor("#461482"),
+                          side: BorderSide(width: 2, color: Colors.black),
+                        ),
+                        icon: Icon(Icons.dashboard),
+                        label: Text("Quiz", style: TextStyle(fontSize: 15)),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.only(top: 30)),
+                    SizedBox(
+                      width: 150,
+                      height: 50,
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                          onPrimary: HexColor("#461482"),
+                          side: BorderSide(width: 2, color: Colors.black),
+                        ),
+                        icon: Icon(Icons.login),
+                        label:
+                            Text("Start Over", style: TextStyle(fontSize: 15)),
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      super.widget));
+                          notRemember.clear();
+                          Remember.clear();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
+              SizedBox(height: 80),
+              showBottom(context),
+            ],
+          ),
+          Column(
+            children: <Widget>[
+              Padding(padding: EdgeInsets.only(top: 20)),
+              Container(
+                padding: EdgeInsets.only(top: 5),
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.7,
+                // Important to keep as a stack to have overlay of cards.
+                child: Stack(
+                  children: cards,
+                ),
+              ),
+              Padding(padding: EdgeInsets.only(top: 15)),
+            ],
+          ),
+        ],
+      )),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -275,6 +378,73 @@ class _Flash_HalloweenState extends State<Flash_Halloween> {
   }
 }
 
+Widget cancelButton(BuildContext context) {
+  return ElevatedButton(
+    style: ElevatedButton.styleFrom(shape: CircleBorder(), primary: Colors.red),
+    child: Container(
+        width: 70,
+        height: 70,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(shape: BoxShape.circle),
+        child: Image.asset("assets/rejected.png")),
+    onPressed: () {
+      notRemember.clear();
+      Remember.clear();
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+        return WelcomeScreens();
+      }));
+    },
+  );
+}
+
+Widget swipeLeft() {
+  return Column(
+    children: [
+      Image.asset(
+        "assets/swipeLeft.png",
+        scale: 11,
+      ),
+      const Padding(padding: EdgeInsets.only(top: 5)),
+      Text("Can't remember"),
+    ],
+  );
+}
+
+Widget swipeRight() {
+  return Column(
+    children: [
+      Image.asset(
+        "assets/swipeRight.png",
+        scale: 11,
+      ),
+      const Padding(padding: EdgeInsets.only(top: 5)),
+      Text("I can Remember"),
+    ],
+  );
+}
+
+Widget showBottom(BuildContext context) {
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      swipeLeft(),
+      const SizedBox(
+        width: 5,
+      ),
+      cancelButton(context),
+      const SizedBox(
+        width: 5,
+      ),
+      swipeRight()
+    ],
+  );
+}
+
+// void _ShowToast(BuildContext context) {
+//   final scaffold = Scaffold.of(context);
+//   scaffold.
+// }
+
 class Card extends StatelessWidget {
   // Made to distinguish cards
   // Add your own applicable data here
@@ -283,6 +453,9 @@ class Card extends StatelessWidget {
   String picture;
   String example = "";
   String meaing = "";
+  bool showDisplay = false;
+  String text = '';
+
   Card(
     this.color,
     this.word,
@@ -295,13 +468,13 @@ class Card extends StatelessWidget {
   Widget build(BuildContext context) {
     return Swipable(
       // Set the swipable widget
-
       child: Stack(
         children: [
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
-              color: color,
+              border: Border.all(color: HexColor("#461482"), width: 3.0),
+              color: Colors.white,
             ),
           ),
           Column(
@@ -310,43 +483,104 @@ class Card extends StatelessWidget {
             children: [
               Text(
                 word,
-                style: TextStyle(fontSize: 50),
+                style: TextStyle(fontSize: 50, color: HexColor("#461482")),
                 textAlign: TextAlign.center,
               ),
               IconButton(
-                onPressed: () => speak(word),
-                icon: Icon(Icons.volume_up),
-                iconSize: 45,
-              ),
+                  onPressed: () => speak(word),
+                  icon: Icon(Icons.volume_up),
+                  iconSize: 45,
+                  color: HexColor("#461482")),
               // ElevatedButton.icon(
               //     onPressed: () => speak(word),
               //     icon: Icon(Icons.volume_up),
               //     label: Text("")),
+              const Padding(padding: EdgeInsets.only(top: 25)),
               Image.asset(
                 picture,
-                scale: 4,
+                height: 170,
+                width: 100,
               ),
+              const Padding(padding: EdgeInsets.only(top: 25)),
               Text(
                 meaing,
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: HexColor("#461482")),
                 textAlign: TextAlign.center,
               ),
               const Padding(padding: EdgeInsets.all(10)),
-              const Text(
+              Text(
                 "Example Sentence:",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: HexColor("#461482")),
               ),
               const Padding(padding: EdgeInsets.all(10)),
               Text(
                 example,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              )
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: HexColor("#461482")),
+              ),
             ],
           )
         ],
       ),
+
+      onSwipeRight: (finalPosition) {
+        CherryToast(
+          title: "YESS!",
+          description: "I can remember",
+          descriptionStyle: TextStyle(color: Colors.green),
+          icon: Icons.cancel,
+          themeColor: Colors.green,
+          animationDuration: Duration(milliseconds: 500),
+          toastDuration: Duration(milliseconds: 1000),
+          toastPosition: POSITION.TOP,
+          animationType: ANIMATION_TYPE.FROM_RIGHT,
+          autoDismiss: true,
+        ).show(context);
+        Remember.add(Card(
+          this.color,
+          this.word,
+          this.picture,
+          this.meaing,
+          this.example,
+        ));
+        print("This is remember");
+        print(Remember);
+      },
+
+      onSwipeLeft: (finalPosition) {
+        CherryToast(
+          title: "NOPE!",
+          description: "I can't remember",
+          descriptionStyle: TextStyle(color: Colors.red),
+          icon: Icons.cancel,
+          themeColor: Colors.red,
+          animationDuration: Duration(milliseconds: 500),
+          toastDuration: Duration(milliseconds: 1000),
+          toastPosition: POSITION.BOTTOM,
+          animationType: ANIMATION_TYPE.FROM_LEFT,
+          autoDismiss: true,
+        ).show(context);
+        notRemember.add(Card(
+          this.color,
+          this.word,
+          this.picture,
+          this.meaing,
+          this.example,
+        ));
+        print("this is notRemember:");
+        print(notRemember);
+      },
+
       // onSwipeRight, left, up, down, cancel, etc...
     );
   }
