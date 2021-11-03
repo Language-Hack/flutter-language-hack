@@ -3,9 +3,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:language_hack/screens/home.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:language_hack/model/profile.dart';
-import 'package:language_hack/screens/onBoarding.dart';
+import 'package:language_hack/screens/register.dart';
+import 'package:language_hack/screens/reset.dart';
+import 'package:language_hack/screens/welcome.dart';
 
 class LoginScreens extends StatefulWidget {
   const LoginScreens({Key? key}) : super(key: key);
@@ -15,6 +17,8 @@ class LoginScreens extends StatefulWidget {
 }
 
 class _LoginScreensState extends State<LoginScreens> {
+  bool _isHidden = true;
+
   final formKey = GlobalKey<FormState>();
   Profile profile = Profile(email: '', password: '', displayName: '');
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
@@ -36,128 +40,95 @@ class _LoginScreensState extends State<LoginScreens> {
           }
           if (snapshot.connectionState == ConnectionState.done) {
             return Scaffold(
+                backgroundColor: Colors.amber.shade50,
                 body: Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/bg.png"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
                     child: Form(
-                      key: formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(top: 100, left: 20),
-                            child: const Text(
-                              "Login",
-                              textAlign: TextAlign.left,
-                              style:
-                                  TextStyle(fontSize: 50, color: Colors.black),
-                            ),
+                  key: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      buildHeader(),
+                      buildEmail(),
+                      buildPassword(),
+                      buildForgotPassword(context),
+                      Container(
+                        margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+                        child: SizedBox(
+                          height: 60,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.white,
+                                onPrimary: HexColor("#461482"),
+                                side: BorderSide(
+                                    width: 2, color: HexColor("#461482"))),
+                            child: const Text("LOG IN",
+                                style: TextStyle(fontSize: 20)),
+                            onPressed: () async {
+                              if (formKey.currentState!.validate()) {
+                                formKey.currentState?.save();
+                                try {
+                                  await login(context);
+                                } on FirebaseAuthException catch (e) {
+                                  Fluttertoast.showToast(
+                                      msg: e.message.toString(),
+                                      gravity: ToastGravity.CENTER);
+                                }
+                              }
+                            },
                           ),
-                          Container(
-                            margin:
-                                EdgeInsets.only(top: 20, left: 20, right: 20),
-                            child: TextFormField(
-                              keyboardType: TextInputType.emailAddress,
-                              onSaved: (input) {
-                                profile.email = input.toString();
-                              },
-                              validator: MultiValidator([
-                                RequiredValidator(
-                                    errorText: "please fill in your email."),
-                                EmailValidator(errorText: "This is not email.")
-                              ]),
-                              decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Please! enter your email.'),
-                            ),
-                          ),
-                          Container(
-                            margin:
-                                EdgeInsets.only(top: 20, left: 20, right: 20),
-                            child: TextFormField(
-                              obscureText: true,
-                              onSaved: (input) {
-                                profile.password = input.toString();
-                              },
-                              validator: RequiredValidator(
-                                  errorText: "please fill in the information"),
-                              decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Please! enter your password.'),
-                            ),
-                          ),
-                          Container(
-                            margin:
-                                EdgeInsets.only(top: 20, left: 20, right: 20),
-                            child: SizedBox(
-                              height: 60,
-                              child: ElevatedButton.icon(
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.black)),
-                                label: const Text("NEXT",
-                                    style: TextStyle(fontSize: 20)),
-                                icon: Icon(null),
-                                onPressed: () async {
-                                  if (formKey.currentState!.validate()) {
-                                    formKey.currentState?.save();
-                                    try {
-                                      await FirebaseAuth.instance
-                                          .signInWithEmailAndPassword(
-                                              email: profile.email,
-                                              password: profile.password)
-                                          .then((value) {
-                                        formKey.currentState!.reset();
-                                        Fluttertoast.showToast(
-                                            msg: "Welcome to Language-Hack",
-                                            gravity: ToastGravity.TOP);
-                                        Navigator.pushReplacement(context,
-                                            MaterialPageRoute(
-                                                builder: (context) {
-                                          return OnboardingScreens();
-                                        }));
-                                      });
-                                    } on FirebaseAuthException catch (e) {
-                                      Fluttertoast.showToast(
-                                          msg: e.message.toString(),
-                                          gravity: ToastGravity.CENTER);
-                                    }
-                                  }
-                                },
-                              ),
-                            ),
-                          ),
-                          Container(
-                            margin:
-                                EdgeInsets.only(top: 20, left: 20, right: 20),
-                            child: SizedBox(
-                              height: 60,
-                              child: ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.white,
-                                    onPrimary: Colors.black,
-                                    side: BorderSide(
-                                        width: 2, color: Colors.black)),
-                                label: Text("BACK",
-                                    style: TextStyle(fontSize: 20)),
-                                icon: Icon(Icons.arrow_left_outlined),
-                                onPressed: () {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return HomeScreen();
-                                  }));
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    )));
+                      Row(children: <Widget>[
+                        Expanded(
+                          child: new Container(
+                              margin: const EdgeInsets.only(
+                                  left: 20.0, right: 15.0, top: 20),
+                              child: Divider(
+                                color: HexColor("#461482"),
+                                height: 50,
+                              )),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: Text(
+                            "OR",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                        Expanded(
+                          child: new Container(
+                              margin: const EdgeInsets.only(
+                                  left: 15.0, right: 20.0, top: 20),
+                              child: Divider(
+                                color: HexColor("#461482"),
+                                height: 50,
+                              )),
+                        ),
+                      ]),
+                      Container(
+                        margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+                        child: SizedBox(
+                          height: 60,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: HexColor("#461482"),
+                                onPrimary: Colors.white,
+                                side:
+                                    BorderSide(width: 2, color: Colors.black)),
+                            child: Text("REGISTER",
+                                style: TextStyle(fontSize: 20)),
+                            onPressed: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return RegisterScreens();
+                              }));
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )));
           }
           return const Scaffold(
             body: Center(
@@ -165,5 +136,106 @@ class _LoginScreensState extends State<LoginScreens> {
             ),
           );
         });
+  }
+
+  Future<void> login(BuildContext context) async {
+    await FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+            email: profile.email, password: profile.password)
+        .then((value) {
+      formKey.currentState!.reset();
+      Fluttertoast.showToast(
+          msg: "Welcome to Language-Hack", gravity: ToastGravity.TOP);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+        return WelcomeScreens();
+      }));
+    });
+  }
+
+  Container buildHeader() {
+    return Container(
+      margin: EdgeInsets.only(top: 100, left: 20),
+      child: Text(
+        "Login",
+        textAlign: TextAlign.left,
+        style: TextStyle(fontSize: 50, color: HexColor("#461482")),
+      ),
+    );
+  }
+
+  Container buildEmail() {
+    return Container(
+      margin: EdgeInsets.only(top: 30, left: 20, right: 20),
+      child: TextFormField(
+        keyboardType: TextInputType.emailAddress,
+        onSaved: (input) {
+          profile.email = input.toString();
+        },
+        validator: MultiValidator([
+          RequiredValidator(errorText: "Please fill in your email."),
+          EmailValidator(errorText: "This is not an email.")
+        ]),
+        decoration: InputDecoration(
+          hintText: 'Enter Your Email',
+          prefixIcon: Icon(Icons.perm_identity),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(color: HexColor("#461482"))),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(color: HexColor("#461482"))),
+        ),
+      ),
+    );
+  }
+
+  Container buildPassword() {
+    return Container(
+      margin: EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 20),
+      child: TextFormField(
+        obscureText: _isHidden,
+        onSaved: (input) {
+          profile.password = input.toString();
+        },
+        validator:
+            RequiredValidator(errorText: "Please fill in the information"),
+        decoration: InputDecoration(
+          hintText: 'Enter Your Password',
+          prefixIcon: Icon(Icons.lock_outline),
+          suffixIcon: IconButton(
+              icon: Icon(_isHidden ? Icons.visibility_off : Icons.visibility),
+              onPressed: togglePasswordVisibility),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(color: HexColor("#461482"))),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(color: HexColor("#461482"))),
+        ),
+      ),
+    );
+  }
+
+  void togglePasswordVisibility() => setState(() {
+        _isHidden = !_isHidden;
+      });
+
+  Row buildForgotPassword(BuildContext context) {
+    return Row(children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.only(left: 260),
+        child: TextButton(
+          child: Text(
+            "Forgot Password ?",
+            style: TextStyle(fontSize: 15),
+          ),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return ResetScreen();
+            }));
+          },
+        ),
+      )
+    ]);
   }
 }

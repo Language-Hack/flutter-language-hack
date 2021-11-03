@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:language_hack/screens/login.dart';
 import 'package:language_hack/screens/register.dart';
 
@@ -8,13 +9,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.amber.shade50,
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/bg.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -29,8 +25,8 @@ class HomeScreen extends StatelessWidget {
                   child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                       primary: Colors.white,
-                      onPrimary: Colors.black,
-                      side: BorderSide(width: 2, color: Colors.black),
+                      onPrimary: HexColor("#461482"),
+                      side: BorderSide(width: 2, color: HexColor("#461482")),
                     ),
                     icon: Icon(Icons.login),
                     label: Text("Login", style: TextStyle(fontSize: 20)),
@@ -47,9 +43,10 @@ class HomeScreen extends StatelessWidget {
                   width: 190,
                   height: 60,
                   child: ElevatedButton.icon(
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.black)),
+                    style: ElevatedButton.styleFrom(
+                        primary: HexColor("#461482"),
+                        onPrimary: Colors.white,
+                        side: BorderSide(width: 2, color: Colors.black)),
                     icon: Icon(Icons.app_registration),
                     label: Text("Register", style: TextStyle(fontSize: 20)),
                     onPressed: () {

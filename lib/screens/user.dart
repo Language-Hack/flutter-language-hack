@@ -16,85 +16,84 @@ class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
+      backgroundColor: Colors.amber.shade50,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(40),
-        child: AppBar(
-          backgroundColor: Colors.green.shade300,
-        ),
-      ),
-      body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/bg.png"),
-              fit: BoxFit.cover,
+          preferredSize: const Size.fromHeight(60),
+          child: AppBar(
+            title: Image.asset(
+              "assets/logo.png",
+              width: 110,
+              height: 110,
             ),
-          ),
-          child: Form(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 50, left: 20),
-                  child: const Text(
-                    "This is your information",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 35, color: Colors.black),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 20, left: 20, right: 20),
-                  child: const Text(
-                    "Name:",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 20, left: 20, right: 20),
-                  height: 50,
-                  width: 50,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Padding(
-                      padding: EdgeInsets.all(13),
-                      child: Text(
-                        auth.currentUser!.displayName.toString(),
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 20, left: 20, right: 20),
-                  child: const Text(
-                    "Email:",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 20, left: 20, right: 20),
-                  height: 50,
-                  width: 50,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Padding(
-                      padding: EdgeInsets.all(13),
-                      child: Text(
-                        auth.currentUser!.email.toString(),
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            backgroundColor: Colors.amber.shade100,
+            iconTheme: IconThemeData(color: Colors.black),
           )),
+      body: Container(
+          child: Form(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: 50, left: 20),
+              child: const Text(
+                "This is your information",
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 35, color: Colors.black),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+              child: const Text(
+                "Name:",
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+              height: 50,
+              width: 50,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade100,
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Padding(
+                  padding: EdgeInsets.all(13),
+                  child: Text(
+                    auth.currentUser!.displayName.toString(),
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+              child: const Text(
+                "Email:",
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+              height: 50,
+              width: 50,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade100,
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Padding(
+                  padding: EdgeInsets.all(13),
+                  child: Text(
+                    auth.currentUser!.email.toString(),
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      )),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
