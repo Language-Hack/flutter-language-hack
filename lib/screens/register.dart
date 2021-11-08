@@ -263,7 +263,7 @@ class _RegisterScreensState extends State<RegisterScreens> {
     return Container(
       margin: EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 20),
       child: TextFormField(
-        obscureText: true,
+        obscureText: _isHidden,
         onSaved: (input) {
           profile.password = input.toString();
         },

@@ -22,26 +22,30 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
           PageViewModel(
             title: 'Learning new vocabularies',
             body: 'There are many vocabularies which you can learn.',
-            image: buildImage('assets/on-boarding1.png'),
+            image: buildImage(
+                'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/On-boarding%2Fon-boarding1.png?alt=media&token=31d1e429-7955-4053-9cd0-db97c6e73c66'),
             decoration: getPageDecoration(),
           ),
           PageViewModel(
             title: 'Interactive flashcards, quizess will be seen.',
             body: 'Learning through each flashcards',
-            image: buildImage('assets/on-boarding2.png'),
+            image: buildImage(
+                'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/On-boarding%2Fon-boarding2.png?alt=media&token=df82e8fb-8a47-441a-9266-7b5aa06529ac'),
             decoration: getPageDecoration(),
           ),
           PageViewModel(
             title: 'Create your personal notebook',
             body:
                 'Make your vocabulary list which you can access them anytime.',
-            image: buildImage('assets/on-boarding3.png'),
+            image: buildImage(
+                'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/On-boarding%2Fon-boarding3.png?alt=media&token=e880ee8a-fab0-421d-a133-d9ce92791281'),
             decoration: getPageDecoration(),
           ),
           PageViewModel(
             title: 'Start Learning',
             body: 'Enjoy!!',
-            image: buildImage('assets/on-boarding4.png'),
+            image: buildImage(
+                'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/On-boarding%2Fon-boarding4.png?alt=media&token=be9ce079-f571-43e0-aa97-50b60c8c8f88'),
             footer: MaterialButton(
                 padding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
                 child: Padding(
@@ -107,7 +111,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
 Widget buildImage(String path) => Padding(
       padding: const EdgeInsets.fromLTRB(1.0, 100.0, 3.0, 0.0),
       child: Center(
-          child: Image.asset(
+          child: Image.network(
         path,
         width: 350,
       )),

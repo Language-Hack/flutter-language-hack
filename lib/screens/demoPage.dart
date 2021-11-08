@@ -63,8 +63,8 @@ class _DemoScreensScreensState extends State<DemoScreens> {
             appBar: PreferredSize(
                 preferredSize: const Size.fromHeight(60),
                 child: AppBar(
-                  title: Image.asset(
-                    "assets/logo.png",
+                  title: Image.network(
+                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2Flogo.png?alt=media&token=75cfc4fa-1400-43ed-96d5-2b85ad733971",
                     width: 110,
                     height: 110,
                   ),
@@ -106,9 +106,16 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                                border:
-                                    Border.all(width: 2, color: Colors.black),
-                                borderRadius: BorderRadius.circular(25)),
+                              border: Border.all(width: 2, color: Colors.black),
+                              borderRadius: BorderRadius.circular(25),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: HexColor("#461482"),
+                                  blurRadius: 4,
+                                  offset: Offset(3, 5),
+                                ),
+                              ],
+                            ),
                             margin: const EdgeInsets.fromLTRB(25, 20, 40, 10),
                             child: SizedBox(
                               width: 150,
@@ -134,8 +141,8 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.stretch,
                                     children: <Widget>[
-                                      Image.asset(
-                                        "assets/notebook.png",
+                                      Image.network(
+                                        "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/WelcomePage%2Fnotebook.png?alt=media&token=351bc3c1-8356-4ed0-85cd-b50e6276b244",
                                         width: 10,
                                         height: 80,
                                       ),
@@ -157,9 +164,16 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                           ),
                           Container(
                             decoration: BoxDecoration(
-                                border:
-                                    Border.all(width: 2, color: Colors.black),
-                                borderRadius: BorderRadius.circular(25)),
+                              border: Border.all(width: 2, color: Colors.black),
+                              borderRadius: BorderRadius.circular(25),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: HexColor("#461482"),
+                                  blurRadius: 4,
+                                  offset: Offset(3, 5),
+                                ),
+                              ],
+                            ),
                             margin: const EdgeInsets.fromLTRB(30, 20, 0, 10),
                             child: SizedBox(
                               width: 150,
@@ -185,8 +199,8 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.stretch,
                                     children: <Widget>[
-                                      Image.asset(
-                                        "assets/reading-book.png",
+                                      Image.network(
+                                        "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/WelcomePage%2FallLessons.png?alt=media&token=ca157928-c2c0-4370-9886-61b7717cc9f2",
                                         width: 10,
                                         height: 80,
                                       ),

@@ -19,6 +19,7 @@ import 'package:language_hack/screens/basic_vocab/flash_card_vegetables.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_verbs.dart';
 import 'package:language_hack/screens/createFlashcard.dart';
 import 'package:language_hack/screens/home.dart';
+import 'package:language_hack/screens/testUserLevel.dart';
 import 'package:language_hack/screens/user.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -40,8 +41,8 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: AppBar(
-            title: Image.asset(
-              "assets/logo.png",
+            title: Image.network(
+              "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2Flogo.png?alt=media&token=75cfc4fa-1400-43ed-96d5-2b85ad733971",
               width: 110,
               height: 110,
               color: HexColor("#461482"),
@@ -82,8 +83,16 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                          border: Border.all(width: 2, color: Colors.black),
-                          borderRadius: BorderRadius.circular(25)),
+                        border: Border.all(width: 2, color: Colors.black),
+                        borderRadius: BorderRadius.circular(25),
+                        boxShadow: [
+                          BoxShadow(
+                            color: HexColor("#461482"),
+                            blurRadius: 4,
+                            offset: Offset(3, 5),
+                          ),
+                        ],
+                      ),
                       margin: const EdgeInsets.fromLTRB(25, 20, 40, 10),
                       child: SizedBox(
                         width: 150,
@@ -98,17 +107,17 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                           onPressed: () {
                             Navigator.pushReplacement(context,
                                 MaterialPageRoute(builder: (context) {
-                              return CreateFlashcardScreens();
+                              return TestUserLevelScreen(); // Fix this
                             }));
                           },
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: <Widget>[
-                              Image.asset(
-                                "assets/notebook.png",
-                                width: 10,
-                                height: 80,
+                              Image.network(
+                                "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/WelcomePage%2Fnotebook.png?alt=media&token=351bc3c1-8356-4ed0-85cd-b50e6276b244",
+                                width: 30,
+                                height: 95,
                               ),
                               const Padding(padding: EdgeInsets.only(top: 10)),
                               Text(
@@ -126,8 +135,16 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                          border: Border.all(width: 2, color: Colors.black),
-                          borderRadius: BorderRadius.circular(25)),
+                        border: Border.all(width: 2, color: Colors.black),
+                        borderRadius: BorderRadius.circular(25),
+                        boxShadow: [
+                          BoxShadow(
+                            color: HexColor("#461482"),
+                            blurRadius: 4,
+                            offset: Offset(3, 5),
+                          ),
+                        ],
+                      ),
                       margin: const EdgeInsets.fromLTRB(30, 20, 0, 10),
                       child: SizedBox(
                         width: 150,
@@ -145,25 +162,28 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                               return AllLessonScreen();
                             }));
                           },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: <Widget>[
-                              Image.asset(
-                                "assets/reading-book.png",
-                                width: 10,
-                                height: 80,
-                              ),
-                              const Padding(padding: EdgeInsets.only(top: 10)),
-                              Text(
-                                "Lesson",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: HexColor("#461482")),
-                              ),
-                            ],
+                          child: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: <Widget>[
+                                Image.network(
+                                  "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/WelcomePage%2FallLessons.png?alt=media&token=ca157928-c2c0-4370-9886-61b7717cc9f2",
+                                  width: 30,
+                                  height: 95,
+                                ),
+                                const Padding(
+                                    padding: EdgeInsets.only(top: 10)),
+                                Text(
+                                  "All Lessons",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: HexColor("#461482")),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -212,8 +232,8 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                               },
                               child: Row(
                                 children: <Widget>[
-                                  Image.asset(
-                                    "assets/colors.png",
+                                  Image.network(
+                                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Fcolors.png?alt=media&token=bede6c51-1b49-439c-8eb0-5017ce97471a",
                                     width: 130,
                                     height: 130,
                                   ),
@@ -257,8 +277,8 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                               },
                               child: Row(
                                 children: <Widget>[
-                                  Image.asset(
-                                    "assets/fruits.png",
+                                  Image.network(
+                                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Ffruits.png?alt=media&token=548254ec-fbf7-428d-aa57-a1b23beacf56",
                                     width: 130,
                                     height: 130,
                                   ),
@@ -303,8 +323,8 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                               },
                               child: Row(
                                 children: <Widget>[
-                                  Image.asset(
-                                    "assets/family.png",
+                                  Image.network(
+                                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Ffamily.png?alt=media&token=212afaa0-f50c-412c-bad6-3b8e5c4294eb",
                                     width: 130,
                                     height: 130,
                                   ),
