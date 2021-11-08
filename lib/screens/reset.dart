@@ -21,17 +21,17 @@ class _ResetScreenState extends State<ResetScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.amber.shade50,
-      appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: AppBar(
-            title: Image.asset(
-              "assets/logo.png",
-              width: 110,
-              height: 110,
-            ),
-            backgroundColor: Colors.amber.shade100,
-            iconTheme: IconThemeData(color: HexColor("#461482")),
-          )),
+      // appBar: PreferredSize(
+      //     preferredSize: const Size.fromHeight(60),
+      //     child: AppBar(
+      //       title: Image.asset(
+      //         "assets/logo.png",
+      //         width: 110,
+      //         height: 110,
+      //       ),
+      //       backgroundColor: Colors.amber.shade50,
+      //       iconTheme: IconThemeData(color: HexColor("#461482")),
+      //     )),
       body: Container(
           child: Form(
         key: formKey,
@@ -39,7 +39,7 @@ class _ResetScreenState extends State<ResetScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              margin: EdgeInsets.only(top: 50, left: 20),
+              margin: EdgeInsets.only(top: 90, left: 20),
               child: Text(
                 "Reset Password",
                 textAlign: TextAlign.left,
@@ -86,6 +86,24 @@ class _ResetScreenState extends State<ResetScreen> {
                             msg: e.toString(), gravity: ToastGravity.CENTER);
                       }
                     }
+                  },
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 30, left: 20, right: 20),
+              child: SizedBox(
+                height: 60,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                      onPrimary: HexColor("#461482"),
+                      side: BorderSide(width: 2, color: HexColor("#461482"))),
+                  child: Text("Cancle",
+                      style:
+                          TextStyle(fontSize: 20, color: HexColor("#461482"))),
+                  onPressed: () {
+                    Navigator.of(context).pop();
                   },
                 ),
               ),

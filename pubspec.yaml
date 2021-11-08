@@ -56,13 +56,11 @@ dependencies:
 
   introduction_screen: ^2.1.0
 
-
   motion_toast: ^1.2.0
 
   showcaseview: ^1.1.2
 
   shared_preferences: ^2.0.8
-
 
 dev_dependencies:
   flutter_test:
