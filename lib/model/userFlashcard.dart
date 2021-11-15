@@ -4,9 +4,5 @@ class UserFlashcard {
   String translation;
   String category;
 
-  UserFlashcard(
-      {required this.word,
-      required this.sentence,
-      required this.translation,
-      required this.category});
+  UserFlashcard({this.word, this.sentence, this.translation, this.category});
 }

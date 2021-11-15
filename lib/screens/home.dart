@@ -4,7 +4,7 @@ import 'package:language_hack/screens/login.dart';
 import 'package:language_hack/screens/register.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: 190,
+                  width: MediaQuery.of(context).size.width * 0.45,
                   height: 60,
                   child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Padding(padding: EdgeInsets.only(left: 10)),
                 SizedBox(
-                  width: 190,
+                  width: MediaQuery.of(context).size.width * 0.45,
                   height: 60,
                   child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(

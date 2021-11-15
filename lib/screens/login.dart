@@ -10,7 +10,7 @@ import 'package:language_hack/screens/reset.dart';
 import 'package:language_hack/screens/welcome.dart';
 
 class LoginScreens extends StatefulWidget {
-  const LoginScreens({Key? key}) : super(key: key);
+  const LoginScreens({Key key}) : super(key: key);
 
   @override
   _LoginScreensState createState() => _LoginScreensState();
@@ -64,7 +64,7 @@ class _LoginScreensState extends State<LoginScreens> {
                             child: const Text("LOG IN",
                                 style: TextStyle(fontSize: 20)),
                             onPressed: () async {
-                              if (formKey.currentState!.validate()) {
+                              if (formKey.currentState.validate()) {
                                 formKey.currentState?.save();
                                 try {
                                   await login(context);
@@ -143,7 +143,7 @@ class _LoginScreensState extends State<LoginScreens> {
         .signInWithEmailAndPassword(
             email: profile.email, password: profile.password)
         .then((value) {
-      formKey.currentState!.reset();
+      formKey.currentState.reset();
       Fluttertoast.showToast(
           msg: "Welcome to Language-Hack", gravity: ToastGravity.TOP);
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
@@ -154,7 +154,7 @@ class _LoginScreensState extends State<LoginScreens> {
 
   Container buildHeader() {
     return Container(
-      margin: EdgeInsets.only(top: 100, left: 20),
+      margin: EdgeInsets.only(top: 50, left: 20),
       child: Text(
         "Login",
         textAlign: TextAlign.left,
@@ -223,7 +223,7 @@ class _LoginScreensState extends State<LoginScreens> {
   Row buildForgotPassword(BuildContext context) {
     return Row(children: <Widget>[
       Padding(
-        padding: const EdgeInsets.only(left: 260),
+        padding: const EdgeInsets.only(left: 220),
         child: TextButton(
           child: Text(
             "Forgot Password ?",

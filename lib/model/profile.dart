@@ -3,6 +3,5 @@ class Profile {
   String password;
   String displayName;
 
-  Profile(
-      {required this.email, required this.password, required this.displayName});
+  Profile({this.email, this.password, this.displayName});
 }

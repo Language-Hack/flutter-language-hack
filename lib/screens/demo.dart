@@ -1,38 +1,23 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
-
-import 'package:animated_drawer/views/animated_drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
+import 'package:animated_drawer/views/animated_drawer.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:language_hack/screens/allLessons.dart';
-import 'package:language_hack/screens/basic_vocab/flash_card_adjectives.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_color.dart';
-import 'package:language_hack/screens/basic_vocab/flash_card_countries.dart';
-import 'package:language_hack/screens/basic_vocab/flash_card_day.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_family.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_fruit.dart';
-import 'package:language_hack/screens/basic_vocab/flash_card_months.dart';
-import 'package:language_hack/screens/basic_vocab/flash_card_places.dart';
-import 'package:language_hack/screens/basic_vocab/flash_card_vegetables.dart';
-import 'package:language_hack/screens/basic_vocab/flash_card_verbs.dart';
 import 'package:language_hack/screens/createFlashcard.dart';
-import 'package:language_hack/screens/demo.dart';
 import 'package:language_hack/screens/home.dart';
 import 'package:language_hack/screens/user.dart';
-import 'package:showcaseview/showcaseview.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class WelcomeScreens extends StatefulWidget {
-  const WelcomeScreens({Key key}) : super(key: key);
+class DemoApp extends StatefulWidget {
+  const DemoApp({Key key}) : super(key: key);
 
   @override
-  _WelcomeScreensState createState() => _WelcomeScreensState();
+  _DemoAppState createState() => _DemoAppState();
 }
 
-class _WelcomeScreensState extends State<WelcomeScreens> {
+class _DemoAppState extends State<DemoApp> {
   final auth = FirebaseAuth.instance;
 
   @override

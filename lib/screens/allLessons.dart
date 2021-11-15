@@ -31,14 +31,14 @@ import 'package:language_hack/screens/intermediate_vocab/flash_card_halloween.da
 import 'package:language_hack/screens/intermediate_vocab/flash_card_music.dart';
 import 'package:language_hack/screens/intermediate_vocab/flash_card_office_equip.dart';
 import 'package:language_hack/screens/intermediate_vocab/flash_card_sports.dart';
-import 'package:language_hack/screens/intermediate_vocab/flash_card_typefood.dart';
+import 'package:language_hack/screens/intermediate_vocab/flash_card_foodtype.dart';
 import 'package:language_hack/screens/intermediate_vocab/flash_card_weather.dart';
 import 'package:language_hack/screens/login.dart';
 import 'package:language_hack/screens/user.dart';
 import 'package:language_hack/screens/welcome.dart';
 
 class AllLessonScreen extends StatefulWidget {
-  const AllLessonScreen({Key? key}) : super(key: key);
+  const AllLessonScreen({Key key}) : super(key: key);
 
   @override
   _AllLessonScreenScreenState createState() => _AllLessonScreenScreenState();
@@ -85,7 +85,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
           .collection("scores")
           .where("owner",
               isEqualTo:
-                  FirebaseAuth.instance.currentUser!.displayName.toString())
+                  FirebaseAuth.instance.currentUser.displayName.toString())
           .snapshots()
           .listen((event) {
         for (var snapshorts in event.docs) {
@@ -170,7 +170,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/adjectives.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(
@@ -183,7 +184,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.adjective_score! > 0)
+                                        child: (allScores.adjective_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -240,7 +241,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/colors.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -251,7 +253,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.color_score! > 0)
+                                        child: (allScores.color_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -308,7 +310,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/countries.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.25,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -319,7 +322,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.countries_score! > 0)
+                                        child: (allScores.countries_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -376,7 +379,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/days.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -387,7 +391,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.days_score! > 0)
+                                        child: (allScores.days_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -444,7 +448,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/family.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -455,7 +460,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.family_score! > 0)
+                                        child: (allScores.family_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -524,7 +529,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/fruits.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -535,7 +541,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.fruit_score! > 0)
+                                        child: (allScores.fruit_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -592,7 +598,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/month_31.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -603,7 +610,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.months_score! > 0)
+                                        child: (allScores.months_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -728,7 +735,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/vegetables_bucket.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.28,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -739,7 +747,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.vegetable_score! > 0)
+                                        child: (allScores.vegetable_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -796,7 +804,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/verbs_new.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -807,7 +816,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.verbs_score! > 0)
+                                        child: (allScores.verbs_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -864,7 +873,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/clothes.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -875,7 +885,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.clothes_score! > 0)
+                                        child: (allScores.clothes_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -944,7 +954,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/foods.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -955,7 +966,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.dbFood_score! > 0)
+                                        child: (allScores.dbFood_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -1024,7 +1035,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/emotions.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -1035,7 +1047,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.feeling_score! > 0)
+                                        child: (allScores.feeling_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -1104,7 +1116,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/football.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -1115,7 +1128,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.football_score! > 0)
+                                        child: (allScores.football_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -1184,7 +1197,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/halloween.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -1195,7 +1209,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.halloween_score! > 0)
+                                        child: (allScores.halloween_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -1264,7 +1278,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/musicInstrument.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.26,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -1275,7 +1290,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.music_score! > 0)
+                                        child: (allScores.music_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -1344,7 +1359,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/officeEquipment.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.26,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -1355,7 +1371,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.office_score! > 0)
+                                        child: (allScores.office_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -1424,7 +1440,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/typeOfSports.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -1435,7 +1452,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.sports_score! > 0)
+                                        child: (allScores.sports_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -1497,14 +1514,15 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                             onPressed: () {
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) {
-                                return Flash_TypesFoods();
+                                return Flash_FoodType();
                               }));
                             },
                             child: Row(
                               children: <Widget>[
                                 Image.asset(
                                   "assets/typeOfFood.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -1515,7 +1533,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.typeFood_score! > 0)
+                                        child: (allScores.typeFood_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -1584,7 +1602,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/weather.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -1595,7 +1614,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.weather_score! > 0)
+                                        child: (allScores.weather_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -1664,7 +1683,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/environment.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -1675,8 +1695,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.environment_score! >
-                                                0)
+                                        child: (allScores.environment_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -1745,7 +1764,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/ielts.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.25,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -1756,7 +1776,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.ielts_score! > 0)
+                                        child: (allScores.ielts_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -1825,7 +1845,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/partOfCars.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -1836,7 +1857,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.carPart_score! > 0)
+                                        child: (allScores.carPart_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -1905,7 +1926,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/toefl.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -1916,7 +1938,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.toefl_score! > 0)
+                                        child: (allScores.toefl_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -1985,7 +2007,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   "assets/workshop.png",
-                                  width: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.29,
                                   height: 130,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 50)),
@@ -1996,7 +2019,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                                           top: 13, left: 170),
                                       child: Align(
                                         alignment: Alignment(1, -1),
-                                        child: (allScores.workshop_score! > 0)
+                                        child: (allScores.workshop_score > 0)
                                             ? Image.asset(
                                                 "assets/checked.png",
                                                 width: 30,
@@ -2066,7 +2089,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                   Positioned(
                     bottom: 12.0,
                     child: Text(
-                      auth.currentUser!.displayName.toString(),
+                      auth.currentUser.displayName.toString(),
                       style: const TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),
