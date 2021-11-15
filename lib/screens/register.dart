@@ -20,6 +20,8 @@ class RegisterScreens extends StatefulWidget {
 }
 
 class _RegisterScreensState extends State<RegisterScreens> {
+  String docId = '';
+  bool isLoading = false;
   bool _isHidden = true;
   final formKey = GlobalKey<FormState>();
   Profile profile = Profile(email: '', password: '', displayName: '');
@@ -61,14 +63,37 @@ class _RegisterScreensState extends State<RegisterScreens> {
                           height: 60,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                primary: HexColor("#461482"),
-                                onPrimary: Colors.white,
-                                side:
-                                    BorderSide(width: 2, color: Colors.black)),
-                            child: const Text("CREATE ACCOUNT",
-                                style: TextStyle(fontSize: 20)),
+                              primary: HexColor("#461482"),
+                              onPrimary: Colors.white,
+                              side: BorderSide(width: 2, color: Colors.black),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                            child: isLoading
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      CircularProgressIndicator(
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        width: 24,
+                                      ),
+                                      Text('Please Wait...',
+                                          style: TextStyle(fontSize: 20))
+                                    ],
+                                  )
+                                : Text("CREATE ACCOUNT",
+                                    style: TextStyle(fontSize: 20)),
                             onPressed: () async {
-                              if (formKey.currentState.validate()) {
+
+                              setState(() {
+                                isLoading = !isLoading;
+                              });
+
+                              if (formKey.currentState!.validate()) {
+
                                 formKey.currentState?.save();
                                 try {
                                   await register(context);
@@ -116,10 +141,14 @@ class _RegisterScreensState extends State<RegisterScreens> {
                           height: 60,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                primary: Colors.white,
-                                onPrimary: HexColor("#461482"),
-                                side: BorderSide(
-                                    width: 2, color: HexColor("#461482"))),
+                              primary: Colors.white,
+                              onPrimary: HexColor("#461482"),
+                              side: BorderSide(
+                                  width: 2, color: HexColor("#461482")),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
                             child:
                                 Text("LOGIN", style: TextStyle(fontSize: 20)),
                             onPressed: () {
@@ -189,7 +218,12 @@ class _RegisterScreensState extends State<RegisterScreens> {
       "carPart_score": 0,
       "toefl_score": 0,
       "workshop_score": 0,
-    });
+    }
+        // .then((value) {
+        //   docId = value.id;
+        //   print(docId);
+        // }
+        );
   }
 
   Container buildHeader() {
@@ -263,7 +297,7 @@ class _RegisterScreensState extends State<RegisterScreens> {
     return Container(
       margin: EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 20),
       child: TextFormField(
-        obscureText: true,
+        obscureText: _isHidden,
         onSaved: (input) {
           profile.password = input.toString();
         },

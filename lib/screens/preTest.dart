@@ -27,8 +27,8 @@ class _PreTestScreenScreenState extends State<PreTestScreen> {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: AppBar(
-            title: Image.asset(
-              "assets/logo.png",
+            title: Image.network(
+              "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2Flogo.png?alt=media&token=75cfc4fa-1400-43ed-96d5-2b85ad733971",
               width: 110,
               height: 110,
             ),
@@ -55,22 +55,30 @@ class _PreTestScreenScreenState extends State<PreTestScreen> {
                   Center(
                       child: Text(
                     "Choose Your Path",
-                    style: TextStyle(fontSize: 30, color: HexColor("#461482")),
+                    style: TextStyle(fontSize: 37, color: HexColor("#461482")),
                   )),
                   Padding(
                       padding: EdgeInsets.only(
                           top: MediaQuery.of(context).padding.top * 0.5)),
                   Center(
                       child: Text(
-                    "Start with basic",
+                    "Start here with the Basics",
                     style: TextStyle(fontSize: 20, color: HexColor("#461482")),
                   )),
                   Container(
                     margin: const EdgeInsets.fromLTRB(30, 20, 30, 5),
                     child: Container(
                       decoration: BoxDecoration(
-                          border: Border.all(width: 2, color: Colors.black),
-                          borderRadius: BorderRadius.circular(70)),
+                        border: Border.all(width: 2, color: Colors.black),
+                        borderRadius: BorderRadius.circular(70),
+                        boxShadow: [
+                          BoxShadow(
+                            color: HexColor("#461482"),
+                            blurRadius: 4,
+                            offset: Offset(3, 5),
+                          ),
+                        ],
+                      ),
                       width: 130,
                       height: MediaQuery.of(context).size.height * 0.2,
                       child: ElevatedButton(
@@ -90,8 +98,8 @@ class _PreTestScreenScreenState extends State<PreTestScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
-                            Image.asset(
-                              "assets/pre-test1.png",
+                            Image.network(
+                              "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Pre-Test%2Fpre-test1.png?alt=media&token=4202a608-a0a3-4c89-b768-3ca1b8d9118a",
                               width: 90,
                               height: 90,
                             ),
@@ -120,8 +128,16 @@ class _PreTestScreenScreenState extends State<PreTestScreen> {
                     margin: const EdgeInsets.fromLTRB(30, 20, 30, 5),
                     child: Container(
                       decoration: BoxDecoration(
-                          border: Border.all(width: 2, color: Colors.black),
-                          borderRadius: BorderRadius.circular(70)),
+                        border: Border.all(width: 2, color: Colors.black),
+                        borderRadius: BorderRadius.circular(70),
+                        boxShadow: [
+                          BoxShadow(
+                            color: HexColor("#461482"),
+                            blurRadius: 4,
+                            offset: Offset(3, 5),
+                          ),
+                        ],
+                      ),
                       width: 130,
                       height: MediaQuery.of(context).size.height * 0.2,
                       child: ElevatedButton(
@@ -141,8 +157,8 @@ class _PreTestScreenScreenState extends State<PreTestScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
-                            Image.asset(
-                              "assets/pre-test2.png",
+                            Image.network(
+                              "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Pre-Test%2Fpre-test2.png?alt=media&token=3d69e139-b56d-410e-bbf6-91cee319acee",
                               width: 90,
                               height: 90,
                             ),

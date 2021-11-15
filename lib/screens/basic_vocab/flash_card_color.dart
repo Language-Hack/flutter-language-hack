@@ -8,7 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hexcolor/hexcolor.dart';
+
 import 'package:language_hack/model/words.dart';
+import 'package:language_hack/screens/questions_list/questions_basic.dart';
+import 'package:language_hack/screens/quizPage.dart';
+import 'package:language_hack/screens/user.dart';
+
 import 'package:language_hack/screens/welcome.dart';
 
 ////////// this is the speaking function in this flashcard ///////////
@@ -113,9 +118,86 @@ class _Flash_ColorState extends State<Flash_Color> {
 class MainContainer extends StatefulWidget {
   const MainContainer({Key key}) : super(key: key);
 
+
   @override
   _MainContainerState createState() => _MainContainerState();
 }
+
+  final name = 'color_score';
+
+  List<Card> cards = [
+    Card(
+      data[0]['color'],
+      data[0]['word'],
+      data[0]['picture'],
+      data[0]['meaing'],
+      data[0]['example'],
+    ),
+    Card(
+      data[1]['color'],
+      data[1]['word'],
+      data[1]['picture'],
+      data[1]['meaing'],
+      data[1]['example'],
+    ),
+    Card(
+      data[2]['color'],
+      data[2]['word'],
+      data[2]['picture'],
+      data[2]['meaing'],
+      data[2]['example'],
+    ),
+    Card(
+      data[3]['color'],
+      data[3]['word'],
+      data[3]['picture'],
+      data[3]['meaing'],
+      data[3]['example'],
+    ),
+    Card(
+      data[4]['color'],
+      data[4]['word'],
+      data[4]['picture'],
+      data[4]['meaing'],
+      data[4]['example'],
+    ),
+    Card(
+      data[5]['color'],
+      data[5]['word'],
+      data[5]['picture'],
+      data[5]['meaing'],
+      data[5]['example'],
+    ),
+    Card(
+      data[6]['color'],
+      data[6]['word'],
+      data[6]['picture'],
+      data[6]['meaing'],
+      data[6]['example'],
+    ),
+    Card(
+      data[7]['color'],
+      data[7]['word'],
+      data[7]['picture'],
+      data[7]['meaing'],
+      data[7]['example'],
+    ),
+    Card(
+      data[8]['color'],
+      data[8]['word'],
+      data[8]['picture'],
+      data[8]['meaing'],
+      data[8]['example'],
+    ),
+    Card(
+      data[9]['color'],
+      data[9]['word'],
+      data[9]['picture'],
+      data[9]['meaing'],
+      data[9]['example'],
+    ),
+  ];
+
 
 class _MainContainerState extends State<MainContainer> {
   @override
