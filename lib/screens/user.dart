@@ -4,7 +4,7 @@ import 'package:language_hack/screens/home.dart';
 import 'package:language_hack/screens/welcome.dart';
 
 class UserScreen extends StatefulWidget {
-  const UserScreen({Key? key}) : super(key: key);
+  const UserScreen({Key key}) : super(key: key);
 
   @override
   _UserScreenState createState() => _UserScreenState();
@@ -60,7 +60,7 @@ class _UserScreenState extends State<UserScreen> {
                 child: Padding(
                   padding: EdgeInsets.all(13),
                   child: Text(
-                    auth.currentUser!.displayName.toString(),
+                    auth.currentUser.displayName.toString(),
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
@@ -85,7 +85,7 @@ class _UserScreenState extends State<UserScreen> {
                 child: Padding(
                   padding: EdgeInsets.all(13),
                   child: Text(
-                    auth.currentUser!.email.toString(),
+                    auth.currentUser.email.toString(),
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
@@ -112,7 +112,7 @@ class _UserScreenState extends State<UserScreen> {
                   Positioned(
                     bottom: 12.0,
                     child: Text(
-                      auth.currentUser!.displayName.toString(),
+                      auth.currentUser.displayName.toString(),
                       style: const TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),

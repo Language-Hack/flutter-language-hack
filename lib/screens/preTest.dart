@@ -10,7 +10,7 @@ import 'package:language_hack/screens/testUserLevel.dart';
 import 'package:language_hack/screens/welcome.dart';
 
 class PreTestScreen extends StatefulWidget {
-  const PreTestScreen({Key? key}) : super(key: key);
+  const PreTestScreen({Key key}) : super(key: key);
 
   @override
   _PreTestScreenScreenState createState() => _PreTestScreenScreenState();
@@ -46,16 +46,20 @@ class _PreTestScreenScreenState extends State<PreTestScreen> {
                 color: HexColor("FFE57F"),
               ),
               width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.65,
+              height: MediaQuery.of(context).size.height * 0.75,
               child: Column(
                 children: [
-                  Padding(padding: EdgeInsets.only(top: 30)),
+                  Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).padding.top * 0.5)),
                   Center(
                       child: Text(
                     "Choose Your Path",
                     style: TextStyle(fontSize: 37, color: HexColor("#461482")),
                   )),
-                  Padding(padding: EdgeInsets.only(top: 30)),
+                  Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).padding.top * 0.5)),
                   Center(
                       child: Text(
                     "Start here with the Basics",
@@ -76,7 +80,7 @@ class _PreTestScreenScreenState extends State<PreTestScreen> {
                         ],
                       ),
                       width: 130,
-                      height: 130,
+                      height: MediaQuery.of(context).size.height * 0.2,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           primary: Colors.white,
@@ -104,13 +108,17 @@ class _PreTestScreenScreenState extends State<PreTestScreen> {
                       ),
                     ),
                   ),
-                  Padding(padding: EdgeInsets.only(top: 30)),
+                  Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).padding.top * 0.5)),
                   Center(
                       child: Text(
                     "OR",
                     style: TextStyle(fontSize: 30, color: HexColor("#461482")),
                   )),
-                  Padding(padding: EdgeInsets.only(top: 30)),
+                  Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).padding.top * 0.5)),
                   Center(
                       child: Text(
                     "Short Pre-Test",
@@ -131,7 +139,7 @@ class _PreTestScreenScreenState extends State<PreTestScreen> {
                         ],
                       ),
                       width: 130,
-                      height: 130,
+                      height: MediaQuery.of(context).size.height * 0.2,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           primary: Colors.white,

@@ -7,7 +7,7 @@ import 'package:language_hack/screens/preTest.dart';
 import 'package:language_hack/screens/welcome.dart';
 
 class OnboardingScreens extends StatefulWidget {
-  const OnboardingScreens({Key? key}) : super(key: key);
+  const OnboardingScreens({Key key}) : super(key: key);
 
   @override
   _OnboardingScreensState createState() => _OnboardingScreensState();

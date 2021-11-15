@@ -4,6 +4,8 @@ import 'package:language_hack/screens/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:language_hack/screens/welcome.dart';
 
+import 'screens/test.dart';
+
 HomeScreen homeScreen = new HomeScreen();
 WelcomeScreens welcomeScreen = new WelcomeScreens();
 Widget initialRoute = homeScreen;
@@ -22,7 +24,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

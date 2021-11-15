@@ -9,7 +9,7 @@ import 'package:language_hack/screens/user.dart';
 import 'package:language_hack/screens/welcome.dart';
 
 class CreateFlashcardScreens extends StatefulWidget {
-  const CreateFlashcardScreens({Key? key}) : super(key: key);
+  const CreateFlashcardScreens({Key key}) : super(key: key);
 
   @override
   _CreateFlashcardScreensState createState() => _CreateFlashcardScreensState();
@@ -21,13 +21,13 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
   // Create a collection
   CollectionReference words = FirebaseFirestore.instance.collection('words');
 
-  String? value;
+  String value;
 
   // Display on the screen
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('words')
       .where("owner",
-          isEqualTo: FirebaseAuth.instance.currentUser!.displayName.toString())
+          isEqualTo: FirebaseAuth.instance.currentUser.displayName.toString())
       // .where("category", isEqualTo: "")
       .snapshots();
 
@@ -170,7 +170,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
               'sentence': userFlashcard.sentence,
               'translation': userFlashcard.translation,
               'category': userFlashcard.category,
-              'owner': auth.currentUser!.displayName.toString(),
+              'owner': auth.currentUser.displayName.toString(),
             }).catchError((error) => print("Failed to add user: $error"));
           });
           userFlashcard = new UserFlashcard(
@@ -288,21 +288,23 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                   //         fit: BoxFit.fill,
                   //         image: AssetImage("assets/bg.png"))),
                   child: Stack(children: <Widget>[
-                const Positioned(
-                  bottom: 40.0,
-                  child: Text("Welcome!",
-                      style: TextStyle(
-                          fontSize: 20.0, fontWeight: FontWeight.bold)),
-                ),
-                Positioned(
-                  bottom: 12.0,
-                  child: Text(
-                    auth.currentUser!.displayName.toString(),
-                    style: const TextStyle(
-                        fontSize: 20.0, fontWeight: FontWeight.bold),
-                  ),
-                )
-              ])),
+
+                    const Positioned(
+                      bottom: 40.0,
+                      child: Text("Welcome!",
+                          style: TextStyle(
+                              fontSize: 20.0, fontWeight: FontWeight.bold)),
+                    ),
+                    Positioned(
+                      bottom: 12.0,
+                      child: Text(
+                        auth.currentUser.displayName.toString(),
+                        style: const TextStyle(
+                            fontSize: 20.0, fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ])),
+
               ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                       fixedSize: Size(20, 60),
@@ -416,9 +418,9 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
             }
 
             return ListView(
-              children: snapshot.data!.docs.map((DocumentSnapshot document) {
+              children: snapshot.data.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
-                    document.data()! as Map<String, dynamic>;
+                    document.data() as Map<String, dynamic>;
                 return Card(
                   elevation: 8,
                   shadowColor: Colors.green,

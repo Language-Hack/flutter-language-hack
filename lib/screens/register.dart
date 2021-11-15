@@ -13,7 +13,7 @@ import 'package:language_hack/screens/login.dart';
 import 'package:language_hack/screens/onBoarding.dart';
 
 class RegisterScreens extends StatefulWidget {
-  const RegisterScreens({Key? key}) : super(key: key);
+  const RegisterScreens({Key key}) : super(key: key);
 
   @override
   _RegisterScreensState createState() => _RegisterScreensState();
@@ -87,11 +87,13 @@ class _RegisterScreensState extends State<RegisterScreens> {
                                 : Text("CREATE ACCOUNT",
                                     style: TextStyle(fontSize: 20)),
                             onPressed: () async {
+
                               setState(() {
                                 isLoading = !isLoading;
                               });
 
                               if (formKey.currentState!.validate()) {
+
                                 formKey.currentState?.save();
                                 try {
                                   await register(context);
@@ -175,8 +177,8 @@ class _RegisterScreensState extends State<RegisterScreens> {
         .createUserWithEmailAndPassword(
             email: profile.email, password: profile.password)
         .then((value) async {
-      await value.user!.updateDisplayName(profile.displayName).then((value) {
-        formKey.currentState!.reset();
+      await value.user.updateDisplayName(profile.displayName).then((value) {
+        formKey.currentState.reset();
         createScore();
         Fluttertoast.showToast(
             msg: "Registration Completed", gravity: ToastGravity.TOP);
@@ -190,7 +192,7 @@ class _RegisterScreensState extends State<RegisterScreens> {
 
   void createScore() {
     scores.add({
-      "owner": FirebaseAuth.instance.currentUser!.displayName.toString(),
+      "owner": FirebaseAuth.instance.currentUser.displayName.toString(),
       "color_score": 0,
       "adjective_score": 0,
       "countries_score": 0,
@@ -226,7 +228,7 @@ class _RegisterScreensState extends State<RegisterScreens> {
 
   Container buildHeader() {
     return Container(
-      margin: EdgeInsets.only(top: 100, left: 20),
+      margin: EdgeInsets.only(top: 50, left: 20),
       child: Text(
         "Register",
         textAlign: TextAlign.left,

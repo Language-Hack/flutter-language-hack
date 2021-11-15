@@ -6,8 +6,6 @@ import 'package:flutter_swipable/flutter_swipable.dart';
 class Test extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Stream<double> swipe;
-
     StreamController<double> _controller = StreamController<double>();
 
     double swipeAngle = math.pi / 4;

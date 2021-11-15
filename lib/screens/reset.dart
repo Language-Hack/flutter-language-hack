@@ -5,7 +5,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class ResetScreen extends StatefulWidget {
-  const ResetScreen({Key? key}) : super(key: key);
+  const ResetScreen({Key key}) : super(key: key);
 
   @override
   _ResetScreenState createState() => _ResetScreenState();
@@ -68,7 +68,7 @@ class _ResetScreenState extends State<ResetScreen> {
                   child: const Text("Send Request",
                       style: TextStyle(fontSize: 20)),
                   onPressed: () async {
-                    if (formKey.currentState!.validate()) {
+                    if (formKey.currentState.validate()) {
                       try {
                         auth.sendPasswordResetEmail(email: _email);
                         Fluttertoast.showToast(

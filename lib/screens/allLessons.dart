@@ -32,13 +32,14 @@ import 'package:language_hack/screens/intermediate_vocab/flash_card_halloween.da
 import 'package:language_hack/screens/intermediate_vocab/flash_card_music.dart';
 import 'package:language_hack/screens/intermediate_vocab/flash_card_office_equip.dart';
 import 'package:language_hack/screens/intermediate_vocab/flash_card_sports.dart';
+import 'package:language_hack/screens/intermediate_vocab/flash_card_foodtype.dart';
 import 'package:language_hack/screens/intermediate_vocab/flash_card_weather.dart';
 import 'package:language_hack/screens/login.dart';
 import 'package:language_hack/screens/user.dart';
 import 'package:language_hack/screens/welcome.dart';
 
 class AllLessonScreen extends StatefulWidget {
-  const AllLessonScreen({Key? key}) : super(key: key);
+  const AllLessonScreen({Key key}) : super(key: key);
 
   @override
   _AllLessonScreenScreenState createState() => _AllLessonScreenScreenState();
@@ -89,7 +90,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
           .collection("scores")
           .where("owner",
               isEqualTo:
-                  FirebaseAuth.instance.currentUser!.displayName.toString())
+                  FirebaseAuth.instance.currentUser.displayName.toString())
           .snapshots()
           .listen((event) {
         for (var snapshorts in event.docs) {
@@ -148,6 +149,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                               fontSize: 30, color: HexColor("#461482")),
                         )),
                       ),
+// /
                       // Container(
                       //   margin: const EdgeInsets.fromLTRB(30, 20, 30, 5),
                       //   child: Container(
@@ -175,7 +177,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                       //             "assets/adjectives.png",
                       //             width: 130,
                       //             height: 130,
-                      //           ),
+                      //           )
                       //           Padding(
                       //             padding: EdgeInsets.only(top: 50),
                       //           ),
@@ -2043,14 +2045,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                       //     ),
                       //   ),
                       // ),
-                    ],
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
+           
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -2069,7 +2064,7 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                   Positioned(
                     bottom: 12.0,
                     child: Text(
-                      auth.currentUser!.displayName.toString(),
+                      auth.currentUser.displayName.toString(),
                       style: const TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),

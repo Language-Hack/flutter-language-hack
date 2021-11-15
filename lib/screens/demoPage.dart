@@ -28,7 +28,7 @@ import 'package:showcaseview/showcaseview.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DemoScreens extends StatefulWidget {
-  const DemoScreens({Key? key}) : super(key: key);
+  const DemoScreens({Key key}) : super(key: key);
 
   @override
   _DemoScreensScreensState createState() => _DemoScreensScreensState();
@@ -39,16 +39,16 @@ class _DemoScreensScreensState extends State<DemoScreens> {
   final keyOne = GlobalKey();
   final keyTwo = GlobalKey();
   final keyThree = GlobalKey();
-  late BuildContext myContext;
+  BuildContext myContext;
 
   @override
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(
           Duration(milliseconds: 200),
-          () => ShowCaseWidget.of(myContext)!.startShowCase([
+          () => ShowCaseWidget.of(myContext).startShowCase([
                 keyOne,
                 keyTwo,
                 keyThree,
@@ -71,9 +71,10 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                     "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2Flogo.png?alt=media&token=75cfc4fa-1400-43ed-96d5-2b85ad733971",
                     width: 110,
                     height: 110,
+                    color: HexColor("#461482"),
                   ),
                   backgroundColor: Colors.amber.shade100,
-                  iconTheme: IconThemeData(color: Colors.black),
+                  iconTheme: IconThemeData(color: HexColor("#461482")),
                   actions: [
                     Showcase(
                       key: keyThree,
@@ -110,6 +111,7 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
+
                               border: Border.all(width: 2, color: Colors.black),
                               borderRadius: BorderRadius.circular(25),
                               boxShadow: [
@@ -121,6 +123,7 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                               ],
                             ),
                             margin: const EdgeInsets.fromLTRB(25, 20, 40, 10),
+                            
                             child: SizedBox(
                               width: 150,
                               height: 150,
@@ -168,6 +171,7 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                           ),
                           Container(
                             decoration: BoxDecoration(
+
                               border: Border.all(width: 2, color: Colors.black),
                               borderRadius: BorderRadius.circular(25),
                               boxShadow: [
@@ -385,6 +389,7 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                                     },
                                     child: Row(
                                       children: <Widget>[
+
                                         Image.network(
                                           "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Fcolors.png?alt=media&token=bede6c51-1b49-439c-8eb0-5017ce97471a",
                                           width: 80,
@@ -446,10 +451,12 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                                     },
                                     child: Row(
                                       children: <Widget>[
+
                                         Image.network(
                                           "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Ffruits.png?alt=media&token=548254ec-fbf7-428d-aa57-a1b23beacf56",
                                           width: 80,
                                           height: 80,
+
                                         ),
                                         Padding(
                                             padding: EdgeInsets.only(top: 50)),
@@ -497,7 +504,7 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                         Positioned(
                           bottom: 12.0,
                           child: Text(
-                            auth.currentUser!.displayName.toString(),
+                            auth.currentUser.displayName.toString(),
                             style: const TextStyle(
                                 fontSize: 20.0, fontWeight: FontWeight.bold),
                           ),

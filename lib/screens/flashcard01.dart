@@ -105,7 +105,7 @@ class _FlashCard01State extends State<FlashCard01> {
                   Positioned(
                     bottom: 12.0,
                     child: Text(
-                      auth.currentUser!.displayName.toString(),
+                      auth.currentUser.displayName.toString(),
                       style: const TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),

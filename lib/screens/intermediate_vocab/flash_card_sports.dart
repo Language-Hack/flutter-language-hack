@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cherry_toast/resources/arrays.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +13,7 @@ import 'package:language_hack/screens/welcome.dart';
 import '../user.dart';
 
 class Flash_Sports extends StatefulWidget {
-  const Flash_Sports({Key? key}) : super(key: key);
+  const Flash_Sports({Key key}) : super(key: key);
 
   @override
   _Flash_SportsState createState() => _Flash_SportsState();
@@ -22,55 +24,52 @@ final List data = [
     'color': Colors.red.shade200,
     'word': "Football",
     'picture': "assets/Sports/1.png",
-    'meaing': "กีฬาฟุตบอล",
+    'meaning': "กีฬาฟุตบอล",
     'example': "Football is my favorite game."
   },
   {
     'color': Colors.orange.shade200,
     'word': "Baseball",
     'picture': "assets/Sports/2.png",
-    'meaing': "กีฬาเบสบอล",
+    'meaning': "กีฬาเบสบอล",
     'example': "A baseball came flying through the window."
   },
   {
     'color': Colors.yellow.shade200,
     'word': "Basketball",
     'picture': "assets/Sports/3.png",
-    'meaing': "บาสเกตบอล",
+    'meaning': "บาสเกตบอล",
     'example': "He is good at basketball."
   },
   {
     'color': Colors.green.shade200,
     'word': "Swimming",
     'picture': "assets/Sports/4.png",
-    'meaing': "ว่ายน้ำ",
+    'meaning': "ว่ายน้ำ",
     'example': "She really love swimming."
   },
   {
     'color': Colors.blue.shade200,
     'word': "Diving",
     'picture': "assets/Sports/5.png",
-    'meaing': "ดำน้ำ",
+    'meaning': "ดำน้ำ",
     'example': "He tried to escape by diving into a river."
   },
   {
     'color': Colors.grey.shade200,
     'word': "Golf",
     'picture': "assets/Sports/6.png",
-    'meaing': "กีฬากอล์ฟ",
+    'meaning': "กีฬากอล์ฟ",
     'example': "My parents do not play golf."
   },
   {
     'color': Colors.grey.shade400,
     'word': "Badminton",
     'picture': "assets/Sports/7.png",
-    'meaing': "แบดมินตัน",
+    'meaning': "แบดมินตัน",
     'example': "I used to play badminton"
   },
 ];
-
-List notRemember = [];
-List Remember = [];
 
 ////////// this is the speaking function in this flashcard ///////////
 final FlutterTts flutterTts = FlutterTts();
@@ -81,60 +80,112 @@ Future speak(String text) async {
   await flutterTts.speak(text);
 }
 
+List<Card> cards = [
+  Card(
+    data[0]['color'],
+    data[0]['word'],
+    data[0]['picture'],
+    data[0]['meaning'],
+    data[0]['example'],
+  ),
+  Card(
+    data[1]['color'],
+    data[1]['word'],
+    data[1]['picture'],
+    data[1]['meaning'],
+    data[1]['example'],
+  ),
+  Card(
+    data[2]['color'],
+    data[2]['word'],
+    data[2]['picture'],
+    data[2]['meaning'],
+    data[2]['example'],
+  ),
+  Card(
+    data[3]['color'],
+    data[3]['word'],
+    data[3]['picture'],
+    data[3]['meaning'],
+    data[3]['example'],
+  ),
+  Card(
+    data[4]['color'],
+    data[4]['word'],
+    data[4]['picture'],
+    data[4]['meaning'],
+    data[4]['example'],
+  ),
+  Card(
+    data[5]['color'],
+    data[5]['word'],
+    data[5]['picture'],
+    data[5]['meaning'],
+    data[5]['example'],
+  ),
+  Card(
+    data[6]['color'],
+    data[6]['word'],
+    data[6]['picture'],
+    data[6]['meaning'],
+    data[6]['example'],
+  ),
+];
+
+List<Card> instant_cards = [
+  Card(
+    data[0]['color'],
+    data[0]['word'],
+    data[0]['picture'],
+    data[0]['meaning'],
+    data[0]['example'],
+  ),
+  Card(
+    data[1]['color'],
+    data[1]['word'],
+    data[1]['picture'],
+    data[1]['meaning'],
+    data[1]['example'],
+  ),
+  Card(
+    data[2]['color'],
+    data[2]['word'],
+    data[2]['picture'],
+    data[2]['meaning'],
+    data[2]['example'],
+  ),
+  Card(
+    data[3]['color'],
+    data[3]['word'],
+    data[3]['picture'],
+    data[3]['meaning'],
+    data[3]['example'],
+  ),
+  Card(
+    data[4]['color'],
+    data[4]['word'],
+    data[4]['picture'],
+    data[4]['meaning'],
+    data[4]['example'],
+  ),
+  Card(
+    data[5]['color'],
+    data[5]['word'],
+    data[5]['picture'],
+    data[5]['meaning'],
+    data[5]['example'],
+  ),
+  Card(
+    data[6]['color'],
+    data[6]['word'],
+    data[6]['picture'],
+    data[6]['meaning'],
+    data[6]['example'],
+  ),
+];
+
 class _Flash_SportsState extends State<Flash_Sports> {
   final auth = FirebaseAuth.instance;
-
-  List<Card> cards = [
-    Card(
-      data[0]['color'],
-      data[0]['word'],
-      data[0]['picture'],
-      data[0]['meaing'],
-      data[0]['example'],
-    ),
-    Card(
-      data[1]['color'],
-      data[1]['word'],
-      data[1]['picture'],
-      data[1]['meaing'],
-      data[1]['example'],
-    ),
-    Card(
-      data[2]['color'],
-      data[2]['word'],
-      data[2]['picture'],
-      data[2]['meaing'],
-      data[2]['example'],
-    ),
-    Card(
-      data[3]['color'],
-      data[3]['word'],
-      data[3]['picture'],
-      data[3]['meaing'],
-      data[3]['example'],
-    ),
-    Card(
-      data[4]['color'],
-      data[4]['word'],
-      data[4]['picture'],
-      data[4]['meaing'],
-      data[4]['example'],
-    ),
-    Card(
-      data[5]['color'],
-      data[5]['word'],
-      data[5]['picture'],
-      data[5]['meaing'],
-      data[5]['example'],
-    ),
-    Card(
-      data[6]['color'],
-      data[6]['word'],
-      data[6]['picture'],
-      data[6]['meaing'],
-      data[6]['example'],
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -147,110 +198,12 @@ class _Flash_SportsState extends State<Flash_Sports> {
                 width: 110, height: 110, color: HexColor("#461482")),
             backgroundColor: Colors.amber.shade100,
             iconTheme: IconThemeData(color: HexColor("#461482")),
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) {
-                      return UserScreen();
-                    }));
-                  },
-                  icon: Icon(Icons.person))
-            ],
+            automaticallyImplyLeading: false,
           )),
       body: Center(
           child: Stack(
         children: [
-          Column(
-            children: [
-              Padding(padding: EdgeInsets.only(top: 40)),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.9,
-                height: MediaQuery.of(context).size.height * 0.6,
-                decoration: BoxDecoration(
-                    color: Colors.amber.shade100,
-                    border: Border.all(color: Colors.black, width: 3.0),
-                    borderRadius: BorderRadius.all(Radius.circular(16))),
-                child: Column(
-                  children: [
-                    Padding(padding: EdgeInsets.only(top: 30)),
-                    Text(
-                      "Congratulations!!",
-                      style: TextStyle(
-                          fontSize: 30,
-                          color: HexColor("#461482"),
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 30)),
-                    Text(
-                      "You have learned all the",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: HexColor("#461482"),
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 30)),
-                    Text(
-                      "flash-cards",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: HexColor("#461482"),
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 30)),
-                    Text(
-                      "Ready for a quiz?",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: HexColor("#461482"),
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 50)),
-                    SizedBox(
-                      width: 150,
-                      height: 50,
-                      child: ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          onPrimary: HexColor("#461482"),
-                          side: BorderSide(width: 2, color: Colors.black),
-                        ),
-                        icon: Icon(Icons.dashboard),
-                        label: Text("Quiz", style: TextStyle(fontSize: 15)),
-                        onPressed: () {},
-                      ),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 30)),
-                    SizedBox(
-                      width: 150,
-                      height: 50,
-                      child: ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          onPrimary: HexColor("#461482"),
-                          side: BorderSide(width: 2, color: Colors.black),
-                        ),
-                        icon: Icon(Icons.login),
-                        label:
-                            Text("Start Over", style: TextStyle(fontSize: 15)),
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      super.widget));
-                          notRemember.clear();
-                          Remember.clear();
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 80),
-              showBottom(context),
-            ],
-          ),
+          ShowResult(),
           Column(
             children: <Widget>[
               Padding(padding: EdgeInsets.only(top: 20)),
@@ -268,73 +221,111 @@ class _Flash_SportsState extends State<Flash_Sports> {
           ),
         ],
       )),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fill, image: AssetImage("assets/bg.png"))),
-                child: Stack(children: <Widget>[
-                  const Positioned(
-                    bottom: 40.0,
-                    child: Text("Welcome!",
-                        style: TextStyle(
-                            fontSize: 20.0, fontWeight: FontWeight.bold)),
-                  ),
-                  Positioned(
-                    bottom: 12.0,
-                    child: Text(
-                      auth.currentUser!.displayName.toString(),
-                      style: const TextStyle(
-                          fontSize: 20.0, fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ])),
-            ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                    fixedSize: Size(20, 60),
-                    primary: Colors.white,
-                    onPrimary: Colors.black,
-                    side: BorderSide(color: Colors.white),
-                    alignment: Alignment.centerLeft),
-                onPressed: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return WelcomeScreens();
-                  }));
-                },
-                icon: Icon(Icons.card_membership),
-                label: const Text(
-                  "Flash-Card",
-                  style: TextStyle(fontSize: 20, color: Colors.black),
-                  textAlign: TextAlign.left,
-                )),
-            ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                    fixedSize: Size(20, 60),
-                    primary: Colors.white,
-                    onPrimary: Colors.black,
-                    side: BorderSide(color: Colors.white),
-                    alignment: Alignment.centerLeft),
-                onPressed: () {
-                  auth.signOut().then((value) => Navigator.pushReplacement(
-                          context, MaterialPageRoute(builder: (context) {
-                        return const HomeScreen();
-                      })));
-                },
-                icon: Icon(Icons.logout),
-                label: const Text(
-                  "Log out",
-                  style: TextStyle(fontSize: 20, color: Colors.black),
-                  textAlign: TextAlign.left,
-                )),
-          ],
-        ),
-      ),
     );
   }
+}
+
+Widget messageCongratualation() {
+  return Text(
+    "Congratulations!!",
+    style: TextStyle(
+        fontSize: 30, color: HexColor("#461482"), fontWeight: FontWeight.bold),
+  );
+}
+
+Widget messageNot() {
+  return const Text(
+    "Try Again!!",
+    style:
+        TextStyle(fontSize: 30, color: Colors.red, fontWeight: FontWeight.bold),
+  );
+}
+
+Widget learnAll() {
+  return Text(
+    "You have learned all the",
+    style: TextStyle(
+        fontSize: 20, color: HexColor("#461482"), fontWeight: FontWeight.bold),
+  );
+}
+
+Widget notlearnAll() {
+  return const Text(
+    "You still have to learn",
+    style:
+        TextStyle(fontSize: 20, color: Colors.red, fontWeight: FontWeight.bold),
+  );
+}
+
+Widget flashcards() {
+  return Text(
+    "flashcards",
+    style: TextStyle(
+        fontSize: 20, color: HexColor("#461482"), fontWeight: FontWeight.bold),
+  );
+}
+
+Widget someFlashcards() {
+  return Text(
+    cards.length.toString() + "  flashcards",
+    style:
+        TextStyle(fontSize: 20, color: Colors.red, fontWeight: FontWeight.bold),
+  );
+}
+
+Widget ready() {
+  return Text(
+    "Ready for a quiz?",
+    style: TextStyle(
+        fontSize: 20, color: HexColor("#461482"), fontWeight: FontWeight.bold),
+  );
+}
+
+Widget notready() {
+  return const Text(
+    "Try to learn those words.",
+    style:
+        TextStyle(fontSize: 20, color: Colors.red, fontWeight: FontWeight.bold),
+  );
+}
+
+Widget quizButton() {
+  return SizedBox(
+    width: 150,
+    height: 50,
+    child: ElevatedButton.icon(
+      style: ElevatedButton.styleFrom(
+        primary: Colors.white,
+        onPrimary: HexColor("#461482"),
+        side: BorderSide(width: 2, color: Colors.black),
+      ),
+      icon: Icon(Icons.dashboard),
+      label: Text("Quiz", style: TextStyle(fontSize: 15)),
+      onPressed: () {},
+    ),
+  );
+}
+
+Widget tryButton(context) {
+  return SizedBox(
+    width: 150,
+    height: 50,
+    child: ElevatedButton.icon(
+      style: ElevatedButton.styleFrom(
+        primary: Colors.white,
+        onPrimary: Colors.red,
+        side: BorderSide(width: 2, color: Colors.black),
+      ),
+      icon: Icon(Icons.login),
+      label: Text("Try Again", style: TextStyle(fontSize: 15)),
+      onPressed: () {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => Flash_Sports()));
+      },
+    ),
+  );
 }
 
 Widget cancelButton(BuildContext context) {
@@ -347,8 +338,8 @@ Widget cancelButton(BuildContext context) {
         decoration: BoxDecoration(shape: BoxShape.circle),
         child: Image.asset("assets/rejected.png")),
     onPressed: () {
-      notRemember.clear();
-      Remember.clear();
+      cards.clear();
+      cards.addAll(instant_cards);
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
         return WelcomeScreens();
       }));
@@ -364,7 +355,7 @@ Widget swipeLeft() {
         scale: 11,
       ),
       const Padding(padding: EdgeInsets.only(top: 5)),
-      Text("Can't remember"),
+      Text("I can't remember"),
     ],
   );
 }
@@ -399,11 +390,6 @@ Widget showBottom(BuildContext context) {
   );
 }
 
-// void _ShowToast(BuildContext context) {
-//   final scaffold = Scaffold.of(context);
-//   scaffold.
-// }
-
 class Card extends StatelessWidget {
   // Made to distinguish cards
   // Add your own applicable data here
@@ -411,7 +397,7 @@ class Card extends StatelessWidget {
   String word = "";
   String picture;
   String example = "";
-  String meaing = "";
+  String meaning = "";
   bool showDisplay = false;
   String text = '';
 
@@ -419,7 +405,7 @@ class Card extends StatelessWidget {
     this.color,
     this.word,
     this.picture,
-    this.meaing,
+    this.meaning,
     this.example,
   );
 
@@ -450,19 +436,15 @@ class Card extends StatelessWidget {
                   icon: Icon(Icons.volume_up),
                   iconSize: 45,
                   color: HexColor("#461482")),
-              // ElevatedButton.icon(
-              //     onPressed: () => speak(word),
-              //     icon: Icon(Icons.volume_up),
-              //     label: Text("")),
               const Padding(padding: EdgeInsets.only(top: 25)),
               Image.asset(
                 picture,
-                height: 170,
+                height: MediaQuery.of(context).size.height * 0.2,
                 width: 100,
               ),
               const Padding(padding: EdgeInsets.only(top: 25)),
               Text(
-                meaing,
+                meaning,
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -494,7 +476,7 @@ class Card extends StatelessWidget {
 
       onSwipeRight: (finalPosition) {
         CherryToast(
-          title: "YESS!",
+          title: word,
           description: "I can remember",
           descriptionStyle: TextStyle(color: Colors.green),
           icon: Icons.cancel,
@@ -505,20 +487,14 @@ class Card extends StatelessWidget {
           animationType: ANIMATION_TYPE.FROM_RIGHT,
           autoDismiss: true,
         ).show(context);
-        Remember.add(Card(
-          this.color,
-          this.word,
-          this.picture,
-          this.meaing,
-          this.example,
-        ));
-        print("This is remember");
-        print(Remember);
+        cards.removeLast();
+        print("This is cards");
+        print(cards);
       },
 
       onSwipeLeft: (finalPosition) {
         CherryToast(
-          title: "NOPE!",
+          title: word,
           description: "I can't remember",
           descriptionStyle: TextStyle(color: Colors.red),
           icon: Icons.cancel,
@@ -529,18 +505,90 @@ class Card extends StatelessWidget {
           animationType: ANIMATION_TYPE.FROM_LEFT,
           autoDismiss: true,
         ).show(context);
-        notRemember.add(Card(
-          this.color,
-          this.word,
-          this.picture,
-          this.meaing,
-          this.example,
-        ));
-        print("this is notRemember:");
-        print(notRemember);
+        cards.insert(
+            0,
+            Card(
+              this.color,
+              this.word,
+              this.picture,
+              this.meaning,
+              this.example,
+            ));
+        cards.removeLast();
+        print("This is cards");
+        print(cards);
       },
-
       // onSwipeRight, left, up, down, cancel, etc...
+    );
+  }
+}
+
+class ShowResult extends StatefulWidget {
+  const ShowResult({Key key}) : super(key: key);
+
+  @override
+  _ShowResultState createState() => _ShowResultState();
+}
+
+class _ShowResultState extends State<ShowResult> {
+  String _now;
+  Timer _everySecond;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // sets first value
+    _now = DateTime.now().second.toString();
+
+    // defines a timer
+    _everySecond = Timer.periodic(Duration(seconds: 1), (Timer t) {
+      setState(() {
+        _now = DateTime.now().second.toString();
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(padding: EdgeInsets.only(top: 40)),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: MediaQuery.of(context).size.height * 0.6,
+            decoration: BoxDecoration(
+                color: Colors.amber.shade100,
+                border: Border.all(color: Colors.black, width: 3.0),
+                borderRadius: BorderRadius.all(Radius.circular(16))),
+            child: Column(
+              children: [
+                Padding(padding: EdgeInsets.only(top: 30)),
+                if (cards.isEmpty) ...[
+                  messageCongratualation()
+                ] else ...[
+                  messageNot()
+                ],
+                Padding(padding: EdgeInsets.only(top: 30)),
+                if (cards.isEmpty) ...[learnAll()] else ...[notlearnAll()],
+                Padding(padding: EdgeInsets.only(top: 30)),
+                if (cards.isEmpty) ...[flashcards()] else ...[someFlashcards()],
+                Padding(padding: EdgeInsets.only(top: 30)),
+                if (cards.isEmpty) ...[ready()] else ...[notready()],
+                Padding(padding: EdgeInsets.only(top: 30)),
+                if (cards.isEmpty) ...[
+                  quizButton()
+                ] else ...[
+                  tryButton(context)
+                ],
+              ],
+            ),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+          showBottom(context),
+        ],
+      ),
     );
   }
 }

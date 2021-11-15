@@ -1,85 +1,85 @@
 import 'dart:convert';
 
 class UserScores {
-  int? adjective_score;
-  int? carPart_score;
-  int? clothes_score;
-  int? color_score;
-  int? countries_score;
-  int? days_score;
-  int? dbFood_score;
-  int? environment_score;
-  int? family_score;
-  int? feeling_score;
-  int? football_score;
-  int? fruit_score;
-  int? halloween_score;
-  int? ielts_score;
-  int? months_score;
-  int? music_score;
-  int? office_score;
-  int? place_score;
-  int? sports_score;
-  int? toefl_score;
-  int? typeFood_score;
-  int? vegetable_score;
-  int? verbs_score;
-  int? weather_score;
-  int? workshop_score;
+  int adjective_score;
+  int carPart_score;
+  int clothes_score;
+  int color_score;
+  int countries_score;
+  int days_score;
+  int dbFood_score;
+  int environment_score;
+  int family_score;
+  int feeling_score;
+  int football_score;
+  int fruit_score;
+  int halloween_score;
+  int ielts_score;
+  int months_score;
+  int music_score;
+  int office_score;
+  int place_score;
+  int sports_score;
+  int toefl_score;
+  int typeFood_score;
+  int vegetable_score;
+  int verbs_score;
+  int weather_score;
+  int workshop_score;
   UserScores({
-    required this.adjective_score,
-    required this.carPart_score,
-    required this.clothes_score,
-    required this.color_score,
-    required this.countries_score,
-    required this.days_score,
-    required this.dbFood_score,
-    required this.environment_score,
-    required this.family_score,
-    required this.feeling_score,
-    required this.football_score,
-    required this.fruit_score,
-    required this.halloween_score,
-    required this.ielts_score,
-    required this.months_score,
-    required this.music_score,
-    required this.office_score,
-    required this.place_score,
-    required this.sports_score,
-    required this.toefl_score,
-    required this.typeFood_score,
-    required this.vegetable_score,
-    required this.verbs_score,
-    required this.weather_score,
-    required this.workshop_score,
+    this.adjective_score,
+    this.carPart_score,
+    this.clothes_score,
+    this.color_score,
+    this.countries_score,
+    this.days_score,
+    this.dbFood_score,
+    this.environment_score,
+    this.family_score,
+    this.feeling_score,
+    this.football_score,
+    this.fruit_score,
+    this.halloween_score,
+    this.ielts_score,
+    this.months_score,
+    this.music_score,
+    this.office_score,
+    this.place_score,
+    this.sports_score,
+    this.toefl_score,
+    this.typeFood_score,
+    this.vegetable_score,
+    this.verbs_score,
+    this.weather_score,
+    this.workshop_score,
   });
 
   UserScores copyWith({
-    int? adjective_score,
-    int? carPart_score,
-    int? clothes_score,
-    int? color_score,
-    int? countries_score,
-    int? days_score,
-    int? dbFood_score,
-    int? environment_score,
-    int? family_score,
-    int? feeling_score,
-    int? football_score,
-    int? fruit_score,
-    int? halloween_score,
-    int? ielts_score,
-    int? months_score,
-    int? music_score,
-    int? office_score,
-    int? place_score,
-    int? sports_score,
-    int? toefl_score,
-    int? typeFood_score,
-    int? vegetable_score,
-    int? verbs_score,
-    int? weather_score,
-    int? workshop_score,
+    int adjective_score,
+    int carPart_score,
+    int clothes_score,
+    int color_score,
+    int countries_score,
+    int days_score,
+    int dbFood_score,
+    int environment_score,
+    int family_score,
+    int feeling_score,
+    int football_score,
+    int fruit_score,
+    int halloween_score,
+    int ielts_score,
+    int months_score,
+    int music_score,
+    int office_score,
+    int place_score,
+    int sports_score,
+    inttoefl_score,
+    int typeFood_score,
+    int vegetable_score,
+    int verbs_score,
+    int weather_score,
+    int workshop_score,
   }) {
     return UserScores(
       adjective_score: adjective_score ?? this.adjective_score,
