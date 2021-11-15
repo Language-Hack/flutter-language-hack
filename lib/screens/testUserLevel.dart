@@ -54,188 +54,210 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
         children: [
           Padding(padding: const EdgeInsets.only(top: 30)),
           Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.75,
-              padding: EdgeInsets.only(top: 20, left: 20, right: 20),
-              decoration: BoxDecoration(
-                  color: Colors.amber.shade100,
-                  border: Border.all(color: Colors.black, width: 3.0),
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              child: PageView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  controller: _controller,
-                  onPageChanged: (page) {
-                    setState(() {
-                      isPressed = false;
-                      status = '';
-                    });
-                  },
-                  itemCount: questions.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "Question ${index + 1}/${questions.length}",
-                            style: TextStyle(
-                                fontSize: 35, color: HexColor("#461482")),
-                          ),
-                        ),
-                        Padding(padding: EdgeInsets.only(top: 40)),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            questions[index].instruction,
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Padding(padding: EdgeInsets.only(top: 25)),
-                        Text(
-                          questions[index].question,
-                          style: TextStyle(
-                              fontSize: 32, color: HexColor("#461482")),
-                        ),
-                        Padding(padding: EdgeInsets.only(top: 15)),
-                        for (int i = 0; i < questions[index].answer.length; i++)
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border:
-                                    Border.all(width: 2, color: Colors.black),
-                                borderRadius: BorderRadius.circular(30),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black,
-                                    blurRadius: 9,
-                                    offset: Offset(3, 5),
-                                  ),
-                                ],
-                              ),
-                              child: MaterialButton(
-                                  minWidth:
-                                      MediaQuery.of(context).size.width * 0.8,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.07,
-                                  color: isPressed
-                                      ? questions[index]
-                                              .answer
-                                              .entries
-                                              .toList()[i]
-                                              .value
-                                          ? isCorrect
-                                          : isWrong
-                                      : Colors.white,
-                                  onPressed: isPressed
-                                      ? () {}
-                                      : () {
-                                          setState(() {
-                                            isPressed = true;
-                                          });
-                                          if (questions[index]
-                                              .answer
-                                              .entries
-                                              .toList()[i]
-                                              .value) {
-                                            setState(() {
-                                              score += 1;
-                                              status = 'Correct! ';
-                                            });
-                                          } else {
-                                            status = 'Incorrect! ';
-                                          }
-                                        },
-                                  shape: StadiumBorder(),
-                                  child: Text(
-                                    questions[index].answer.keys.toList()[i],
-                                    style: TextStyle(
-                                        fontSize: 20, color: Colors.black),
-                                  )),
+            child: Expanded(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.8,
+                padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+                decoration: BoxDecoration(
+                    color: Colors.amber.shade100,
+                    border: Border.all(color: Colors.black, width: 3.0),
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: PageView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    controller: _controller,
+                    onPageChanged: (page) {
+                      setState(() {
+                        isPressed = false;
+                        status = '';
+                      });
+                    },
+                    itemCount: questions.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Question ${index + 1}/${questions.length}",
+                              style: TextStyle(
+                                  fontSize: 35, color: HexColor("#461482")),
                             ),
                           ),
-                        Padding(padding: EdgeInsets.only(top: 25)),
-                        SizedBox(
-                          height: 40,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: status == ''
-                                      ? null
-                                      : Row(
-                                          children: [
-                                            checkAnswer(),
-                                            status == "Correct! "
-                                                ? Image.network(
-                                                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/quiz%2Fcorrect.png?alt=media&token=d6eb9864-e039-4279-ad80-55e5d74ac2bd",
-                                                    height: 40,
-                                                    width: 40,
-                                                  )
-                                                : Image.network(
-                                                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/quiz%2Fcross.png?alt=media&token=87529f57-c466-46b3-9f18-a4127b335c40",
-                                                    height: 40,
-                                                    width: 40,
-                                                  ),
-                                          ],
-                                        )),
-                              Container(
+                          Padding(
+                              padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height *
+                                      0.015)),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              questions[index].instruction,
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Padding(
+                              padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height *
+                                      0.015)),
+                          Text(
+                            questions[index].question,
+                            style: TextStyle(
+                                fontSize:
+                                    MediaQuery.of(context).textScaleFactor * 22,
+                                color: HexColor("#461482")),
+                          ),
+                          Padding(
+                              padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height *
+                                      0.015)),
+                          for (int i = 0;
+                              i < questions[index].answer.length;
+                              i++)
+                            Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Container(
                                 decoration: BoxDecoration(
                                   border:
                                       Border.all(width: 2, color: Colors.black),
-                                  borderRadius: BorderRadius.circular(25),
+                                  borderRadius: BorderRadius.circular(30),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.black,
-                                      blurRadius: 2,
+                                      blurRadius: 9,
                                       offset: Offset(3, 5),
                                     ),
                                   ],
                                 ),
-                                child: OutlinedButton(
-                                  style: OutlinedButton.styleFrom(
-                                      shape: StadiumBorder(),
-                                      backgroundColor: isPressed
-                                          ? Colors.white
-                                          : Colors.grey),
-                                  onPressed: isPressed
-                                      ? index + 1 == questions.length
-                                          ? () {
-                                              Navigator.push(context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) {
-                                                return PreTestScoreScreen(
-                                                    score, questions.length);
-                                              }));
+                                child: MaterialButton(
+                                    minWidth:
+                                        MediaQuery.of(context).size.width * 0.8,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.07,
+                                    color: isPressed
+                                        ? questions[index]
+                                                .answer
+                                                .entries
+                                                .toList()[i]
+                                                .value
+                                            ? isCorrect
+                                            : isWrong
+                                        : Colors.white,
+                                    onPressed: isPressed
+                                        ? () {}
+                                        : () {
+                                            setState(() {
+                                              isPressed = true;
+                                            });
+                                            if (questions[index]
+                                                .answer
+                                                .entries
+                                                .toList()[i]
+                                                .value) {
+                                              setState(() {
+                                                score += 1;
+                                                status = 'Correct! ';
+                                              });
+                                            } else {
+                                              status = 'Incorrect! ';
                                             }
-                                          : () {
-                                              _controller.nextPage(
-                                                  duration: Duration(
-                                                      milliseconds: 100),
-                                                  curve: Curves.linear);
-                                            }
-                                      : null,
-                                  child: Text(
-                                    index + 1 == questions.length
-                                        ? "See Result"
-                                        : "Next Question",
-                                    style: TextStyle(
-                                        color: HexColor("#461482"),
-                                        fontSize: 15),
+                                          },
+                                    shape: StadiumBorder(),
+                                    child: Text(
+                                      questions[index].answer.keys.toList()[i],
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.black),
+                                    )),
+                              ),
+                            ),
+                          Padding(
+                              padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height *
+                                      0.015)),
+                          SizedBox(
+                            height: 40,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: status == ''
+                                        ? null
+                                        : Row(
+                                            children: [
+                                              checkAnswer(),
+                                              status == "Correct! "
+                                                  ? Image.network(
+                                                      "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/quiz%2Fcorrect.png?alt=media&token=d6eb9864-e039-4279-ad80-55e5d74ac2bd",
+                                                      height: 40,
+                                                      width: 40,
+                                                    )
+                                                  : Image.network(
+                                                      "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/quiz%2Fcross.png?alt=media&token=87529f57-c466-46b3-9f18-a4127b335c40",
+                                                      height: 40,
+                                                      width: 40,
+                                                    ),
+                                            ],
+                                          )),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.4,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        width: 2, color: Colors.black),
+                                    borderRadius: BorderRadius.circular(25),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black,
+                                        blurRadius: 2,
+                                        offset: Offset(3, 5),
+                                      ),
+                                    ],
+                                  ),
+                                  child: OutlinedButton(
+                                    style: OutlinedButton.styleFrom(
+                                        shape: StadiumBorder(),
+                                        backgroundColor: isPressed
+                                            ? Colors.white
+                                            : Colors.grey),
+                                    onPressed: isPressed
+                                        ? index + 1 == questions.length
+                                            ? () {
+                                                Navigator.push(context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) {
+                                                  return PreTestScoreScreen(
+                                                      score, questions.length);
+                                                }));
+                                              }
+                                            : () {
+                                                _controller.nextPage(
+                                                    duration: Duration(
+                                                        milliseconds: 100),
+                                                    curve: Curves.linear);
+                                              }
+                                        : null,
+                                    child: Text(
+                                      index + 1 == questions.length
+                                          ? "See Result"
+                                          : "Next Question",
+                                      style: TextStyle(
+                                          color: HexColor("#461482"),
+                                          fontSize: 15),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    );
-                  }),
+                              ],
+                            ),
+                          )
+                        ],
+                      );
+                    }),
+              ),
             ),
           ),
         ],

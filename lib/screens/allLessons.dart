@@ -1,3 +1,4 @@
+import 'package:animated_drawer/views/animated_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,7 +19,6 @@ import 'package:language_hack/screens/basic_vocab/flash_card_day.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_family.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_fruit.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_months.dart';
-import 'package:language_hack/screens/basic_vocab/flash_card_places.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_vegetables.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_verbs.dart';
 import 'package:language_hack/screens/createFlashcard.dart';
@@ -106,48 +106,170 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.amber.shade50,
-        appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(60),
-            child: AppBar(
-              title: Image.asset(
-                "assets/logo.png",
-                width: 110,
-                height: 110,
-                color: HexColor("#461482"),
-              ),
-              backgroundColor: Colors.amber.shade100,
-              iconTheme: IconThemeData(color: HexColor("#461482")),
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) {
-                      return UserScreen();
-                    }));
-                  },
-                  icon: Icon(Icons.person),
+    return AnimatedDrawer(
+      homePageXValue: 150,
+      homePageYValue: 80,
+      homePageAngle: -0.2,
+      homePageSpeed: 250,
+      shadowXValue: 122,
+      shadowYValue: 110,
+      shadowAngle: -0.275,
+      shadowSpeed: 550,
+      openIcon: Icon(Icons.menu, color: Color(0xFF1f186f)),
+      closeIcon: Icon(Icons.arrow_back_ios, color: Color(0xFF1f186f)),
+      shadowColor: Color(0xFF665BB2),
+      backgroundGradient: LinearGradient(
+        colors: [Color(0xFF4c41a3), HexColor("#461482")],
+      ),
+      menuPageContent: Padding(
+          padding: const EdgeInsets.only(top: 100.0, left: 15),
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(
+                  "assets/logo.png",
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  color: Colors.white,
                 ),
+                Row(
+                  children: [
+                    const Text(
+                      "WEL",
+                      style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "COME!",
+                      style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.blue[200],
+                          fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      auth.currentUser.displayName.toString(),
+                      style: const TextStyle(
+                          fontSize: 17.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ],
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 40),
+                ),
+                TextButton.icon(
+                    onPressed: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return WelcomeScreens();
+                      }));
+                    },
+                    icon: const Icon(
+                      Icons.dashboard,
+                      color: Colors.white,
+                    ),
+                    label: const Text(
+                      "Dashboard",
+                      style: TextStyle(color: Colors.white),
+                    )),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 20),
+                ),
+                TextButton.icon(
+                    onPressed: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return CreateFlashcardScreens();
+                      }));
+                    },
+                    icon: const Icon(
+                      Icons.book,
+                      color: Colors.white,
+                    ),
+                    label: const Text(
+                      "User Notebook",
+                      style: TextStyle(color: Colors.white),
+                    )),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 20),
+                ),
+                const Divider(
+                  color: Color(0xFF5950a0),
+                  thickness: 2,
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 5),
+                ),
+                TextButton.icon(
+                    onPressed: () {
+                      auth.signOut().then((value) => Navigator.pushReplacement(
+                              context, MaterialPageRoute(builder: (context) {
+                            return const HomeScreen();
+                          })));
+                    },
+                    icon: const Icon(
+                      Icons.logout,
+                      color: Colors.white,
+                    ),
+                    label: const Text(
+                      "logout",
+                      style: TextStyle(color: Colors.white),
+                    )),
               ],
-            )),
-        body: Container(
-            child: Column(children: [
-          Expanded(
-              child: SingleChildScrollView(
-                  child: Container(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Center(
-                      child: Text(
-                    "All Lessons",
-                    style: TextStyle(fontSize: 30, color: HexColor("#461482")),
-                  )),
+            ),
+          )),
+      homePageContent: Scaffold(
+          backgroundColor: Colors.amber.shade50,
+          appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(60),
+              child: AppBar(
+                title: Image.asset(
+                  "assets/logo.png",
+                  width: 110,
+                  height: 110,
+                  color: HexColor("#461482"),
                 ),
-              ]))))
-        ])));
+                automaticallyImplyLeading: false,
+                backgroundColor: Colors.amber.shade100,
+                iconTheme: IconThemeData(color: HexColor("#461482")),
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return UserScreen();
+                      }));
+                    },
+                    icon: Icon(Icons.person),
+                  ),
+                ],
+              )),
+          body: Container(
+              child: Column(children: [
+            Expanded(
+                child: SingleChildScrollView(
+                    child: Container(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Center(
+                        child: Text(
+                      "All Lessons",
+                      style:
+                          TextStyle(fontSize: 30, color: HexColor("#461482")),
+                    )),
+                  ),
+                ]))))
+          ]))),
+    );
   }
 }

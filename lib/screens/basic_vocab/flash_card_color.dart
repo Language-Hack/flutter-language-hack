@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hexcolor/hexcolor.dart';
-
 import 'package:language_hack/model/words.dart';
 import 'package:language_hack/screens/questions_list/questions_basic.dart';
 import 'package:language_hack/screens/quizPage.dart';
@@ -40,6 +39,8 @@ class Flash_Color extends StatefulWidget {
 
 class _Flash_ColorState extends State<Flash_Color> {
   final auth = FirebaseAuth.instance;
+
+  final name = 'color_score';
 
   Future<Null> insertList() async {
     await Firebase.initializeApp().then((value) async {
@@ -121,8 +122,6 @@ class MainContainer extends StatefulWidget {
   @override
   _MainContainerState createState() => _MainContainerState();
 }
-
-final name = 'color_score';
 
 class _MainContainerState extends State<MainContainer> {
   @override

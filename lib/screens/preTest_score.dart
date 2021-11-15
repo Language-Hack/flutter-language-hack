@@ -53,7 +53,7 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
             padding: const EdgeInsets.only(left: 20),
             child: Container(
                 width: MediaQuery.of(context).size.width * 0.92,
-                height: MediaQuery.of(context).size.height * 0.38,
+                height: MediaQuery.of(context).size.height * 0.5,
                 padding: EdgeInsets.only(top: 20, left: 20, right: 20),
                 decoration: BoxDecoration(
                     color: Colors.amber.shade100,
@@ -64,8 +64,10 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
                     Padding(padding: EdgeInsets.only(top: 15)),
                     Text(
                       "Pre-Test Result",
-                      style:
-                          TextStyle(color: HexColor("#461482"), fontSize: 40),
+                      style: TextStyle(
+                          color: HexColor("#461482"),
+                          fontSize:
+                              MediaQuery.of(context).textScaleFactor * 35),
                     ),
                     Padding(padding: EdgeInsets.only(top: 30)),
                     Row(
@@ -73,7 +75,10 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
                         Text(
                             "Your Score is: ${widget.score}/${widget.num_questions}",
                             style: TextStyle(
-                                color: HexColor("#461482"), fontSize: 25)),
+                                color: HexColor("#461482"),
+                                fontSize:
+                                    MediaQuery.of(context).textScaleFactor *
+                                        22)),
                         Padding(padding: EdgeInsets.only(top: 35)),
                       ],
                     ),
@@ -83,7 +88,9 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
                         Text(
                           "You know English ${level}",
                           style: TextStyle(
-                              color: HexColor("#461482"), fontSize: 25),
+                              color: HexColor("#461482"),
+                              fontSize:
+                                  MediaQuery.of(context).textScaleFactor * 22),
                         ),
                       ],
                     ),

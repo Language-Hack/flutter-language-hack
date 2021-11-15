@@ -1,98 +1,19 @@
 import 'dart:async';
-
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cherry_toast/resources/arrays.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:language_hack/screens/home.dart';
+import 'package:language_hack/model/words.dart';
 import 'package:language_hack/screens/questions_list/questions_basic.dart';
 import 'package:language_hack/screens/quizPage.dart';
+import 'package:language_hack/screens/user.dart';
+
 import 'package:language_hack/screens/welcome.dart';
-
-import '../user.dart';
-
-class Flash_Family extends StatefulWidget {
-  const Flash_Family({Key key}) : super(key: key);
-
-  @override
-  _Flash_FamilyState createState() => _Flash_FamilyState();
-}
-
-final List data = [
-  {
-    'color': Colors.red.shade200,
-    'word': "father",
-    'picture': "assets/Family/1.png",
-    'meaning': "พ่อ",
-    'example': "He is a good father."
-  },
-  {
-    'color': Colors.orange.shade200,
-    'word': "mother",
-    'picture': "assets/Family/2.png",
-    'meaning': "แม่",
-    'example': "She is the mother of three small children."
-  },
-  {
-    'color': Colors.yellow.shade200,
-    'word': "son",
-    'picture': "assets/Family/3.png",
-    'meaning': "ลูกชาย",
-    'example': "He is the only son in his family."
-  },
-  {
-    'color': Colors.green.shade200,
-    'word': "daughter",
-    'picture': "assets/Family/4.png",
-    'meaning': "ลูกสาว",
-    'example': "She is our cute daughter."
-  },
-  {
-    'color': Colors.blue.shade200,
-    'word': "brother",
-    'picture': "assets/Family/5.png",
-    'meaning': "พี่ชาย/น้องชาย",
-    'example': "My brother works in a bank."
-  },
-  {
-    'color': Colors.grey.shade200,
-    'word': "sister",
-    'picture': "assets/Family/6.png",
-    'meaning': "พี่สาว/น้องสาว",
-    'example': "My sister was a shy girl."
-  },
-  {
-    'color': Colors.grey.shade400,
-    'word': "grandfather",
-    'picture': "assets/Family/7.png",
-    'meaning': "ปู่",
-    'example': "My grandfather was a farmer."
-  },
-  {
-    'color': Colors.pink.shade200,
-    'word': "grandmother",
-    'picture': "assets/Family/8.png",
-    'meaning': "ย่า",
-    'example': "My grandmother is very healthy."
-  },
-  {
-    'color': Colors.brown.shade200,
-    'word': "uncle",
-    'picture': "assets/Family/9.png",
-    'meaning': "ลุง",
-    'example': "I have several uncles."
-  },
-  {
-    'color': Colors.purple.shade200,
-    'word': "aunt",
-    'picture': "assets/Family/10.png",
-    'meaning': "ป้า",
-    'example': "My aunt is older than my mother."
-  },
-];
 
 ////////// this is the speaking function in this flashcard ///////////
 final FlutterTts flutterTts = FlutterTts();
@@ -103,230 +24,106 @@ Future speak(String text) async {
   await flutterTts.speak(text);
 }
 
-List<Card> cards = [
-  Card(
-    data[0]['color'],
-    data[0]['word'],
-    data[0]['picture'],
-    data[0]['meaning'],
-    data[0]['example'],
-  ),
-  Card(
-    data[1]['color'],
-    data[1]['word'],
-    data[1]['picture'],
-    data[1]['meaning'],
-    data[1]['example'],
-  ),
-  Card(
-    data[2]['color'],
-    data[2]['word'],
-    data[2]['picture'],
-    data[2]['meaning'],
-    data[2]['example'],
-  ),
-  Card(
-    data[3]['color'],
-    data[3]['word'],
-    data[3]['picture'],
-    data[3]['meaning'],
-    data[3]['example'],
-  ),
-  Card(
-    data[4]['color'],
-    data[4]['word'],
-    data[4]['picture'],
-    data[4]['meaning'],
-    data[4]['example'],
-  ),
-  Card(
-    data[5]['color'],
-    data[5]['word'],
-    data[5]['picture'],
-    data[5]['meaning'],
-    data[5]['example'],
-  ),
-  Card(
-    data[6]['color'],
-    data[6]['word'],
-    data[6]['picture'],
-    data[6]['meaning'],
-    data[6]['example'],
-  ),
-  Card(
-    data[7]['color'],
-    data[7]['word'],
-    data[7]['picture'],
-    data[7]['meaning'],
-    data[7]['example'],
-  ),
-  Card(
-    data[8]['color'],
-    data[8]['word'],
-    data[8]['picture'],
-    data[8]['meaning'],
-    data[8]['example'],
-  ),
-  Card(
-    data[9]['color'],
-    data[9]['word'],
-    data[9]['picture'],
-    data[9]['meaning'],
-    data[9]['example'],
-  ),
-];
+List newData = [];
+List<Card> cards = [];
+List<Card> instant_cards = [];
 
-List<Card> instant_cards = [
-  Card(
-    data[0]['color'],
-    data[0]['word'],
-    data[0]['picture'],
-    data[0]['meaning'],
-    data[0]['example'],
-  ),
-  Card(
-    data[1]['color'],
-    data[1]['word'],
-    data[1]['picture'],
-    data[1]['meaning'],
-    data[1]['example'],
-  ),
-  Card(
-    data[2]['color'],
-    data[2]['word'],
-    data[2]['picture'],
-    data[2]['meaning'],
-    data[2]['example'],
-  ),
-  Card(
-    data[3]['color'],
-    data[3]['word'],
-    data[3]['picture'],
-    data[3]['meaning'],
-    data[3]['example'],
-  ),
-  Card(
-    data[4]['color'],
-    data[4]['word'],
-    data[4]['picture'],
-    data[4]['meaning'],
-    data[4]['example'],
-  ),
-  Card(
-    data[5]['color'],
-    data[5]['word'],
-    data[5]['picture'],
-    data[5]['meaning'],
-    data[5]['example'],
-  ),
-  Card(
-    data[6]['color'],
-    data[6]['word'],
-    data[6]['picture'],
-    data[6]['meaning'],
-    data[6]['example'],
-  ),
-  Card(
-    data[7]['color'],
-    data[7]['word'],
-    data[7]['picture'],
-    data[7]['meaning'],
-    data[7]['example'],
-  ),
-  Card(
-    data[8]['color'],
-    data[8]['word'],
-    data[8]['picture'],
-    data[8]['meaning'],
-    data[8]['example'],
-  ),
-  Card(
-    data[9]['color'],
-    data[9]['word'],
-    data[9]['picture'],
-    data[9]['meaning'],
-    data[9]['example'],
-  ),
-];
+class Flash_Family extends StatefulWidget {
+  const Flash_Family({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _Flash_FamilyState createState() => _Flash_FamilyState();
+}
 
 class _Flash_FamilyState extends State<Flash_Family> {
   final auth = FirebaseAuth.instance;
 
   final name = 'family_score';
 
-  List<Card> cards = [
-    Card(
-      data[0]['color'],
-      data[0]['word'],
-      data[0]['picture'],
-      data[0]['meaing'],
-      data[0]['example'],
-    ),
-    Card(
-      data[1]['color'],
-      data[1]['word'],
-      data[1]['picture'],
-      data[1]['meaing'],
-      data[1]['example'],
-    ),
-    Card(
-      data[2]['color'],
-      data[2]['word'],
-      data[2]['picture'],
-      data[2]['meaing'],
-      data[2]['example'],
-    ),
-    Card(
-      data[3]['color'],
-      data[3]['word'],
-      data[3]['picture'],
-      data[3]['meaing'],
-      data[3]['example'],
-    ),
-    Card(
-      data[4]['color'],
-      data[4]['word'],
-      data[4]['picture'],
-      data[4]['meaing'],
-      data[4]['example'],
-    ),
-    Card(
-      data[5]['color'],
-      data[5]['word'],
-      data[5]['picture'],
-      data[5]['meaing'],
-      data[5]['example'],
-    ),
-    Card(
-      data[6]['color'],
-      data[6]['word'],
-      data[6]['picture'],
-      data[6]['meaing'],
-      data[6]['example'],
-    ),
-    Card(
-      data[7]['color'],
-      data[7]['word'],
-      data[7]['picture'],
-      data[7]['meaing'],
-      data[7]['example'],
-    ),
-    Card(
-      data[8]['color'],
-      data[8]['word'],
-      data[8]['picture'],
-      data[8]['meaing'],
-      data[8]['example'],
-    ),
-    Card(
-      data[9]['color'],
-      data[9]['word'],
-      data[9]['picture'],
-      data[9]['meaing'],
-      data[9]['example'],
-    ),
-  ];
+  Future<Null> insertList() async {
+    await Firebase.initializeApp().then((value) async {
+      await FirebaseFirestore.instance
+          .collection('family')
+          .snapshots()
+          .listen((event) {
+        for (var snapshots in event.docs) {
+          Map<String, dynamic> map = snapshots.data();
+          newData.add(map);
+          print('newData: $newData');
+          Words model = Words.fromMap(map);
+        }
+        setState(() {
+          cards.insert(
+              0,
+              Card(newData[0]['word'], newData[0]['picture'],
+                  newData[0]['meaning'], newData[0]['example']));
+          cards.insert(
+              1,
+              Card(newData[1]['word'], newData[1]['picture'],
+                  newData[1]['meaning'], newData[1]['example']));
+          cards.insert(
+              2,
+              Card(newData[2]['word'], newData[2]['picture'],
+                  newData[2]['meaning'], newData[2]['example']));
+          cards.insert(
+              3,
+              Card(newData[3]['word'], newData[3]['picture'],
+                  newData[3]['meaning'], newData[3]['example']));
+          cards.insert(
+              4,
+              Card(newData[4]['word'], newData[4]['picture'],
+                  newData[4]['meaning'], newData[4]['example']));
+          cards.insert(
+              5,
+              Card(newData[5]['word'], newData[5]['picture'],
+                  newData[5]['meaning'], newData[5]['example']));
+          cards.insert(
+              6,
+              Card(newData[6]['word'], newData[6]['picture'],
+                  newData[6]['meaning'], newData[6]['example']));
+          cards.insert(
+              7,
+              Card(newData[7]['word'], newData[7]['picture'],
+                  newData[7]['meaning'], newData[7]['example']));
+          cards.insert(
+              8,
+              Card(newData[8]['word'], newData[8]['picture'],
+                  newData[8]['meaning'], newData[8]['example']));
+          cards.insert(
+              9,
+              Card(newData[9]['word'], newData[9]['picture'],
+                  newData[9]['meaning'], newData[9]['example']));
+          instant_cards.addAll(cards);
+          print(cards.length);
+        });
+      });
+    });
+  }
 
+  @override
+  void initState() {
+    super.initState();
+    insertList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: MainContainer(),
+    );
+  }
+}
+
+class MainContainer extends StatefulWidget {
+  const MainContainer({Key key}) : super(key: key);
+
+  @override
+  _MainContainerState createState() => _MainContainerState();
+}
+
+class _MainContainerState extends State<MainContainer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -343,19 +140,11 @@ class _Flash_FamilyState extends State<Flash_Family> {
       body: Center(
           child: Stack(
         children: [
-          ShowResult(),
+          const ShowResult(),
           Column(
             children: <Widget>[
               Padding(padding: EdgeInsets.only(top: 20)),
-              Container(
-                padding: EdgeInsets.only(top: 5),
-                width: MediaQuery.of(context).size.width * 0.9,
-                height: MediaQuery.of(context).size.height * 0.7,
-                // Important to keep as a stack to have overlay of cards.
-                child: Stack(
-                  children: cards,
-                ),
-              ),
+              Swipe(),
               Padding(padding: EdgeInsets.only(top: 15)),
             ],
           ),
@@ -462,29 +251,109 @@ Widget tryButton(context) {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (BuildContext context) => Flash_Family()));
+                builder: (BuildContext context) => MainContainer()));
       },
     ),
   );
 }
 
 Widget cancelButton(BuildContext context) {
-  return ElevatedButton(
-    style: ElevatedButton.styleFrom(shape: CircleBorder(), primary: Colors.red),
-    child: Container(
-        width: 70,
-        height: 70,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(shape: BoxShape.circle),
-        child: Image.asset("assets/rejected.png")),
-    onPressed: () {
-      cards.clear();
-      cards.addAll(instant_cards);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return WelcomeScreens();
-      }));
-    },
+  return Column(
+    children: [
+      ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            shape: CircleBorder(), primary: Colors.red),
+        child: Container(
+            width: 58,
+            height: 58,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(shape: BoxShape.circle),
+            child: Image.asset("assets/rejected.png")),
+        onPressed: () {
+          newData.clear();
+          cards.clear();
+          showExitDialog(context);
+          // Navigator.pushReplacement(context,
+          //     MaterialPageRoute(builder: (context) {
+          //   return WelcomeScreens();
+          // }));
+        },
+      ),
+      const Padding(padding: EdgeInsets.only(top: 5)),
+      Text("Exit")
+    ],
   );
+}
+
+Future<void> showExitDialog(BuildContext context) async {
+  return await showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          elevation: 0,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.3,
+            height: MediaQuery.of(context).size.height * 0.3,
+            decoration: BoxDecoration(
+                color: Colors.amber.shade100,
+                border: Border.all(color: Colors.black, width: 3.0),
+                borderRadius: BorderRadius.all(Radius.circular(16))),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "Do you want to end this lesson?",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const Padding(padding: EdgeInsets.only(top: 10)),
+                SizedBox(
+                  width: 130,
+                  height: 40,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                      onPrimary: Colors.red,
+                      side: BorderSide(width: 2, color: Colors.black),
+                    ),
+                    icon: Icon(Icons.check),
+                    label: Text("Yes", style: TextStyle(fontSize: 15)),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  WelcomeScreens()));
+                    },
+                  ),
+                ),
+                const Padding(padding: EdgeInsets.only(top: 10)),
+                SizedBox(
+                  width: 130,
+                  height: 40,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                      onPrimary: Colors.red,
+                      side: BorderSide(width: 2, color: Colors.black),
+                    ),
+                    icon: Icon(Icons.cancel),
+                    label: Text("No", style: TextStyle(fontSize: 15)),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  MainContainer()));
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      });
 }
 
 Widget swipeLeft() {
@@ -533,7 +402,6 @@ Widget showBottom(BuildContext context) {
 class Card extends StatelessWidget {
   // Made to distinguish cards
   // Add your own applicable data here
-  final Color color;
   String word = "";
   String picture;
   String example = "";
@@ -542,7 +410,6 @@ class Card extends StatelessWidget {
   String text = '';
 
   Card(
-    this.color,
     this.word,
     this.picture,
     this.meaning,
@@ -577,7 +444,7 @@ class Card extends StatelessWidget {
                   iconSize: 45,
                   color: HexColor("#461482")),
               const Padding(padding: EdgeInsets.only(top: 25)),
-              Image.asset(
+              Image.network(
                 picture,
                 height: MediaQuery.of(context).size.height * 0.2,
                 width: 100,
@@ -641,24 +508,13 @@ class Card extends StatelessWidget {
           themeColor: Colors.red,
           animationDuration: Duration(milliseconds: 500),
           toastDuration: Duration(milliseconds: 1000),
-          toastPosition: POSITION.BOTTOM,
+          toastPosition: POSITION.TOP,
           animationType: ANIMATION_TYPE.FROM_LEFT,
           autoDismiss: true,
         ).show(context);
-        cards.insert(
-            0,
-            Card(
-              this.color,
-              this.word,
-              this.picture,
-              this.meaning,
-              this.example,
-            ));
-        cards.removeLast();
         print("This is cards");
         print(cards);
       },
-      // onSwipeRight, left, up, down, cancel, etc...
     );
   }
 }
@@ -725,9 +581,31 @@ class _ShowResultState extends State<ShowResult> {
               ],
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.09),
           showBottom(context),
         ],
+      ),
+    );
+  }
+}
+
+class Swipe extends StatefulWidget {
+  const Swipe({Key key}) : super(key: key);
+
+  @override
+  _SwipeState createState() => _SwipeState();
+}
+
+class _SwipeState extends State<Swipe> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 5),
+      width: MediaQuery.of(context).size.width * 0.9,
+      height: MediaQuery.of(context).size.height * 0.7,
+      // Important to keep as a stack to have overlay of cards.
+      child: Stack(
+        children: cards,
       ),
     );
   }

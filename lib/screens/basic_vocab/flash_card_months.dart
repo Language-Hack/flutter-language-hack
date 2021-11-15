@@ -1,111 +1,19 @@
 import 'dart:async';
-
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cherry_toast/resources/arrays.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:language_hack/screens/home.dart';
+import 'package:language_hack/model/words.dart';
+import 'package:language_hack/screens/questions_list/questions_basic.dart';
+import 'package:language_hack/screens/quizPage.dart';
+import 'package:language_hack/screens/user.dart';
+
 import 'package:language_hack/screens/welcome.dart';
-
-import '../user.dart';
-import 'flash_card_adjectives.dart';
-
-class Flash_Months extends StatefulWidget {
-  const Flash_Months({Key key}) : super(key: key);
-
-  @override
-  _Flash_MonthsState createState() => _Flash_MonthsState();
-}
-
-final List data = [
-  {
-    'color': Colors.red.shade200,
-    'word': "January",
-    'picture': "assets/Months/1.png",
-    'meaning': "เดือนมกราคม",
-    'example': "I'm taking an exam in January."
-  },
-  {
-    'color': Colors.orange.shade200,
-    'word': "February",
-    'picture': "assets/Months/2.png",
-    'meaning': "เดือนกุมภาพันธ์",
-    'example': "In February it snows at least every three days."
-  },
-  {
-    'color': Colors.yellow.shade200,
-    'word': "March",
-    'picture': "assets/Months/3.png",
-    'meaning': "เดือนมีนาคม",
-    'example': "He finished school in March."
-  },
-  {
-    'color': Colors.green.shade200,
-    'word': "April",
-    'picture': "assets/Months/4.png",
-    'meaning': "เดือนเมษายน",
-    'example': "April is the fourth month of the year."
-  },
-  {
-    'color': Colors.blue.shade200,
-    'word': "May",
-    'picture': "assets/Months/5.png",
-    'meaning': "เดือนพฤษภาคม",
-    'example': "A general election will be held in May."
-  },
-  {
-    'color': Colors.grey.shade200,
-    'word': "June",
-    'picture': "assets/Months/6.png",
-    'meaning': "เดือนมิถุนายน",
-    'example': "He returned from England in June."
-  },
-  {
-    'color': Colors.grey.shade400,
-    'word': "July",
-    'picture': "assets/Months/7.png",
-    'meaning': "เดือนกรกฎาคม",
-    'example': "I come here every Fourth of July."
-  },
-  {
-    'color': Colors.pink.shade200,
-    'word': "August",
-    'picture': "assets/Months/8.png",
-    'meaning': "เดือนสิงหาคม",
-    'example': "His birthday is August 21."
-  },
-  {
-    'color': Colors.brown.shade200,
-    'word': "September",
-    'picture': "assets/Months/9.png",
-    'meaning': "เดือนกันยายน",
-    'example': "I'll be sixteen in September."
-  },
-  {
-    'color': Colors.purple.shade200,
-    'word': "October",
-    'picture': "assets/Months/10.png",
-    'meaning': "เดือนตุลาคม",
-    'example': "I was born on October 10, 1972."
-  },
-  {
-    'color': Colors.blue.shade200,
-    'word': "November",
-    'picture': "assets/Months/11.png",
-    'meaning': "เดือนพฤศจิกายน",
-    'example': "In Tokyo, the cold season starts in the middle of November."
-  },
-  {
-    'color': Colors.green.shade200,
-    'word': "December",
-    'picture': "assets/Months/12.png",
-    'meaning': "เดือนธันวาคม",
-    'example': "Christmas Day is December 25."
-  }
-];
 
 ////////// this is the speaking function in this flashcard ///////////
 final FlutterTts flutterTts = FlutterTts();
@@ -116,183 +24,113 @@ Future speak(String text) async {
   await flutterTts.speak(text);
 }
 
-List<Card> cards = [
-  Card(
-    data[0]['color'],
-    data[0]['word'],
-    data[0]['picture'],
-    data[0]['meaning'],
-    data[0]['example'],
-  ),
-  Card(
-    data[1]['color'],
-    data[1]['word'],
-    data[1]['picture'],
-    data[1]['meaning'],
-    data[1]['example'],
-  ),
-  Card(
-    data[2]['color'],
-    data[2]['word'],
-    data[2]['picture'],
-    data[2]['meaning'],
-    data[2]['example'],
-  ),
-  Card(
-    data[3]['color'],
-    data[3]['word'],
-    data[3]['picture'],
-    data[3]['meaning'],
-    data[3]['example'],
-  ),
-  Card(
-    data[4]['color'],
-    data[4]['word'],
-    data[4]['picture'],
-    data[4]['meaning'],
-    data[4]['example'],
-  ),
-  Card(
-    data[5]['color'],
-    data[5]['word'],
-    data[5]['picture'],
-    data[5]['meaning'],
-    data[5]['example'],
-  ),
-  Card(
-    data[6]['color'],
-    data[6]['word'],
-    data[6]['picture'],
-    data[6]['meaning'],
-    data[6]['example'],
-  ),
-  Card(
-    data[7]['color'],
-    data[7]['word'],
-    data[7]['picture'],
-    data[7]['meaning'],
-    data[7]['example'],
-  ),
-  Card(
-    data[8]['color'],
-    data[8]['word'],
-    data[8]['picture'],
-    data[8]['meaning'],
-    data[8]['example'],
-  ),
-  Card(
-    data[9]['color'],
-    data[9]['word'],
-    data[9]['picture'],
-    data[9]['meaning'],
-    data[9]['example'],
-  ),
-  Card(
-    data[10]['color'],
-    data[10]['word'],
-    data[10]['picture'],
-    data[10]['meaning'],
-    data[10]['example'],
-  ),
-  Card(
-    data[11]['color'],
-    data[11]['word'],
-    data[11]['picture'],
-    data[11]['meaning'],
-    data[11]['example'],
-  ),
-];
+List newData = [];
+List<Card> cards = [];
+List<Card> instant_cards = [];
 
-List<Card> instant_cards = [
-  Card(
-    data[0]['color'],
-    data[0]['word'],
-    data[0]['picture'],
-    data[0]['meaning'],
-    data[0]['example'],
-  ),
-  Card(
-    data[1]['color'],
-    data[1]['word'],
-    data[1]['picture'],
-    data[1]['meaning'],
-    data[1]['example'],
-  ),
-  Card(
-    data[2]['color'],
-    data[2]['word'],
-    data[2]['picture'],
-    data[2]['meaning'],
-    data[2]['example'],
-  ),
-  Card(
-    data[3]['color'],
-    data[3]['word'],
-    data[3]['picture'],
-    data[3]['meaning'],
-    data[3]['example'],
-  ),
-  Card(
-    data[4]['color'],
-    data[4]['word'],
-    data[4]['picture'],
-    data[4]['meaning'],
-    data[4]['example'],
-  ),
-  Card(
-    data[5]['color'],
-    data[5]['word'],
-    data[5]['picture'],
-    data[5]['meaning'],
-    data[5]['example'],
-  ),
-  Card(
-    data[6]['color'],
-    data[6]['word'],
-    data[6]['picture'],
-    data[6]['meaning'],
-    data[6]['example'],
-  ),
-  Card(
-    data[7]['color'],
-    data[7]['word'],
-    data[7]['picture'],
-    data[7]['meaning'],
-    data[7]['example'],
-  ),
-  Card(
-    data[8]['color'],
-    data[8]['word'],
-    data[8]['picture'],
-    data[8]['meaning'],
-    data[8]['example'],
-  ),
-  Card(
-    data[9]['color'],
-    data[9]['word'],
-    data[9]['picture'],
-    data[9]['meaning'],
-    data[9]['example'],
-  ),
-  Card(
-    data[10]['color'],
-    data[10]['word'],
-    data[10]['picture'],
-    data[10]['meaning'],
-    data[10]['example'],
-  ),
-  Card(
-    data[11]['color'],
-    data[11]['word'],
-    data[11]['picture'],
-    data[11]['meaning'],
-    data[11]['example'],
-  ),
-];
+class Flash_Months extends StatefulWidget {
+  const Flash_Months({Key key}) : super(key: key);
+
+  @override
+  _Flash_MonthsState createState() => _Flash_MonthsState();
+}
 
 class _Flash_MonthsState extends State<Flash_Months> {
   final auth = FirebaseAuth.instance;
 
+  final name = 'months_score';
+
+  Future<Null> insertList() async {
+    await Firebase.initializeApp().then((value) async {
+      await FirebaseFirestore.instance
+          .collection('month')
+          .snapshots()
+          .listen((event) {
+        for (var snapshots in event.docs) {
+          Map<String, dynamic> map = snapshots.data();
+          newData.add(map);
+          print('newData: $newData');
+          Words model = Words.fromMap(map);
+        }
+        setState(() {
+          cards.insert(
+              0,
+              Card(newData[0]['word'], newData[0]['picture'],
+                  newData[0]['meaning'], newData[0]['example']));
+          cards.insert(
+              1,
+              Card(newData[1]['word'], newData[1]['picture'],
+                  newData[1]['meaning'], newData[1]['example']));
+          cards.insert(
+              2,
+              Card(newData[2]['word'], newData[2]['picture'],
+                  newData[2]['meaning'], newData[2]['example']));
+          cards.insert(
+              3,
+              Card(newData[3]['word'], newData[3]['picture'],
+                  newData[3]['meaning'], newData[3]['example']));
+          cards.insert(
+              4,
+              Card(newData[4]['word'], newData[4]['picture'],
+                  newData[4]['meaning'], newData[4]['example']));
+          cards.insert(
+              5,
+              Card(newData[5]['word'], newData[5]['picture'],
+                  newData[5]['meaning'], newData[5]['example']));
+          cards.insert(
+              6,
+              Card(newData[6]['word'], newData[6]['picture'],
+                  newData[6]['meaning'], newData[6]['example']));
+          cards.insert(
+              7,
+              Card(newData[7]['word'], newData[7]['picture'],
+                  newData[7]['meaning'], newData[7]['example']));
+          cards.insert(
+              8,
+              Card(newData[8]['word'], newData[8]['picture'],
+                  newData[8]['meaning'], newData[8]['example']));
+          cards.insert(
+              9,
+              Card(newData[9]['word'], newData[9]['picture'],
+                  newData[9]['meaning'], newData[9]['example']));
+          cards.insert(
+              10,
+              Card(newData[10]['word'], newData[10]['picture'],
+                  newData[10]['meaning'], newData[10]['example']));
+          cards.insert(
+              11,
+              Card(newData[11]['word'], newData[11]['picture'],
+                  newData[11]['meaning'], newData[11]['example']));
+
+          instant_cards.addAll(cards);
+          print(cards.length);
+        });
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    insertList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: MainContainer(),
+    );
+  }
+}
+
+class MainContainer extends StatefulWidget {
+  const MainContainer({Key key}) : super(key: key);
+
+  @override
+  _MainContainerState createState() => _MainContainerState();
+}
+
+class _MainContainerState extends State<MainContainer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -309,19 +147,11 @@ class _Flash_MonthsState extends State<Flash_Months> {
       body: Center(
           child: Stack(
         children: [
-          ShowResult(),
+          const ShowResult(),
           Column(
             children: <Widget>[
               Padding(padding: EdgeInsets.only(top: 20)),
-              Container(
-                padding: EdgeInsets.only(top: 5),
-                width: MediaQuery.of(context).size.width * 0.9,
-                height: MediaQuery.of(context).size.height * 0.7,
-                // Important to keep as a stack to have overlay of cards.
-                child: Stack(
-                  children: cards,
-                ),
-              ),
+              Swipe(),
               Padding(padding: EdgeInsets.only(top: 15)),
             ],
           ),
@@ -428,29 +258,109 @@ Widget tryButton(context) {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (BuildContext context) => Flash_Months()));
+                builder: (BuildContext context) => MainContainer()));
       },
     ),
   );
 }
 
 Widget cancelButton(BuildContext context) {
-  return ElevatedButton(
-    style: ElevatedButton.styleFrom(shape: CircleBorder(), primary: Colors.red),
-    child: Container(
-        width: 70,
-        height: 70,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(shape: BoxShape.circle),
-        child: Image.asset("assets/rejected.png")),
-    onPressed: () {
-      cards.clear();
-      cards.addAll(instant_cards);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return WelcomeScreens();
-      }));
-    },
+  return Column(
+    children: [
+      ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            shape: CircleBorder(), primary: Colors.red),
+        child: Container(
+            width: 58,
+            height: 58,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(shape: BoxShape.circle),
+            child: Image.asset("assets/rejected.png")),
+        onPressed: () {
+          newData.clear();
+          cards.clear();
+          showExitDialog(context);
+          // Navigator.pushReplacement(context,
+          //     MaterialPageRoute(builder: (context) {
+          //   return WelcomeScreens();
+          // }));
+        },
+      ),
+      const Padding(padding: EdgeInsets.only(top: 5)),
+      Text("Exit")
+    ],
   );
+}
+
+Future<void> showExitDialog(BuildContext context) async {
+  return await showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          elevation: 0,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.3,
+            height: MediaQuery.of(context).size.height * 0.3,
+            decoration: BoxDecoration(
+                color: Colors.amber.shade100,
+                border: Border.all(color: Colors.black, width: 3.0),
+                borderRadius: BorderRadius.all(Radius.circular(16))),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "Do you want to end this lesson?",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const Padding(padding: EdgeInsets.only(top: 10)),
+                SizedBox(
+                  width: 130,
+                  height: 40,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                      onPrimary: Colors.red,
+                      side: BorderSide(width: 2, color: Colors.black),
+                    ),
+                    icon: Icon(Icons.check),
+                    label: Text("Yes", style: TextStyle(fontSize: 15)),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  WelcomeScreens()));
+                    },
+                  ),
+                ),
+                const Padding(padding: EdgeInsets.only(top: 10)),
+                SizedBox(
+                  width: 130,
+                  height: 40,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                      onPrimary: Colors.red,
+                      side: BorderSide(width: 2, color: Colors.black),
+                    ),
+                    icon: Icon(Icons.cancel),
+                    label: Text("No", style: TextStyle(fontSize: 15)),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  MainContainer()));
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      });
 }
 
 Widget swipeLeft() {
@@ -499,7 +409,6 @@ Widget showBottom(BuildContext context) {
 class Card extends StatelessWidget {
   // Made to distinguish cards
   // Add your own applicable data here
-  final Color color;
   String word = "";
   String picture;
   String example = "";
@@ -508,7 +417,6 @@ class Card extends StatelessWidget {
   String text = '';
 
   Card(
-    this.color,
     this.word,
     this.picture,
     this.meaning,
@@ -543,7 +451,7 @@ class Card extends StatelessWidget {
                   iconSize: 45,
                   color: HexColor("#461482")),
               const Padding(padding: EdgeInsets.only(top: 25)),
-              Image.asset(
+              Image.network(
                 picture,
                 height: MediaQuery.of(context).size.height * 0.2,
                 width: 100,
@@ -607,24 +515,13 @@ class Card extends StatelessWidget {
           themeColor: Colors.red,
           animationDuration: Duration(milliseconds: 500),
           toastDuration: Duration(milliseconds: 1000),
-          toastPosition: POSITION.BOTTOM,
+          toastPosition: POSITION.TOP,
           animationType: ANIMATION_TYPE.FROM_LEFT,
           autoDismiss: true,
         ).show(context);
-        cards.insert(
-            0,
-            Card(
-              this.color,
-              this.word,
-              this.picture,
-              this.meaning,
-              this.example,
-            ));
-        cards.removeLast();
         print("This is cards");
         print(cards);
       },
-      // onSwipeRight, left, up, down, cancel, etc...
     );
   }
 }
@@ -691,9 +588,31 @@ class _ShowResultState extends State<ShowResult> {
               ],
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.09),
           showBottom(context),
         ],
+      ),
+    );
+  }
+}
+
+class Swipe extends StatefulWidget {
+  const Swipe({Key key}) : super(key: key);
+
+  @override
+  _SwipeState createState() => _SwipeState();
+}
+
+class _SwipeState extends State<Swipe> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 5),
+      width: MediaQuery.of(context).size.width * 0.9,
+      height: MediaQuery.of(context).size.height * 0.7,
+      // Important to keep as a stack to have overlay of cards.
+      child: Stack(
+        children: cards,
       ),
     );
   }
