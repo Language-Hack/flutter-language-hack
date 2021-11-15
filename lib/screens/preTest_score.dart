@@ -22,13 +22,11 @@ class PreTestScoreScreen extends StatefulWidget {
 
 class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
   final auth = FirebaseAuth.instance;
-  final formKey = GlobalKey<FormState>();
   String level = '';
 
   @override
   void initState() {
     super.initState();
-    // evaluateScore();
     evaluatelevel();
   }
 
@@ -39,8 +37,8 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: AppBar(
-            title: Image.asset(
-              "assets/logo.png",
+            title: Image.network(
+              "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2Flogo.png?alt=media&token=75cfc4fa-1400-43ed-96d5-2b85ad733971",
               width: 110,
               height: 110,
             ),
@@ -82,34 +80,25 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
                     Padding(padding: EdgeInsets.only(top: 35)),
                     Row(
                       children: [
-                        // Text(
-                        //   "Your level is: ${level}",
-                        //   style: TextStyle(
-                        //       color: HexColor("#461482"), fontSize: 20),
-                        // ),
                         Text(
                           "You know English ${level}",
                           style: TextStyle(
                               color: HexColor("#461482"), fontSize: 25),
                         ),
-                        // Text(
-                        //   "We will adjust the lesson according to your level.",
-                        //   style: TextStyle(
-                        //       color: HexColor("#461482"), fontSize: 20),
-                        // ),
                       ],
                     ),
-                    // Row(
-                    //   children: [
-                    //     Text(
-                    //       "We will adjust the lesson that suit your level",
-                    //       style: TextStyle(
-                    //           color: HexColor("#461482"), fontSize: 18),
-                    //     ),
-                    //   ],
-                    // ),
                     Padding(padding: EdgeInsets.only(top: 20)),
                     Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 2, color: Colors.black),
+                        boxShadow: [
+                          BoxShadow(
+                            color: HexColor("#461482"),
+                            blurRadius: 4,
+                            offset: Offset(3, 5),
+                          ),
+                        ],
+                      ),
                       margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                       child: SizedBox(
                         height: 60,
@@ -137,23 +126,13 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
     );
   }
 
-  void evaluateScore() {
-    if (widget.score > 4) {
-      level = "Advance";
-    } else if (widget.score > 2 && widget.score < 4) {
-      level = "Intermidiate";
-    } else {
-      level = "Basic";
-    }
-  }
-
   void evaluatelevel() {
-    if (widget.score > 4) {
-      level = "very well";
-    } else if (widget.score > 2 && widget.score < 4) {
+    if (widget.score <= 4) {
+      level = "a little bit";
+    } else if (widget.score > 4 && widget.score <= 8) {
       level = "great";
     } else {
-      level = "a little bit";
+      level = "very well";
     }
   }
 }

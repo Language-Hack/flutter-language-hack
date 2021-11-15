@@ -119,10 +119,10 @@ class _FlashCard01State extends State<FlashCard01> {
                     side: BorderSide(color: Colors.white),
                     alignment: Alignment.centerLeft),
                 onPressed: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return WelcomeScreens();
-                  }));
+                  // Navigator.pushReplacement(context,
+                  //     MaterialPageRoute(builder: (context) {
+                  //   return WelcomeScreens();
+                  // }));
                 },
                 icon: Icon(Icons.card_membership),
                 label: const Text(

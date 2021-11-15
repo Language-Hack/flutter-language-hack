@@ -25,9 +25,12 @@ class HomeScreen extends StatelessWidget {
                   height: 60,
                   child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      onPrimary: HexColor("#461482"),
-                      side: BorderSide(width: 2, color: HexColor("#461482")),
+                      primary: HexColor("#461482"),
+                      onPrimary: Colors.white,
+                      side: BorderSide(width: 2, color: Colors.black),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
                     ),
                     icon: Icon(Icons.login),
                     label: Text("Login", style: TextStyle(fontSize: 20)),
@@ -45,9 +48,13 @@ class HomeScreen extends StatelessWidget {
                   height: 60,
                   child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                        primary: HexColor("#461482"),
-                        onPrimary: Colors.white,
-                        side: BorderSide(width: 2, color: Colors.black)),
+                      primary: Colors.white,
+                      onPrimary: HexColor("#461482"),
+                      side: BorderSide(width: 2, color: HexColor("#461482")),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
                     icon: Icon(Icons.app_registration),
                     label: Text("Register", style: TextStyle(fontSize: 20)),
                     onPressed: () {

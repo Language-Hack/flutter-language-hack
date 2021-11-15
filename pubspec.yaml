@@ -62,6 +62,10 @@ dependencies:
 
   shared_preferences: ^2.0.8
 
+  animated_text_kit: ^4.2.1
+
+  percent_indicator: ^3.4.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

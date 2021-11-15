@@ -267,8 +267,8 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
             PreferredSize(
                 preferredSize: const Size.fromHeight(60),
                 child: AppBar(
-                  title: Image.asset(
-                    "assets/logo.png",
+                  title: Image.network(
+                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2Flogo.png?alt=media&token=75cfc4fa-1400-43ed-96d5-2b85ad733971",
                     width: 110,
                     height: 110,
                   ),
@@ -283,26 +283,26 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
             padding: EdgeInsets.zero,
             children: [
               DrawerHeader(
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage("assets/bg.png"))),
+                  // decoration: const BoxDecoration(
+                  //     image: DecorationImage(
+                  //         fit: BoxFit.fill,
+                  //         image: AssetImage("assets/bg.png"))),
                   child: Stack(children: <Widget>[
-                    const Positioned(
-                      bottom: 40.0,
-                      child: Text("Welcome!",
-                          style: TextStyle(
-                              fontSize: 20.0, fontWeight: FontWeight.bold)),
-                    ),
-                    Positioned(
-                      bottom: 12.0,
-                      child: Text(
-                        auth.currentUser!.displayName.toString(),
-                        style: const TextStyle(
-                            fontSize: 20.0, fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ])),
+                const Positioned(
+                  bottom: 40.0,
+                  child: Text("Welcome!",
+                      style: TextStyle(
+                          fontSize: 20.0, fontWeight: FontWeight.bold)),
+                ),
+                Positioned(
+                  bottom: 12.0,
+                  child: Text(
+                    auth.currentUser!.displayName.toString(),
+                    style: const TextStyle(
+                        fontSize: 20.0, fontWeight: FontWeight.bold),
+                  ),
+                )
+              ])),
               ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                       fixedSize: Size(20, 60),
@@ -330,10 +330,10 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                       side: BorderSide(color: Colors.white),
                       alignment: Alignment.centerLeft),
                   onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) {
-                      return WelcomeScreens();
-                    }));
+                    // Navigator.pushReplacement(context,
+                    //     MaterialPageRoute(builder: (context) {
+                    //   return WelcomeScreens();
+                    // }));
                   },
                   icon: Icon(Icons.dashboard),
                   label: const Text(

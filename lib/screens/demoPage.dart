@@ -1,11 +1,14 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:language_hack/model/userScores.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_adjectives.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_color.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_countries.dart';
@@ -20,6 +23,7 @@ import 'package:language_hack/screens/createFlashcard.dart';
 import 'package:language_hack/screens/flashcard01.dart';
 import 'package:language_hack/screens/home.dart';
 import 'package:language_hack/screens/user.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -91,12 +95,12 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 20, left: 20),
+                      margin: EdgeInsets.only(top: 20, left: 10),
                       child: Text(
-                        "Choose what to learn today?",
+                        "Find your favorite course here",
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                            fontSize: 24,
+                            fontSize: 27,
                             color: HexColor("#461482"),
                             fontWeight: FontWeight.bold),
                       ),
@@ -111,7 +115,7 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                               boxShadow: [
                                 BoxShadow(
                                   color: HexColor("#461482"),
-                                  blurRadius: 4,
+                                  blurRadius: 3,
                                   offset: Offset(3, 5),
                                 ),
                               ],
@@ -143,8 +147,8 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                                     children: <Widget>[
                                       Image.network(
                                         "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/WelcomePage%2Fnotebook.png?alt=media&token=351bc3c1-8356-4ed0-85cd-b50e6276b244",
-                                        width: 10,
-                                        height: 80,
+                                        width: 30,
+                                        height: 90,
                                       ),
                                       const Padding(
                                           padding: EdgeInsets.only(top: 10)),
@@ -169,7 +173,7 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                               boxShadow: [
                                 BoxShadow(
                                   color: HexColor("#461482"),
-                                  blurRadius: 4,
+                                  blurRadius: 3,
                                   offset: Offset(3, 5),
                                 ),
                               ],
@@ -201,13 +205,13 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                                     children: <Widget>[
                                       Image.network(
                                         "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/WelcomePage%2FallLessons.png?alt=media&token=ca157928-c2c0-4370-9886-61b7717cc9f2",
-                                        width: 10,
-                                        height: 80,
+                                        width: 30,
+                                        height: 95,
                                       ),
                                       const Padding(
                                           padding: EdgeInsets.only(top: 10)),
                                       Text(
-                                        "Lesson",
+                                        "All Lessons",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 20,
@@ -225,12 +229,114 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 20, left: 20),
+                      margin: EdgeInsets.only(top: 15, left: 10),
+                      child: Text(
+                        "Overall Completion",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: 27,
+                            color: HexColor("#461482"),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15, top: 20),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: Center(
+                              child: CircularPercentIndicator(
+                                center: Text(
+                                  "0 %",
+                                  style: new TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30.0,
+                                      color: Colors.green),
+                                ),
+                                percent: 0,
+                                radius: 120,
+                                backgroundColor: Colors.grey,
+                                circularStrokeCap: CircularStrokeCap.butt,
+                                lineWidth: 10,
+                                progressColor: Colors.green,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: Center(
+                              child: CircularPercentIndicator(
+                                center: Text(
+                                  "0 %",
+                                  style: new TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30.0,
+                                      color: Colors.green),
+                                ),
+                                percent: 0,
+                                radius: 120,
+                                backgroundColor: Colors.grey,
+                                circularStrokeCap: CircularStrokeCap.butt,
+                                lineWidth: 10,
+                                progressColor: Colors.green,
+                              ),
+                            ),
+                          ),
+                          Center(
+                            child: CircularPercentIndicator(
+                              center: Text(
+                                "0 %",
+                                style: new TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 30.0,
+                                    color: Colors.green),
+                              ),
+                              percent: 0,
+                              radius: 120,
+                              backgroundColor: Colors.grey,
+                              circularStrokeCap: CircularStrokeCap.butt,
+                              lineWidth: 10,
+                              progressColor: Colors.green,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15, top: 15),
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 40),
+                        ),
+                        Text(
+                          "Basic",
+                          style: TextStyle(
+                              fontSize: 25, color: HexColor("#461482")),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 44),
+                        ),
+                        Text("Intermidiate",
+                            style: TextStyle(
+                                fontSize: 25, color: HexColor("#461482"))),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 19),
+                        ),
+                        Text("Advance",
+                            style: TextStyle(
+                                fontSize: 25, color: HexColor("#461482")))
+                      ],
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 10),
                       child: Text(
                         "Recommended Lesson",
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                            fontSize: 24,
+                            fontSize: 27,
                             color: HexColor("#461482"),
                             fontWeight: FontWeight.bold),
                       ),
@@ -242,15 +348,27 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Container(
+                                decoration: BoxDecoration(
+                                  border:
+                                      Border.all(width: 2, color: Colors.black),
+                                  borderRadius: BorderRadius.circular(25),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: HexColor("#461482"),
+                                      blurRadius: 3,
+                                      offset: Offset(3, 5),
+                                    ),
+                                  ],
+                                ),
                                 margin:
-                                    const EdgeInsets.fromLTRB(30, 20, 30, 5),
+                                    const EdgeInsets.fromLTRB(20, 20, 30, 5),
                                 child: Container(
                                   decoration: BoxDecoration(
                                       border: Border.all(
                                           width: 2, color: Colors.black),
                                       borderRadius: BorderRadius.circular(20)),
-                                  width: 100,
-                                  height: 150,
+                                  width: 110,
+                                  height: 110,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       primary: Colors.white,
@@ -267,13 +385,13 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                                     },
                                     child: Row(
                                       children: <Widget>[
-                                        Image.asset(
-                                          "assets/colors.png",
-                                          width: 130,
-                                          height: 130,
+                                        Image.network(
+                                          "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Fcolors.png?alt=media&token=bede6c51-1b49-439c-8eb0-5017ce97471a",
+                                          width: 80,
+                                          height: 80,
                                         ),
                                         Padding(
-                                            padding: EdgeInsets.only(top: 50)),
+                                            padding: EdgeInsets.only(top: 30)),
                                         Padding(
                                           padding:
                                               const EdgeInsets.only(left: 20),
@@ -291,15 +409,27 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                                 ),
                               ),
                               Container(
+                                decoration: BoxDecoration(
+                                  border:
+                                      Border.all(width: 2, color: Colors.black),
+                                  borderRadius: BorderRadius.circular(25),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: HexColor("#461482"),
+                                      blurRadius: 3,
+                                      offset: Offset(3, 5),
+                                    ),
+                                  ],
+                                ),
                                 margin:
-                                    const EdgeInsets.fromLTRB(30, 20, 30, 5),
+                                    const EdgeInsets.fromLTRB(20, 10, 30, 5),
                                 child: Container(
                                   decoration: BoxDecoration(
                                       border: Border.all(
                                           width: 2, color: Colors.black),
                                       borderRadius: BorderRadius.circular(20)),
-                                  width: 100,
-                                  height: 150,
+                                  width: 110,
+                                  height: 110,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       primary: Colors.white,
@@ -316,10 +446,10 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                                     },
                                     child: Row(
                                       children: <Widget>[
-                                        Image.asset(
-                                          "assets/fruits.png",
-                                          width: 130,
-                                          height: 130,
+                                        Image.network(
+                                          "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Ffruits.png?alt=media&token=548254ec-fbf7-428d-aa57-a1b23beacf56",
+                                          width: 80,
+                                          height: 80,
                                         ),
                                         Padding(
                                             padding: EdgeInsets.only(top: 50)),
@@ -334,73 +464,6 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                                             ),
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                margin:
-                                    const EdgeInsets.fromLTRB(30, 20, 30, 5),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          width: 2, color: Colors.black),
-                                      borderRadius: BorderRadius.circular(20)),
-                                  width: 100,
-                                  height: 150,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: Colors.white,
-                                      onPrimary: Colors.black,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pushReplacement(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return Flash_Family();
-                                      }));
-                                    },
-                                    child: Row(
-                                      children: <Widget>[
-                                        Image.asset(
-                                          "assets/family.png",
-                                          width: 130,
-                                          height: 130,
-                                        ),
-                                        Column(
-                                          children: [
-                                            const Padding(
-                                                padding:
-                                                    EdgeInsets.only(top: 50)),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 20),
-                                              child: Text(
-                                                "Family Member",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 18,
-                                                  color: HexColor("#461482"),
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 20, top: 10),
-                                              child: Text(
-                                                "(Basic)",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 18,
-                                                  color: HexColor("#461482"),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        )
                                       ],
                                     ),
                                   ),
