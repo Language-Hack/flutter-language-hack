@@ -19,7 +19,7 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
   final auth = FirebaseAuth.instance;
 
   // Page Control
-  PageController? _controller = PageController(initialPage: 0);
+  PageController _controller = PageController(initialPage: 0);
   bool isPressed = false;
   int score = 0;
   String status = '';
@@ -87,7 +87,7 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            questions[index].instruction!,
+                            questions[index].instruction,
                             style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
@@ -96,14 +96,12 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                         ),
                         Padding(padding: EdgeInsets.only(top: 25)),
                         Text(
-                          questions[index].question!,
+                          questions[index].question,
                           style: TextStyle(
                               fontSize: 32, color: HexColor("#461482")),
                         ),
                         Padding(padding: EdgeInsets.only(top: 15)),
-                        for (int i = 0;
-                            i < questions[index].answer!.length;
-                            i++)
+                        for (int i = 0; i < questions[index].answer.length; i++)
                           Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Container(
@@ -126,7 +124,7 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                                       MediaQuery.of(context).size.height * 0.07,
                                   color: isPressed
                                       ? questions[index]
-                                              .answer!
+                                              .answer
                                               .entries
                                               .toList()[i]
                                               .value
@@ -140,7 +138,7 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                                             isPressed = true;
                                           });
                                           if (questions[index]
-                                              .answer!
+                                              .answer
                                               .entries
                                               .toList()[i]
                                               .value) {
@@ -154,7 +152,7 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                                         },
                                   shape: StadiumBorder(),
                                   child: Text(
-                                    questions[index].answer!.keys.toList()[i],
+                                    questions[index].answer.keys.toList()[i],
                                     style: TextStyle(
                                         fontSize: 20, color: Colors.black),
                                   )),
@@ -216,7 +214,7 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                                               }));
                                             }
                                           : () {
-                                              _controller!.nextPage(
+                                              _controller.nextPage(
                                                   duration: Duration(
                                                       milliseconds: 100),
                                                   curve: Curves.linear);

@@ -12,7 +12,7 @@ import 'package:language_hack/screens/welcome.dart';
 class DisplayScoreScreen extends StatefulWidget {
   final int score;
   final int num_questions;
-  const DisplayScoreScreen(this.score, this.num_questions, {Key? key})
+  const DisplayScoreScreen(this.score, this.num_questions, {Key key})
       : super(key: key);
 
   @override

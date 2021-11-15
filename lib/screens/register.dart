@@ -87,13 +87,11 @@ class _RegisterScreensState extends State<RegisterScreens> {
                                 : Text("CREATE ACCOUNT",
                                     style: TextStyle(fontSize: 20)),
                             onPressed: () async {
-
                               setState(() {
                                 isLoading = !isLoading;
                               });
 
-                              if (formKey.currentState!.validate()) {
-
+                              if (formKey.currentState.validate()) {
                                 formKey.currentState?.save();
                                 try {
                                   await register(context);

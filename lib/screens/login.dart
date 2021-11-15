@@ -83,13 +83,11 @@ class _LoginScreensState extends State<LoginScreens> {
                                 : Text("LOG IN",
                                     style: TextStyle(fontSize: 20)),
                             onPressed: () async {
-
                               setState(() {
                                 isLoading = !isLoading;
                               });
 
-                              if (formKey.currentState!.validate()) {
-
+                              if (formKey.currentState.validate()) {
                                 formKey.currentState?.save();
                                 try {
                                   await login(context);

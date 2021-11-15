@@ -12,7 +12,7 @@ import 'package:language_hack/screens/quizScore.dart';
 class QuizScreen extends StatefulWidget {
   final List<Quiz> _questions;
   final String name;
-  QuizScreen(this._questions, this.name, {Key? key}) : super(key: key);
+  QuizScreen(this._questions, this.name, {Key key}) : super(key: key);
 
   @override
   _QuizScreenScreenState createState() => _QuizScreenScreenState();
@@ -22,7 +22,7 @@ class _QuizScreenScreenState extends State<QuizScreen> {
   final auth = FirebaseAuth.instance;
 
   // Page Control
-  PageController? _controller = PageController(initialPage: 0);
+  PageController _controller = PageController(initialPage: 0);
   bool isPressed = false;
   int score = 0;
   String status = '';
@@ -90,7 +90,7 @@ class _QuizScreenScreenState extends State<QuizScreen> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            widget._questions[index].instruction!,
+                            widget._questions[index].instruction,
                             style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
@@ -99,13 +99,13 @@ class _QuizScreenScreenState extends State<QuizScreen> {
                         ),
                         Padding(padding: EdgeInsets.only(top: 25)),
                         Text(
-                          widget._questions[index].question!,
+                          widget._questions[index].question,
                           style: TextStyle(
                               fontSize: 32, color: HexColor("#461482")),
                         ),
                         Padding(padding: EdgeInsets.only(top: 15)),
                         for (int i = 0;
-                            i < widget._questions[index].answer!.length;
+                            i < widget._questions[index].answer.length;
                             i++)
                           Padding(
                             padding: const EdgeInsets.all(12.0),
@@ -128,7 +128,7 @@ class _QuizScreenScreenState extends State<QuizScreen> {
                                   height:
                                       MediaQuery.of(context).size.height * 0.07,
                                   color: isPressed
-                                      ? widget._questions[index].answer!.entries
+                                      ? widget._questions[index].answer.entries
                                               .toList()[i]
                                               .value
                                           ? isCorrect
@@ -141,7 +141,7 @@ class _QuizScreenScreenState extends State<QuizScreen> {
                                             isPressed = true;
                                           });
                                           if (widget
-                                              ._questions[index].answer!.entries
+                                              ._questions[index].answer.entries
                                               .toList()[i]
                                               .value) {
                                             setState(() {
@@ -154,7 +154,7 @@ class _QuizScreenScreenState extends State<QuizScreen> {
                                         },
                                   shape: StadiumBorder(),
                                   child: Text(
-                                    widget._questions[index].answer!.keys
+                                    widget._questions[index].answer.keys
                                         .toList()[i],
                                     style: TextStyle(
                                         fontSize: 20, color: Colors.black),
@@ -219,7 +219,7 @@ class _QuizScreenScreenState extends State<QuizScreen> {
                                               }));
                                             }
                                           : () {
-                                              _controller!.nextPage(
+                                              _controller.nextPage(
                                                   duration: Duration(
                                                       milliseconds: 100),
                                                   curve: Curves.linear);

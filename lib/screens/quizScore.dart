@@ -20,7 +20,7 @@ class QuizScoreScreen extends StatefulWidget {
   final int score;
   final int num_questions;
   final String name;
-  const QuizScoreScreen(this.score, this.num_questions, this.name, {Key? key})
+  const QuizScoreScreen(this.score, this.num_questions, this.name, {Key key})
       : super(key: key);
 
   @override
@@ -69,8 +69,7 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection("scores")
         .where("owner",
-            isEqualTo:
-                FirebaseAuth.instance.currentUser!.displayName.toString())
+            isEqualTo: FirebaseAuth.instance.currentUser.displayName.toString())
         .get();
     for (int i = 0; i < querySnapshot.docs.length; i++) {
       var a = querySnapshot.docs[i];
@@ -106,7 +105,7 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
           .collection("scores")
           .where("owner",
               isEqualTo:
-                  FirebaseAuth.instance.currentUser!.displayName.toString())
+                  FirebaseAuth.instance.currentUser.displayName.toString())
           .snapshots()
           .listen((event) {
         for (var snapshorts in event.docs) {

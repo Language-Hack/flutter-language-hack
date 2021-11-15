@@ -13,7 +13,7 @@ import 'package:language_hack/screens/welcome.dart';
 class PreTestScoreScreen extends StatefulWidget {
   final int score;
   final int num_questions;
-  const PreTestScoreScreen(this.score, this.num_questions, {Key? key})
+  const PreTestScoreScreen(this.score, this.num_questions, {Key key})
       : super(key: key);
 
   @override

@@ -1,7 +1,7 @@
 import 'package:language_hack/model/quiz.dart';
 import 'package:language_hack/screens/questions_list/questions_method.dart';
 
-Map<String, bool>? option;
+Map<String, bool> option;
 
 List<Quiz> environment = [
   randomQuestions("สูญพันธุ์", "Extinct", "Extinct (สูญพันธุ์)"),
