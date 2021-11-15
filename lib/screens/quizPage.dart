@@ -6,16 +6,19 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:language_hack/model/quiz.dart';
 import 'package:language_hack/screens/preTest_score.dart';
-import 'package:language_hack/screens/questions_list/questions_preTest.dart';
+import 'package:language_hack/screens/questions_list/questions_basic.dart';
+import 'package:language_hack/screens/quizScore.dart';
 
-class TestUserLevelScreen extends StatefulWidget {
-  const TestUserLevelScreen({Key? key}) : super(key: key);
+class QuizScreen extends StatefulWidget {
+  final List<Quiz> _questions;
+  final String name;
+  QuizScreen(this._questions, this.name, {Key? key}) : super(key: key);
 
   @override
-  _TestUserLevelScreenState createState() => _TestUserLevelScreenState();
+  _QuizScreenScreenState createState() => _QuizScreenScreenState();
 }
 
-class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
+class _QuizScreenScreenState extends State<QuizScreen> {
   final auth = FirebaseAuth.instance;
 
   // Page Control
@@ -30,7 +33,7 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
   @override
   void initState() {
     super.initState();
-    shaffleList(questions);
+    shaffleList(widget._questions);
   }
 
   @override
@@ -71,14 +74,14 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                       status = '';
                     });
                   },
-                  itemCount: questions.length,
+                  itemCount: widget._questions.length,
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
                         Align(
                           alignment: Alignment.center,
                           child: Text(
-                            "Question ${index + 1}/${questions.length}",
+                            "Question ${index + 1}/${widget._questions.length}",
                             style: TextStyle(
                                 fontSize: 35, color: HexColor("#461482")),
                           ),
@@ -87,7 +90,7 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            questions[index].instruction!,
+                            widget._questions[index].instruction!,
                             style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
@@ -96,13 +99,13 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                         ),
                         Padding(padding: EdgeInsets.only(top: 25)),
                         Text(
-                          questions[index].question!,
+                          widget._questions[index].question!,
                           style: TextStyle(
                               fontSize: 32, color: HexColor("#461482")),
                         ),
                         Padding(padding: EdgeInsets.only(top: 15)),
                         for (int i = 0;
-                            i < questions[index].answer!.length;
+                            i < widget._questions[index].answer!.length;
                             i++)
                           Padding(
                             padding: const EdgeInsets.all(12.0),
@@ -125,9 +128,7 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                                   height:
                                       MediaQuery.of(context).size.height * 0.07,
                                   color: isPressed
-                                      ? questions[index]
-                                              .answer!
-                                              .entries
+                                      ? widget._questions[index].answer!.entries
                                               .toList()[i]
                                               .value
                                           ? isCorrect
@@ -139,9 +140,8 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                                           setState(() {
                                             isPressed = true;
                                           });
-                                          if (questions[index]
-                                              .answer!
-                                              .entries
+                                          if (widget
+                                              ._questions[index].answer!.entries
                                               .toList()[i]
                                               .value) {
                                             setState(() {
@@ -154,7 +154,8 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                                         },
                                   shape: StadiumBorder(),
                                   child: Text(
-                                    questions[index].answer!.keys.toList()[i],
+                                    widget._questions[index].answer!.keys
+                                        .toList()[i],
                                     style: TextStyle(
                                         fontSize: 20, color: Colors.black),
                                   )),
@@ -167,7 +168,7 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
-                                  padding: const EdgeInsets.only(left: 10),
+                                  padding: const EdgeInsets.only(right: 10),
                                   child: status == ''
                                       ? null
                                       : Row(
@@ -190,10 +191,10 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                                 decoration: BoxDecoration(
                                   border:
                                       Border.all(width: 2, color: Colors.black),
-                                  borderRadius: BorderRadius.circular(25),
+                                  borderRadius: BorderRadius.circular(30),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.black,
+                                      color: HexColor("#461482"),
                                       blurRadius: 2,
                                       offset: Offset(3, 5),
                                     ),
@@ -206,13 +207,15 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                                           ? Colors.white
                                           : Colors.grey),
                                   onPressed: isPressed
-                                      ? index + 1 == questions.length
+                                      ? index + 1 == widget._questions.length
                                           ? () {
                                               Navigator.push(context,
                                                   MaterialPageRoute(
                                                       builder: (context) {
-                                                return PreTestScoreScreen(
-                                                    score, questions.length);
+                                                return QuizScoreScreen(
+                                                    score,
+                                                    widget._questions.length,
+                                                    widget.name);
                                               }));
                                             }
                                           : () {
@@ -222,13 +225,16 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                                                   curve: Curves.linear);
                                             }
                                       : null,
-                                  child: Text(
-                                    index + 1 == questions.length
-                                        ? "See Result"
-                                        : "Next Question",
-                                    style: TextStyle(
-                                        color: HexColor("#461482"),
-                                        fontSize: 15),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Text(
+                                      index + 1 == widget._questions.length
+                                          ? "See Result"
+                                          : "Next Question",
+                                      style: TextStyle(
+                                          color: HexColor("#461482"),
+                                          fontSize: 15),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -272,10 +278,7 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                 textStyle: TextStyle(
                   fontSize: 25,
                 ),
-                colors: [
-                  Colors.red,
-                  Colors.black,
-                ],
+                colors: [Colors.red, Colors.black],
               ),
             ],
             isRepeatingAnimation: true,

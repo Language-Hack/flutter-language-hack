@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:language_hack/screens/questions_list/questions_basic.dart';
+import 'package:language_hack/screens/quizPage.dart';
 import 'package:language_hack/screens/user.dart';
 import 'package:language_hack/screens/welcome.dart';
 import 'package:language_hack/screens/home.dart';
@@ -107,6 +109,8 @@ Future speak(String text) async {
 
 class _Flash_ColorState extends State<Flash_Color> {
   final auth = FirebaseAuth.instance;
+
+  final name = 'color_score';
 
   List<Card> cards = [
     Card(
@@ -262,7 +266,12 @@ class _Flash_ColorState extends State<Flash_Color> {
                         ),
                         icon: Icon(Icons.dashboard),
                         label: Text("Quiz", style: TextStyle(fontSize: 15)),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return QuizScreen(colors, name);
+                          }));
+                        },
                       ),
                     ),
                     Padding(padding: EdgeInsets.only(top: 30)),

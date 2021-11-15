@@ -18,6 +18,7 @@ class LoginScreens extends StatefulWidget {
 
 class _LoginScreensState extends State<LoginScreens> {
   bool _isHidden = true;
+  bool isLoading = false;
 
   final formKey = GlobalKey<FormState>();
   Profile profile = Profile(email: '', password: '', displayName: '');
@@ -57,13 +58,35 @@ class _LoginScreensState extends State<LoginScreens> {
                           height: 60,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                primary: Colors.white,
-                                onPrimary: HexColor("#461482"),
-                                side: BorderSide(
-                                    width: 2, color: HexColor("#461482"))),
-                            child: const Text("LOG IN",
-                                style: TextStyle(fontSize: 20)),
+                              primary: Colors.white,
+                              onPrimary: HexColor("#461482"),
+                              side: BorderSide(
+                                  width: 2, color: HexColor("#461482")),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                            child: isLoading
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      CircularProgressIndicator(
+                                        color: HexColor("#461482"),
+                                      ),
+                                      SizedBox(
+                                        width: 24,
+                                      ),
+                                      Text('Please Wait...',
+                                          style: TextStyle(fontSize: 20))
+                                    ],
+                                  )
+                                : Text("LOG IN",
+                                    style: TextStyle(fontSize: 20)),
                             onPressed: () async {
+                              setState(() {
+                                isLoading = !isLoading;
+                              });
+
                               if (formKey.currentState!.validate()) {
                                 formKey.currentState?.save();
                                 try {
@@ -92,7 +115,8 @@ class _LoginScreensState extends State<LoginScreens> {
                           padding: const EdgeInsets.only(top: 16),
                           child: Text(
                             "OR",
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(
+                                fontSize: 20, color: HexColor("#461482")),
                           ),
                         ),
                         Expanded(
@@ -111,10 +135,13 @@ class _LoginScreensState extends State<LoginScreens> {
                           height: 60,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                primary: HexColor("#461482"),
-                                onPrimary: Colors.white,
-                                side:
-                                    BorderSide(width: 2, color: Colors.black)),
+                              primary: HexColor("#461482"),
+                              onPrimary: Colors.white,
+                              side: BorderSide(width: 2, color: Colors.black),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                            ),
                             child: Text("REGISTER",
                                 style: TextStyle(fontSize: 20)),
                             onPressed: () {

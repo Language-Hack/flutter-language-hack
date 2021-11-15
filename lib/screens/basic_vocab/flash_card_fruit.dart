@@ -6,6 +6,8 @@ import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:language_hack/screens/home.dart';
+import 'package:language_hack/screens/questions_list/questions_basic.dart';
+import 'package:language_hack/screens/quizPage.dart';
 import 'package:language_hack/screens/welcome.dart';
 
 import '../user.dart';
@@ -103,6 +105,8 @@ Future speak(String text) async {
 
 class _Flash_FruitState extends State<Flash_Fruit> {
   final auth = FirebaseAuth.instance;
+
+  final name = 'fruit_score';
 
   List<Card> cards = [
     Card(
@@ -258,7 +262,12 @@ class _Flash_FruitState extends State<Flash_Fruit> {
                         ),
                         icon: Icon(Icons.dashboard),
                         label: Text("Quiz", style: TextStyle(fontSize: 15)),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return QuizScreen(fruit, name);
+                          }));
+                        },
                       ),
                     ),
                     Padding(padding: EdgeInsets.only(top: 30)),

@@ -20,8 +20,8 @@ class _UserScreenState extends State<UserScreen> {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: AppBar(
-            title: Image.asset(
-              "assets/logo.png",
+            title: Image.network(
+              "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2Flogo.png?alt=media&token=75cfc4fa-1400-43ed-96d5-2b85ad733971",
               width: 110,
               height: 110,
             ),
@@ -126,10 +126,10 @@ class _UserScreenState extends State<UserScreen> {
                     side: BorderSide(color: Colors.white),
                     alignment: Alignment.centerLeft),
                 onPressed: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return WelcomeScreens();
-                  }));
+                  // Navigator.pushReplacement(context,
+                  //     MaterialPageRoute(builder: (context) {
+                  //   return WelcomeScreens();
+                  // }));
                 },
                 icon: Icon(Icons.card_membership),
                 label: const Text(
