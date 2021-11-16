@@ -149,74 +149,96 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
           )),
       body: Column(
         children: [
-          Padding(padding: const EdgeInsets.only(top: 30)),
+          Padding(
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.015)),
           Padding(
             padding: const EdgeInsets.only(left: 20),
             child: Container(
-                width: MediaQuery.of(context).size.width * 0.92,
-                height: MediaQuery.of(context).size.height * 0.55,
-                padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.8,
+                padding: EdgeInsets.only(top: 5, left: 20, right: 20),
                 decoration: BoxDecoration(
                     color: Colors.amber.shade100,
                     border: Border.all(color: Colors.black, width: 3.0),
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: Column(
                   children: [
-                    Padding(padding: EdgeInsets.only(top: 15)),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.015)),
                     Text(
                       "Test Result",
-                      style:
-                          TextStyle(color: HexColor("#461482"), fontSize: 40),
+                      style: TextStyle(
+                          color: HexColor("#461482"),
+                          fontSize:
+                              MediaQuery.of(context).textScaleFactor * 30),
                     ),
-                    Padding(padding: EdgeInsets.only(top: 30)),
+                    Padding(padding: EdgeInsets.only(top: 10)),
                     Center(
                       child: CircularPercentIndicator(
                         center: Text(
                           calculatePercent(),
                           style: new TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 30.0,
+                              fontSize: 20.0,
                               color: Colors.green),
                         ),
                         percent: (widget.score * widget.num_questions) / 100,
-                        radius: 140,
+                        radius: 120,
                         backgroundColor: Colors.grey,
                         circularStrokeCap: CircularStrokeCap.butt,
                         lineWidth: 10,
                         progressColor: Colors.green,
                       ),
                     ),
-                    Padding(padding: EdgeInsets.only(top: 30)),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.02)),
                     Row(
                       children: [
                         Text(
                             "Your Score is: ${widget.score}/${widget.num_questions}",
                             style: TextStyle(
-                                color: HexColor("#461482"), fontSize: 25)),
-                        Padding(padding: EdgeInsets.only(top: 35)),
+                                color: HexColor("#461482"),
+                                fontSize:
+                                    MediaQuery.of(context).textScaleFactor *
+                                        20)),
+                        Padding(
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height *
+                                    0.015)),
                       ],
                     ),
-                    Padding(padding: EdgeInsets.only(top: 35)),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.015)),
                     Row(
                       children: [
                         widget.score > (widget.num_questions * 0.9)
                             ? Text(
                                 "Perfect Score!!",
                                 style: TextStyle(
-                                    color: HexColor("#461482"), fontSize: 25),
+                                    color: HexColor("#461482"),
+                                    fontSize:
+                                        MediaQuery.of(context).textScaleFactor *
+                                            20),
                               )
                             : Text(
                                 "You ${level} this test",
                                 style: TextStyle(
-                                    color: HexColor("#461482"), fontSize: 25),
+                                    color: HexColor("#461482"),
+                                    fontSize:
+                                        MediaQuery.of(context).textScaleFactor *
+                                            20),
                               ),
                       ],
                     ),
-                    Padding(padding: EdgeInsets.only(top: 10)),
                     Container(
-                      margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+                      margin: EdgeInsets.only(
+                          top: 10, left: 20, right: 20, bottom: 10),
                       child: SizedBox(
-                        height: 60,
+                        height: 40,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             shadowColor: Colors.black,
@@ -229,8 +251,11 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),
-                          child:
-                              Text("Continue", style: TextStyle(fontSize: 25)),
+                          child: Text("Continue",
+                              style: TextStyle(
+                                  fontSize:
+                                      MediaQuery.of(context).textScaleFactor *
+                                          20)),
                           onPressed: () {
                             if (widget.score > bestScore) {
                               updateScore();
@@ -243,71 +268,74 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
                         ),
                       ),
                     ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next Lesson",
+                          style: TextStyle(
+                              fontSize:
+                                  MediaQuery.of(context).textScaleFactor * 20,
+                              color: HexColor("#461482")),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 2, color: Colors.black),
+                            borderRadius: BorderRadius.circular(25),
+                            boxShadow: [
+                              BoxShadow(
+                                color: HexColor("#461482"),
+                                blurRadius: 3,
+                                offset: Offset(3, 5),
+                              ),
+                            ],
+                          ),
+                          margin: const EdgeInsets.fromLTRB(20, 10, 30, 10),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(width: 2, color: Colors.black),
+                                borderRadius: BorderRadius.circular(20)),
+                            width: 200,
+                            height: 150,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.white,
+                                  onPrimary: Colors.black,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                ),
+                                onPressed: () {
+                                  if (widget.score > bestScore) {
+                                    updateScore();
+                                  }
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return flash_fruit;
+                                  }));
+                                },
+                                child: Column(children: <Widget>[
+                                  Padding(padding: EdgeInsets.only(top: 10)),
+                                  Image.network(
+                                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Ffruits.png?alt=media&token=548254ec-fbf7-428d-aa57-a1b23beacf56",
+                                    width: 80,
+                                    height: 90,
+                                  ),
+                                  Padding(padding: EdgeInsets.only(top: 10)),
+                                  Text(
+                                    "Fruit",
+                                    style: TextStyle(
+                                        fontSize: MediaQuery.of(context)
+                                                .textScaleFactor *
+                                            20),
+                                  )
+                                ])),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 )),
-          ),
-          Padding(padding: const EdgeInsets.only(top: 15)),
-          Padding(
-            padding: const EdgeInsets.only(left: 30),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  "Next Lesson",
-                  style: TextStyle(fontSize: 30, color: HexColor("#461482")),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 2, color: Colors.black),
-                    borderRadius: BorderRadius.circular(25),
-                    boxShadow: [
-                      BoxShadow(
-                        color: HexColor("#461482"),
-                        blurRadius: 3,
-                        offset: Offset(3, 5),
-                      ),
-                    ],
-                  ),
-                  margin: const EdgeInsets.fromLTRB(20, 10, 30, 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 2, color: Colors.black),
-                        borderRadius: BorderRadius.circular(20)),
-                    width: 230,
-                    height: 170,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          onPrimary: Colors.black,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                        ),
-                        onPressed: () {
-                          if (widget.score > bestScore) {
-                            updateScore();
-                          }
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return flash_fruit;
-                          }));
-                        },
-                        child: Column(children: <Widget>[
-                          Padding(padding: EdgeInsets.only(top: 10)),
-                          Image.network(
-                            "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Ffruits.png?alt=media&token=548254ec-fbf7-428d-aa57-a1b23beacf56",
-                            width: 100,
-                            height: 100,
-                          ),
-                          Padding(padding: EdgeInsets.only(top: 10)),
-                          Text(
-                            "Fruit",
-                            style: TextStyle(fontSize: 30),
-                          )
-                        ])),
-                  ),
-                ),
-              ],
-            ),
           ),
         ],
       ),

@@ -121,8 +121,11 @@ class _MainContainerState extends State<MainContainer> {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: AppBar(
-            title: Image.asset("assets/logo.png",
-                width: 110, height: 110, color: HexColor("#461482")),
+            title: Image.network(
+                "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2Flogo.png?alt=media&token=75cfc4fa-1400-43ed-96d5-2b85ad733971",
+                width: 110,
+                height: 110,
+                color: HexColor("#461482")),
             backgroundColor: Colors.amber.shade100,
             iconTheme: IconThemeData(color: HexColor("#461482")),
             automaticallyImplyLeading: false,
@@ -258,7 +261,8 @@ Widget cancelButton(BuildContext context) {
             height: 58,
             alignment: Alignment.center,
             decoration: BoxDecoration(shape: BoxShape.circle),
-            child: Image.asset("assets/rejected.png")),
+            child: Image.network(
+                "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2Frejected.png?alt=media&token=f580788f-a097-43f3-904f-67d4065f0a15")),
         onPressed: () {
           newData.clear();
           cards.clear();
@@ -349,8 +353,8 @@ Future<void> showExitDialog(BuildContext context) async {
 Widget swipeLeft() {
   return Column(
     children: [
-      Image.asset(
-        "assets/swipeLeft.png",
+      Image.network(
+        "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2FswipeLeft.png?alt=media&token=db3b8e41-99f7-4363-a516-822dc5ba76f7",
         scale: 11,
       ),
       const Padding(padding: EdgeInsets.only(top: 5)),
@@ -362,8 +366,8 @@ Widget swipeLeft() {
 Widget swipeRight() {
   return Column(
     children: [
-      Image.asset(
-        "assets/swipeRight.png",
+      Image.network(
+        "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2FswipeRight.png?alt=media&token=e0c4545a-4712-4499-8ac9-9a722723260b",
         scale: 11,
       ),
       const Padding(padding: EdgeInsets.only(top: 5)),
@@ -476,7 +480,7 @@ class Card extends StatelessWidget {
           title: word,
           description: "I can remember",
           descriptionStyle: TextStyle(color: Colors.green),
-          icon: Icons.cancel,
+          icon: Icons.check,
           themeColor: Colors.green,
           animationDuration: Duration(milliseconds: 500),
           toastDuration: Duration(milliseconds: 1000),
