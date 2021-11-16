@@ -220,8 +220,8 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.asset(
-                        "assets/logo.png",
+                      Image.network(
+                        "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2Flogo.png?alt=media&token=75cfc4fa-1400-43ed-96d5-2b85ad733971",
                         width: MediaQuery.of(context).size.width * 0.4,
                         color: Colors.white,
                       ),
