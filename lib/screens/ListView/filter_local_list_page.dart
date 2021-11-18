@@ -173,53 +173,11 @@ class FilterLocalListPageState extends State<FilterLocalListPage> {
         body: Column(
           children: <Widget>[
             buildSearch(),
-            Text(
-              "Basic Vocabulary",
-              style: TextStyle(
-                fontSize: 20,
-                color: HexColor("#461482"),
-              ),
-            ),
-            Padding(padding: EdgeInsets.all(5)),
             Expanded(
               child: ListView.builder(
                 itemCount: books.length,
                 itemBuilder: (context, index) {
                   final book = books[index];
-                  return buildBook(book);
-                },
-              ),
-            ),
-            Padding(padding: EdgeInsets.all(5)),
-            Text(
-              "Intermediate Vocabulary",
-              style: TextStyle(
-                fontSize: 20,
-                color: HexColor("#461482"),
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: books2.length,
-                itemBuilder: (context, index) {
-                  final book = books2[index];
-                  return buildBook(book);
-                },
-              ),
-            ),
-            Padding(padding: EdgeInsets.all(5)),
-            Text(
-              "Advanced Vocabulary",
-              style: TextStyle(
-                fontSize: 20,
-                color: HexColor("#461482"),
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: books3.length,
-                itemBuilder: (context, index) {
-                  final book = books3[index];
                   return buildBook(book);
                 },
               ),
