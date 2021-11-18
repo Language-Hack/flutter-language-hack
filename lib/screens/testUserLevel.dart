@@ -243,7 +243,9 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                                         : "Next Question",
                                     style: TextStyle(
                                         color: HexColor("#461482"),
-                                        fontSize: 15),
+                                        fontSize: MediaQuery.of(context)
+                                                .textScaleFactor *
+                                            10),
                                   ),
                                 ),
                               ),

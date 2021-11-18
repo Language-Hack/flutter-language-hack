@@ -11,6 +11,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:language_hack/model/userScores.dart';
+import 'package:language_hack/screens/ListView/filter_local_list_page.dart';
 import 'package:language_hack/screens/allLessons.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_color.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_fruit.dart';
@@ -355,8 +356,8 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(
-                  "assets/logo.png",
+                Image.network(
+                  "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2Flogo.png?alt=media&token=75cfc4fa-1400-43ed-96d5-2b85ad733971",
                   width: MediaQuery.of(context).size.width * 0.4,
                   color: Colors.white,
                 ),
@@ -486,17 +487,15 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Center(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 20),
-                    child: Text(
-                      "Find your favorite course here",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontSize: MediaQuery.of(context).textScaleFactor * 22,
-                          color: HexColor("#461482"),
-                          fontWeight: FontWeight.bold),
-                    ),
+                Container(
+                  margin: EdgeInsets.only(top: 20, left: 20),
+                  child: Text(
+                    "Find your favorite course here",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).textScaleFactor * 22,
+                        color: HexColor("#461482"),
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 Center(
@@ -586,7 +585,7 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                             onPressed: () {
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) {
-                                return AllLessonScreen();
+                                return FilterLocalListPage();
                               }));
                             },
                             child: Container(

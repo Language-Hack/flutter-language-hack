@@ -127,8 +127,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(
-                  "assets/logo.png",
+                Image.network(
+                  "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2Flogo.png?alt=media&token=75cfc4fa-1400-43ed-96d5-2b85ad733971",
                   width: MediaQuery.of(context).size.width * 0.4,
                   color: Colors.white,
                 ),
@@ -230,8 +230,8 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
           appBar: PreferredSize(
               preferredSize: const Size.fromHeight(60),
               child: AppBar(
-                title: Image.asset(
-                  "assets/logo.png",
+                title: Image.network(
+                  "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2Flogo.png?alt=media&token=75cfc4fa-1400-43ed-96d5-2b85ad733971",
                   width: 110,
                   height: 110,
                   color: HexColor("#461482"),
@@ -252,24 +252,15 @@ class _AllLessonScreenScreenState extends State<AllLessonScreen> {
                 ],
               )),
           body: Container(
-              child: Column(children: [
-            Expanded(
-                child: SingleChildScrollView(
-                    child: Container(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: Center(
-                        child: Text(
-                      "All Lessons",
-                      style:
-                          TextStyle(fontSize: 30, color: HexColor("#461482")),
-                    )),
-                  ),
-                ]))))
-          ]))),
+            child: Column(
+              children: <Widget>[
+                Text(
+                  "All lessons",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
+            ),
+          )),
     );
   }
 }
