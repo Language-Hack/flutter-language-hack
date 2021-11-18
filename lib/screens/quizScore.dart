@@ -20,7 +20,10 @@ class QuizScoreScreen extends StatefulWidget {
   final int score;
   final int num_questions;
   final String name;
-  const QuizScoreScreen(this.score, this.num_questions, this.name, {Key key})
+  final String question_level;
+  const QuizScoreScreen(
+      this.score, this.num_questions, this.name, this.question_level,
+      {Key key})
       : super(key: key);
 
   @override
@@ -30,7 +33,7 @@ class QuizScoreScreen extends StatefulWidget {
 class _QuizScoreScreenState extends State<QuizScoreScreen> {
   final auth = FirebaseAuth.instance;
   final formKey = GlobalKey<FormState>();
-  String level = '';
+  String quizStatus = '';
   String docId = '';
   int bestScore = 0;
 
@@ -225,7 +228,7 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
                                             20),
                               )
                             : Text(
-                                "You ${level} this test",
+                                "You ${quizStatus} this test",
                                 style: TextStyle(
                                     color: HexColor("#461482"),
                                     fontSize:
@@ -344,12 +347,12 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
 
   void evaluatelevel() {
     if (widget.score <= (widget.num_questions * 0.5)) {
-      level = "fail";
+      quizStatus = "fail";
     } else if (widget.score > (widget.num_questions * 0.5) &&
         widget.score <= (widget.num_questions * 0.9)) {
-      level = "pass";
+      quizStatus = "pass";
     } else {
-      level = "";
+      quizStatus = "";
     }
   }
 }

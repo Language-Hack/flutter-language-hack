@@ -12,7 +12,9 @@ import 'package:language_hack/screens/quizScore.dart';
 class QuizScreen extends StatefulWidget {
   final List<Quiz> _questions;
   final String name;
-  QuizScreen(this._questions, this.name, {Key key}) : super(key: key);
+  final String question_level;
+  QuizScreen(this._questions, this.name, this.question_level, {Key key})
+      : super(key: key);
 
   @override
   _QuizScreenScreenState createState() => _QuizScreenScreenState();
@@ -229,7 +231,8 @@ class _QuizScreenScreenState extends State<QuizScreen> {
                                                 return QuizScoreScreen(
                                                     score,
                                                     widget._questions.length,
-                                                    widget.name);
+                                                    widget.name,
+                                                    widget.question_level);
                                               }));
                                             }
                                           : () {

@@ -238,7 +238,7 @@ Widget quizButton(BuildContext context) {
             context,
             MaterialPageRoute(
                 builder: (BuildContext context) =>
-                    QuizScreen(colors, 'color_score')));
+                    QuizScreen(colors, 'color_score', 'basic')));
       },
     ),
   );

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,6 +10,7 @@ import 'package:language_hack/screens/home.dart';
 import 'package:language_hack/screens/login.dart';
 import 'package:language_hack/screens/questions_list/questions_preTest.dart';
 import 'package:language_hack/screens/welcome.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class PreTestScoreScreen extends StatefulWidget {
   final int score;
@@ -22,12 +24,23 @@ class PreTestScoreScreen extends StatefulWidget {
 
 class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
   final auth = FirebaseAuth.instance;
-  String level = '';
+  String userLevel = '';
+  String userFeedback = '';
+  final String userDisplayname =
+      FirebaseAuth.instance.currentUser.displayName.toString();
+
+  CollectionReference level = FirebaseFirestore.instance.collection('level');
 
   @override
   void initState() {
     super.initState();
     evaluatelevel();
+  }
+
+  String calculatePercent() {
+    double percent = (widget.score / widget.num_questions) * 100;
+    String stringPercent = percent.toStringAsFixed(0) + ' %';
+    return stringPercent;
   }
 
   @override
@@ -48,12 +61,12 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
           )),
       body: Column(
         children: [
-          Padding(padding: const EdgeInsets.only(top: 120)),
+          Padding(padding: const EdgeInsets.only(top: 30)),
           Padding(
             padding: const EdgeInsets.only(left: 20),
             child: Container(
                 width: MediaQuery.of(context).size.width * 0.92,
-                height: MediaQuery.of(context).size.height * 0.5,
+                height: MediaQuery.of(context).size.height * 0.72,
                 padding: EdgeInsets.only(top: 20, left: 20, right: 20),
                 decoration: BoxDecoration(
                     color: Colors.amber.shade100,
@@ -68,6 +81,25 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
                           color: HexColor("#461482"),
                           fontSize:
                               MediaQuery.of(context).textScaleFactor * 35),
+                    ),
+                    Padding(padding: EdgeInsets.only(top: 30)),
+                    Center(
+                      child: CircularPercentIndicator(
+                        center: Text(
+                          calculatePercent(),
+                          style: new TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize:
+                                  25.0 * MediaQuery.of(context).textScaleFactor,
+                              color: Colors.green),
+                        ),
+                        percent: (widget.score * widget.num_questions) / 100,
+                        radius: 120,
+                        backgroundColor: Colors.grey,
+                        circularStrokeCap: CircularStrokeCap.butt,
+                        lineWidth: 10,
+                        progressColor: Colors.green,
+                      ),
                     ),
                     Padding(padding: EdgeInsets.only(top: 30)),
                     Row(
@@ -86,7 +118,7 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
                     Row(
                       children: [
                         Text(
-                          "You know English ${level}",
+                          "You know English ${userFeedback}",
                           style: TextStyle(
                               color: HexColor("#461482"),
                               fontSize:
@@ -96,30 +128,32 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
                     ),
                     Padding(padding: EdgeInsets.only(top: 20)),
                     Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 2, color: Colors.black),
-                        boxShadow: [
-                          BoxShadow(
-                            color: HexColor("#461482"),
-                            blurRadius: 4,
-                            offset: Offset(3, 5),
-                          ),
-                        ],
-                      ),
                       margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                       child: SizedBox(
                         height: 60,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              primary: HexColor("#461482"),
-                              onPrimary: Colors.white,
-                              side: BorderSide(width: 2, color: Colors.black)),
+                            shadowColor: Colors.black,
+                            elevation: 10,
+                            primary: Colors.white,
+                            onPrimary: HexColor("#461482"),
+                            side: BorderSide(
+                                width: 2, color: HexColor("#461482")),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
                           child:
                               Text("Continue", style: TextStyle(fontSize: 20)),
                           onPressed: () {
+                            level.add({
+                              'level': userLevel,
+                              'owner': userDisplayname,
+                            }).catchError(
+                                (error) => print("Failed to add user: $error"));
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return DemoScreens();
+                              return DemoScreens(userLevel);
                             }));
                           },
                         ),
@@ -135,11 +169,14 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
 
   void evaluatelevel() {
     if (widget.score <= 4) {
-      level = "a little bit";
+      userFeedback = "a little bit";
+      userLevel = "basic";
     } else if (widget.score > 4 && widget.score <= 8) {
-      level = "great";
+      userFeedback = "great";
+      userLevel = "intermediate";
     } else {
-      level = "very well";
+      userFeedback = "very well";
+      userLevel = "advance";
     }
   }
 }
