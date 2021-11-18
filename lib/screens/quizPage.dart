@@ -12,7 +12,9 @@ import 'package:language_hack/screens/quizScore.dart';
 class QuizScreen extends StatefulWidget {
   final List<Quiz> _questions;
   final String name;
-  QuizScreen(this._questions, this.name, {Key key}) : super(key: key);
+  final String question_level;
+  QuizScreen(this._questions, this.name, this.question_level, {Key key})
+      : super(key: key);
 
   @override
   _QuizScreenScreenState createState() => _QuizScreenScreenState();
@@ -59,7 +61,7 @@ class _QuizScreenScreenState extends State<QuizScreen> {
           Center(
             child: Container(
               width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.75,
+              height: MediaQuery.of(context).size.height * 0.8,
               padding: EdgeInsets.only(top: 20, left: 20, right: 20),
               decoration: BoxDecoration(
                   color: Colors.amber.shade100,
@@ -86,7 +88,10 @@ class _QuizScreenScreenState extends State<QuizScreen> {
                                 fontSize: 35, color: HexColor("#461482")),
                           ),
                         ),
-                        Padding(padding: EdgeInsets.only(top: 40)),
+                        Padding(
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height *
+                                    0.015)),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -97,13 +102,18 @@ class _QuizScreenScreenState extends State<QuizScreen> {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Padding(padding: EdgeInsets.only(top: 25)),
+                        Padding(
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height *
+                                    0.015)),
                         Text(
                           widget._questions[index].question,
                           style: TextStyle(
-                              fontSize: 32, color: HexColor("#461482")),
+                              fontSize:
+                                  MediaQuery.of(context).textScaleFactor * 22,
+                              color: HexColor("#461482")),
                         ),
-                        Padding(padding: EdgeInsets.only(top: 15)),
+                        Padding(padding: EdgeInsets.only(top: 12.0)),
                         for (int i = 0;
                             i < widget._questions[index].answer.length;
                             i++)
@@ -161,14 +171,17 @@ class _QuizScreenScreenState extends State<QuizScreen> {
                                   )),
                             ),
                           ),
-                        Padding(padding: EdgeInsets.only(top: 25)),
+                        Padding(
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height *
+                                    0.015)),
                         SizedBox(
                           height: 40,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
-                                  padding: const EdgeInsets.only(right: 10),
+                                  padding: const EdgeInsets.only(left: 10),
                                   child: status == ''
                                       ? null
                                       : Row(
@@ -188,10 +201,13 @@ class _QuizScreenScreenState extends State<QuizScreen> {
                                           ],
                                         )),
                               Container(
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.4,
                                 decoration: BoxDecoration(
                                   border:
                                       Border.all(width: 2, color: Colors.black),
-                                  borderRadius: BorderRadius.circular(30),
+                                  borderRadius: BorderRadius.circular(25),
                                   boxShadow: [
                                     BoxShadow(
                                       color: HexColor("#461482"),
@@ -215,7 +231,8 @@ class _QuizScreenScreenState extends State<QuizScreen> {
                                                 return QuizScoreScreen(
                                                     score,
                                                     widget._questions.length,
-                                                    widget.name);
+                                                    widget.name,
+                                                    widget.question_level);
                                               }));
                                             }
                                           : () {
@@ -233,7 +250,9 @@ class _QuizScreenScreenState extends State<QuizScreen> {
                                           : "Next Question",
                                       style: TextStyle(
                                           color: HexColor("#461482"),
-                                          fontSize: 15),
+                                          fontSize: MediaQuery.of(context)
+                                                  .textScaleFactor *
+                                              10),
                                     ),
                                   ),
                                 ),

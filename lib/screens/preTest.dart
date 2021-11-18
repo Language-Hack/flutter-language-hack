@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -19,6 +20,10 @@ class PreTestScreen extends StatefulWidget {
 class _PreTestScreenScreenState extends State<PreTestScreen> {
   final auth = FirebaseAuth.instance;
   final formKey = GlobalKey<FormState>();
+  final String userDisplayname =
+      FirebaseAuth.instance.currentUser.displayName.toString();
+
+  CollectionReference level = FirebaseFirestore.instance.collection('level');
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +49,7 @@ class _PreTestScreenScreenState extends State<PreTestScreen> {
               padding: EdgeInsets.only(top: 5),
               decoration: BoxDecoration(
                 color: HexColor("FFE57F"),
+                border: Border.all(color: Colors.black, width: 3.0),
               ),
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.height * 0.75,
@@ -62,7 +68,7 @@ class _PreTestScreenScreenState extends State<PreTestScreen> {
                           top: MediaQuery.of(context).padding.top * 0.5)),
                   Center(
                       child: Text(
-                    "Start here with the Basics",
+                    "Start here with the basics",
                     style: TextStyle(fontSize: 20, color: HexColor("#461482")),
                   )),
                   Container(
@@ -89,9 +95,14 @@ class _PreTestScreenScreenState extends State<PreTestScreen> {
                               borderRadius: BorderRadius.circular(70)),
                         ),
                         onPressed: () {
+                          level.add({
+                            'level': "basic",
+                            'owner': userDisplayname,
+                          }).catchError(
+                              (error) => print("Failed to add user: $error"));
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) {
-                            return DemoScreens();
+                            return DemoScreens('basic');
                           }));
                         },
                         child: Row(

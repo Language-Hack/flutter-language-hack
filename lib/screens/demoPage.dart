@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'dart:math';
+
 import 'package:animated_drawer/views/animated_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,6 +23,7 @@ import 'package:language_hack/screens/basic_vocab/flash_card_vegetables.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_verbs.dart';
 import 'package:language_hack/screens/createFlashcard.dart';
 import 'package:language_hack/screens/flashcard01.dart';
+import 'package:language_hack/screens/flashcardRoute/flashcardRoute.dart';
 import 'package:language_hack/screens/home.dart';
 import 'package:language_hack/screens/user.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -28,13 +31,19 @@ import 'package:showcaseview/showcaseview.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DemoScreens extends StatefulWidget {
-  const DemoScreens({Key key}) : super(key: key);
+  final String level;
+  const DemoScreens(this.level, {Key key}) : super(key: key);
 
   @override
   _DemoScreensScreensState createState() => _DemoScreensScreensState();
 }
 
 class _DemoScreensScreensState extends State<DemoScreens> {
+  String recommendImage = '';
+  String recommendName = '';
+  String recommendLevel = '';
+  Widget route;
+  String docId = '';
   final auth = FirebaseAuth.instance;
   final keyOne = GlobalKey();
   final keyTwo = GlobalKey();
@@ -43,39 +52,13 @@ class _DemoScreensScreensState extends State<DemoScreens> {
   int basicScore = 0;
   int intermediateScore = 0;
   int advanceScore = 0;
-  UserScores allScores = UserScores(
-      adjective_score: 0,
-      carPart_score: 0,
-      clothes_score: 0,
-      color_score: 0,
-      countries_score: 0,
-      days_score: 0,
-      dbFood_score: 0,
-      environment_score: 0,
-      family_score: 0,
-      feeling_score: 0,
-      football_score: 0,
-      fruit_score: 0,
-      halloween_score: 0,
-      ielts_score: 0,
-      months_score: 0,
-      music_score: 0,
-      office_score: 0,
-      place_score: 0,
-      sports_score: 0,
-      toefl_score: 0,
-      typeFood_score: 0,
-      vegetable_score: 0,
-      verbs_score: 0,
-      weather_score: 0,
-      workshop_score: 0);
   final String userDisplayname =
       FirebaseAuth.instance.currentUser.displayName.toString();
 
   @override
   void initState() {
     super.initState();
-    readData();
+    reccommendLesson();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(
@@ -88,109 +71,27 @@ class _DemoScreensScreensState extends State<DemoScreens> {
     });
   }
 
-  Future<Null> readData() async {
-    await Firebase.initializeApp().then((value) async {
-      await FirebaseFirestore.instance
-          .collection("scores")
-          .where("owner",
-              isEqualTo:
-                  FirebaseAuth.instance.currentUser.displayName.toString())
-          .snapshots()
-          .listen((event) {
-        for (var snapshorts in event.docs) {
-          Map<String, dynamic> map = snapshorts.data();
-          UserScores scores = UserScores.fromMap(map);
-          setState(() {
-            allScores = scores;
-          });
-          calculateProgress();
-        }
-      });
-    });
-  }
-
-  void calculateProgress() {
-    if (allScores.adjective_score > 0) {
-      basicScore++;
+  void reccommendLesson() {
+    Random random = new Random();
+    if (widget.level == 'basic') {
+      int index = Random().nextInt(basic_name.length);
+      recommendName = basic_name[index];
+      recommendImage = basic_image[index];
+      route = basic_page[index];
+      recommendLevel = 'basic';
+    } else if (widget.level == 'intermediate') {
+      int index = Random().nextInt(intermediate_name.length);
+      recommendName = intermediate_name[index];
+      recommendImage = intermediate_image[index];
+      route = intermediate_page[index];
+      recommendLevel = 'intermediate';
+    } else {
+      int index = Random().nextInt(advance_name.length);
+      recommendName = advance_name[index];
+      recommendImage = advance_image[index];
+      route = advance_page[index];
+      recommendLevel = 'advance';
     }
-    if (allScores.color_score > 0) {
-      basicScore++;
-    }
-    if (allScores.countries_score > 0) {
-      basicScore++;
-    }
-    if (allScores.days_score > 0) {
-      basicScore++;
-    }
-    if (allScores.family_score > 0) {
-      basicScore++;
-    }
-    if (allScores.fruit_score > 0) {
-      basicScore++;
-    }
-    if (allScores.months_score > 0) {
-      basicScore++;
-    }
-    if (allScores.vegetable_score > 0) {
-      basicScore++;
-    }
-    if (allScores.verbs_score > 0) {
-      basicScore++;
-    }
-    if (allScores.clothes_score > 0) {
-      basicScore++;
-    }
-    if (allScores.dbFood_score > 0) {
-      intermediateScore++;
-    }
-    if (allScores.feeling_score > 0) {
-      intermediateScore++;
-    }
-    if (allScores.typeFood_score > 0) {
-      intermediateScore++;
-    }
-    if (allScores.football_score > 0) {
-      intermediateScore++;
-    }
-    if (allScores.halloween_score > 0) {
-      intermediateScore++;
-    }
-    if (allScores.music_score > 0) {
-      intermediateScore++;
-    }
-    if (allScores.office_score > 0) {
-      intermediateScore++;
-    }
-    if (allScores.sports_score > 0) {
-      intermediateScore++;
-    }
-    if (allScores.weather_score > 0) {
-      intermediateScore++;
-    }
-    if (allScores.environment_score > 0) {
-      advanceScore++;
-    }
-    if (allScores.ielts_score > 0) {
-      advanceScore++;
-    }
-    if (allScores.carPart_score > 0) {
-      advanceScore++;
-    }
-    if (allScores.toefl_score > 0) {
-      advanceScore++;
-    }
-    if (allScores.workshop_score > 0) {
-      advanceScore++;
-    }
-    print("basic: ${basicScore}");
-    print("intermediate: ${intermediateScore}");
-    print("advance: ${advanceScore}");
-  }
-
-  String calculatePercent(int score, int num_question) {
-    double percent = (score / num_question) * 100;
-    String stringPercent = percent.toStringAsFixed(0) + "%";
-    return stringPercent;
   }
 
   @override
@@ -518,7 +419,7 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                                   children: [
                                     CircularPercentIndicator(
                                       center: Text(
-                                        calculatePercent(basicScore, 9),
+                                        '0 %',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 25.0 *
@@ -557,7 +458,7 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                                   children: [
                                     CircularPercentIndicator(
                                       center: Text(
-                                        calculatePercent(intermediateScore, 10),
+                                        '0 %',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 25.0 *
@@ -592,7 +493,7 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                                 children: [
                                   CircularPercentIndicator(
                                     center: Text(
-                                      calculatePercent(advanceScore, 5),
+                                      '0 %',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 25.0 *
@@ -678,99 +579,51 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                                         Navigator.pushReplacement(context,
                                             MaterialPageRoute(
                                                 builder: (context) {
-                                          return Flash_Color();
+                                          return route;
                                         }));
                                       },
                                       child: Row(
                                         children: <Widget>[
-                                          Image.network(
-                                            "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Fcolors.png?alt=media&token=bede6c51-1b49-439c-8eb0-5017ce97471a",
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.3,
-                                            height: 80,
-                                          ),
+                                          Image.network(recommendImage,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.3,
+                                              height: 80, errorBuilder:
+                                                  (context, error, stackTrace) {
+                                            return Text(
+                                              'Loading..',
+                                              style: TextStyle(fontSize: 20),
+                                            );
+                                          }),
                                           Padding(
                                               padding:
                                                   EdgeInsets.only(top: 30)),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 20),
-                                            child: Text(
-                                              "Color (Basic)",
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                color: HexColor("#461482"),
+                                          Column(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 20, left: 20),
+                                                child: Text(
+                                                  recommendName,
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: HexColor("#461482"),
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        width: 2, color: Colors.black),
-                                    borderRadius: BorderRadius.circular(25),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: HexColor("#461482"),
-                                        blurRadius: 3,
-                                        offset: Offset(3, 5),
-                                      ),
-                                    ],
-                                  ),
-                                  margin:
-                                      const EdgeInsets.fromLTRB(30, 20, 30, 5),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1, color: Colors.black),
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                    width: 110,
-                                    height: 110,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Colors.white,
-                                        onPrimary: Colors.black,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20)),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.pushReplacement(context,
-                                            MaterialPageRoute(
-                                                builder: (context) {
-                                          return Flash_Fruit();
-                                        }));
-                                      },
-                                      child: Row(
-                                        children: <Widget>[
-                                          Image.network(
-                                            "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Ffruits.png?alt=media&token=548254ec-fbf7-428d-aa57-a1b23beacf56",
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.3,
-                                            height: 80,
-                                          ),
-                                          Padding(
-                                              padding:
-                                                  EdgeInsets.only(top: 50)),
-                                          Padding(
-                                            padding: EdgeInsets.only(left: 20),
-                                            child: Text(
-                                              "Fruit (Basic)",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontSize: 18,
-                                                color: HexColor("#461482"),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 20, top: 20),
+                                                child: Text(
+                                                  "(${recommendLevel})",
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: HexColor("#461482"),
+                                                  ),
+                                                ),
                                               ),
-                                            ),
+                                            ],
                                           ),
                                         ],
                                       ),

@@ -1,4 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
+import 'dart:math';
+
 import 'package:animated_drawer/views/animated_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +15,7 @@ import 'package:language_hack/screens/allLessons.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_color.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_fruit.dart';
 import 'package:language_hack/screens/createFlashcard.dart';
+import 'package:language_hack/screens/flashcardRoute/flashcardRoute.dart';
 import 'package:language_hack/screens/home.dart';
 import 'package:language_hack/screens/preTest.dart';
 import 'package:language_hack/screens/testUserLevel.dart';
@@ -27,6 +30,8 @@ class WelcomeScreens extends StatefulWidget {
 
 class _WelcomeScreensState extends State<WelcomeScreens> {
   final auth = FirebaseAuth.instance;
+  String level = '';
+  String docId = '';
   int basicScore = 0;
   int intermediateScore = 0;
   int advanceScore = 0;
@@ -59,10 +64,25 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
   final String userDisplayname =
       FirebaseAuth.instance.currentUser.displayName.toString();
 
+  String recommendImage = '';
+  String recommendName = '';
+  String recommendLevel = '';
+  Widget route;
+  List<Widget> basic_recommend_page = [];
+  List<String> basic_recommend_image = [];
+  List<String> basic_recommend_name = [];
+  List<Widget> intermediate_recommend_page = [];
+  List<String> intermediate_recommend_image = [];
+  List<String> intermediate_recommend_name = [];
+  List<Widget> advance_recommend_page = [];
+  List<String> advance_recommend_image = [];
+  List<String> advance_recommend_name = [];
+
   @override
   void initState() {
     super.initState();
     readData();
+    getDocs();
   }
 
   Future<Null> readData() async {
@@ -87,87 +107,229 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
   }
 
   void calculateProgress() {
-    if (allScores.adjective_score > 0) {
-      basicScore++;
+    if (allScores.adjective_score == 0) {
+      basic_recommend_page.add(basic_page[0]);
+      basic_recommend_image.add(basic_image[0]);
+      basic_recommend_name.add(basic_name[0]);
     }
-    if (allScores.color_score > 0) {
-      basicScore++;
+    if (allScores.color_score == 0) {
+      basic_recommend_page.add(basic_page[1]);
+      basic_recommend_image.add(basic_image[1]);
+      basic_recommend_name.add(basic_name[1]);
     }
-    if (allScores.countries_score > 0) {
-      basicScore++;
+    if (allScores.countries_score == 0) {
+      basic_recommend_page.add(basic_page[2]);
+      basic_recommend_image.add(basic_image[2]);
+      basic_recommend_name.add(basic_name[2]);
     }
-    if (allScores.days_score > 0) {
-      basicScore++;
+    if (allScores.days_score == 0) {
+      basic_recommend_page.add(basic_page[3]);
+      basic_recommend_image.add(basic_image[3]);
+      basic_recommend_name.add(basic_name[3]);
     }
-    if (allScores.family_score > 0) {
-      basicScore++;
+    if (allScores.family_score == 0) {
+      basic_recommend_page.add(basic_page[4]);
+      basic_recommend_image.add(basic_image[4]);
+      basic_recommend_name.add(basic_name[4]);
     }
-    if (allScores.fruit_score > 0) {
-      basicScore++;
+    if (allScores.fruit_score == 0) {
+      basic_recommend_page.add(basic_page[5]);
+      basic_recommend_image.add(basic_image[5]);
+      basic_recommend_name.add(basic_name[5]);
     }
-    if (allScores.months_score > 0) {
-      basicScore++;
+    if (allScores.months_score == 0) {
+      basic_recommend_page.add(basic_page[6]);
+      basic_recommend_image.add(basic_image[6]);
+      basic_recommend_name.add(basic_name[6]);
     }
-    if (allScores.vegetable_score > 0) {
-      basicScore++;
+    if (allScores.vegetable_score == 0) {
+      basic_recommend_page.add(basic_page[7]);
+      basic_recommend_image.add(basic_image[7]);
+      basic_recommend_name.add(basic_name[7]);
     }
-    if (allScores.verbs_score > 0) {
-      basicScore++;
+    if (allScores.verbs_score == 0) {
+      basic_recommend_page.add(basic_page[8]);
+      basic_recommend_image.add(basic_image[8]);
+      basic_recommend_name.add(basic_name[8]);
     }
-    if (allScores.clothes_score > 0) {
-      basicScore++;
+    if (allScores.clothes_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[0]);
+      intermediate_recommend_image.add(intermediate_image[0]);
+      intermediate_recommend_name.add(intermediate_name[0]);
     }
-    if (allScores.dbFood_score > 0) {
-      intermediateScore++;
+    if (allScores.dbFood_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[1]);
+      intermediate_recommend_image.add(intermediate_image[1]);
+      intermediate_recommend_name.add(intermediate_name[1]);
     }
-    if (allScores.feeling_score > 0) {
-      intermediateScore++;
+    if (allScores.feeling_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[2]);
+      intermediate_recommend_image.add(intermediate_image[2]);
+      intermediate_recommend_name.add(intermediate_name[2]);
     }
-    if (allScores.typeFood_score > 0) {
-      intermediateScore++;
+    if (allScores.typeFood_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[3]);
+      intermediate_recommend_image.add(intermediate_image[3]);
+      intermediate_recommend_name.add(intermediate_name[3]);
     }
-    if (allScores.football_score > 0) {
-      intermediateScore++;
+    if (allScores.football_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[4]);
+      intermediate_recommend_image.add(intermediate_image[4]);
+      intermediate_recommend_name.add(intermediate_name[4]);
     }
-    if (allScores.halloween_score > 0) {
-      intermediateScore++;
+    if (allScores.halloween_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[5]);
+      intermediate_recommend_image.add(intermediate_image[5]);
+      intermediate_recommend_name.add(intermediate_name[5]);
     }
-    if (allScores.music_score > 0) {
-      intermediateScore++;
+    if (allScores.music_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[6]);
+      intermediate_recommend_image.add(intermediate_image[6]);
+      intermediate_recommend_name.add(intermediate_name[6]);
     }
-    if (allScores.office_score > 0) {
-      intermediateScore++;
+    if (allScores.office_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[7]);
+      intermediate_recommend_image.add(intermediate_image[7]);
+      intermediate_recommend_name.add(intermediate_name[7]);
     }
-    if (allScores.sports_score > 0) {
-      intermediateScore++;
+    if (allScores.sports_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[8]);
+      intermediate_recommend_image.add(intermediate_image[8]);
+      intermediate_recommend_name.add(intermediate_name[8]);
     }
-    if (allScores.weather_score > 0) {
-      intermediateScore++;
+    if (allScores.weather_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[9]);
+      intermediate_recommend_image.add(intermediate_image[9]);
+      intermediate_recommend_name.add(intermediate_name[9]);
     }
-    if (allScores.environment_score > 0) {
-      advanceScore++;
+    if (allScores.environment_score == 0) {
+      advance_recommend_page.add(advance_page[0]);
+      advance_recommend_image.add(advance_image[0]);
+      advance_recommend_name.add(advance_name[0]);
     }
-    if (allScores.ielts_score > 0) {
-      advanceScore++;
+    if (allScores.ielts_score == 0) {
+      advance_recommend_page.add(advance_page[1]);
+      advance_recommend_image.add(advance_image[1]);
+      advance_recommend_name.add(advance_name[1]);
     }
-    if (allScores.carPart_score > 0) {
-      advanceScore++;
+    if (allScores.carPart_score == 0) {
+      advance_recommend_page.add(advance_page[2]);
+      advance_recommend_image.add(advance_image[2]);
+      advance_recommend_name.add(advance_name[2]);
     }
-    if (allScores.toefl_score > 0) {
-      advanceScore++;
+    if (allScores.toefl_score == 0) {
+      advance_recommend_page.add(advance_page[3]);
+      advance_recommend_image.add(advance_image[3]);
+      advance_recommend_name.add(advance_name[3]);
     }
-    if (allScores.workshop_score > 0) {
-      advanceScore++;
+    if (allScores.workshop_score == 0) {
+      advance_recommend_page.add(advance_page[4]);
+      advance_recommend_image.add(advance_image[4]);
+      advance_recommend_name.add(advance_name[4]);
     }
+    basicScore = 9 - basic_recommend_name.length;
+    intermediateScore = 10 - intermediate_recommend_name.length;
+    advanceScore = 5 - advance_recommend_name.length;
     print("basic: ${basicScore}");
     print("intermediate: ${intermediateScore}");
     print("advance: ${advanceScore}");
+    reccommendLesson();
   }
 
   String calculatePercent(int score, int num_question) {
     double percent = (score / num_question) * 100;
     String stringPercent = percent.toStringAsFixed(0) + "%";
     return stringPercent;
+  }
+
+  Future getDocs() async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection("level")
+        .where("owner",
+            isEqualTo: FirebaseAuth.instance.currentUser.displayName.toString())
+        .get();
+    for (int i = 0; i < querySnapshot.docs.length; i++) {
+      var a = querySnapshot.docs[i];
+      level = querySnapshot.docs[i]['level'];
+      docId = a.id;
+      print(a.id);
+      print("User Level: ${level}");
+    }
+  }
+
+  void reccommendLesson() {
+    Random random = new Random();
+    if ((basicScore > intermediateScore) &&
+        ((basicScore / 2) > advanceScore) &&
+        (basic_recommend_name.isNotEmpty)) {
+      // Basic
+      int index = Random().nextInt(basic_recommend_page.length);
+      route = basic_recommend_page[index];
+      recommendImage = basic_recommend_image[index];
+      recommendName = basic_recommend_name[index];
+      recommendLevel = "basic";
+    } else if ((intermediateScore > basicScore) &&
+        ((intermediateScore / 2) > advanceScore) &&
+        (intermediate_recommend_page.isNotEmpty)) {
+      // Intermediate
+      int index = Random().nextInt(basic_page.length);
+      route = intermediate_recommend_page[index];
+      recommendImage = intermediate_recommend_image[index];
+      recommendName = intermediate_recommend_name[index];
+      recommendLevel = 'intermediate';
+    } else if ((advanceScore > (basicScore / 2)) &&
+        (advanceScore > (intermediateScore / 2)) &&
+        (advance_recommend_page.isNotEmpty)) {
+      // Advance
+      int index = Random().nextInt(basic_page.length);
+      route = advance_recommend_page[index];
+      recommendImage = advance_recommend_image[index];
+      recommendName = advance_recommend_name[index];
+      recommendLevel = 'advance';
+    } else {
+      // Based on user level
+      if (level == 'basic' && basic_recommend_name.isNotEmpty) {
+        int index = Random().nextInt(basic_recommend_name.length);
+        recommendName = basic_recommend_name[index];
+        recommendImage = basic_recommend_image[index];
+        route = basic_recommend_page[index];
+        recommendLevel = 'basic';
+      } else if (level == 'intermediate' &&
+          intermediate_recommend_name.isNotEmpty) {
+        int index = Random().nextInt(intermediate_recommend_name.length);
+        recommendName = intermediate_recommend_name[index];
+        recommendImage = intermediate_recommend_image[index];
+        route = intermediate_recommend_page[index];
+        recommendLevel = 'intermediate';
+      } else if (level == 'advance' && advance_recommend_name.isNotEmpty) {
+        int index = Random().nextInt(advance_recommend_name.length);
+        recommendName = advance_recommend_name[index];
+        recommendImage = advance_recommend_image[index];
+        route = advance_recommend_page[index];
+        recommendLevel = 'advance';
+      } else {
+        int random = Random().nextInt(2);
+        if (random == 0 && basic_recommend_name.isNotEmpty) {
+          int index = Random().nextInt(basic_recommend_name.length);
+          recommendName = basic_recommend_name[index];
+          recommendImage = basic_recommend_image[index];
+          route = basic_recommend_page[index];
+          recommendLevel = 'basic';
+        } else if (random == 1 && intermediate_recommend_name.isNotEmpty) {
+          int index = Random().nextInt(intermediate_recommend_name.length);
+          recommendName = intermediate_recommend_name[index];
+          recommendImage = intermediate_recommend_image[index];
+          route = intermediate_recommend_page[index];
+          recommendLevel = 'intermediate';
+        } else {
+          int index = Random().nextInt(advance_recommend_name.length);
+          recommendName = advance_recommend_name[index];
+          recommendImage = advance_recommend_image[index];
+          route = advance_recommend_page[index];
+          recommendLevel = 'advance';
+        }
+      }
+    }
   }
 
   @override
@@ -366,7 +528,7 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                             onPressed: () {
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) {
-                                return TestUserLevelScreen(); // Fix this
+                                return CreateFlashcardScreens(); // Fix this
                               }));
                             },
                             child: Column(
@@ -374,10 +536,15 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: <Widget>[
                                 Image.network(
-                                  "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/WelcomePage%2Fnotebook.png?alt=media&token=351bc3c1-8356-4ed0-85cd-b50e6276b244",
-                                  width: 10,
-                                  height: 80,
-                                ),
+                                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/WelcomePage%2Fnotebook.png?alt=media&token=351bc3c1-8356-4ed0-85cd-b50e6276b244",
+                                    width: 10,
+                                    height: 80,
+                                    errorBuilder: (context, error, stackTrace) {
+                                  return Text(
+                                    'Loading..',
+                                    style: TextStyle(fontSize: 20),
+                                  );
+                                }),
                                 const Padding(
                                     padding: EdgeInsets.only(top: 10)),
                                 Text(
@@ -428,10 +595,15 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: <Widget>[
                                   Image.network(
-                                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/WelcomePage%2FallLessons.png?alt=media&token=ca157928-c2c0-4370-9886-61b7717cc9f2",
-                                    width: 10,
-                                    height: 80,
-                                  ),
+                                      "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/WelcomePage%2FallLessons.png?alt=media&token=ca157928-c2c0-4370-9886-61b7717cc9f2",
+                                      width: 10,
+                                      height: 80, errorBuilder:
+                                          (context, error, stackTrace) {
+                                    return Text(
+                                      'Loading..',
+                                      style: TextStyle(fontSize: 20),
+                                    );
+                                  }),
                                   const Padding(
                                       padding: EdgeInsets.only(top: 10)),
                                   Text(
@@ -620,85 +792,48 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                                 onPressed: () {
                                   Navigator.pushReplacement(context,
                                       MaterialPageRoute(builder: (context) {
-                                    return Flash_Color();
+                                    return route;
                                   }));
                                 },
                                 child: Row(
                                   children: <Widget>[
-                                    Image.network(
-                                      "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Fcolors.png?alt=media&token=bede6c51-1b49-439c-8eb0-5017ce97471a",
-                                      width: MediaQuery.of(context).size.width *
-                                          0.3,
-                                      height: 80,
-                                    ),
+                                    Image.network(recommendImage,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.3,
+                                        height: 80, errorBuilder:
+                                            (context, error, stackTrace) {
+                                      return const Text(
+                                        'Loading..',
+                                        style: TextStyle(fontSize: 20),
+                                      );
+                                    }),
                                     Padding(padding: EdgeInsets.only(top: 30)),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 20),
-                                      child: Text(
-                                        "Color (Basic)",
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          color: HexColor("#461482"),
+                                    Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 20, left: 20),
+                                          child: Text(
+                                            recommendName,
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              color: HexColor("#461482"),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 2, color: Colors.black),
-                              borderRadius: BorderRadius.circular(25),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: HexColor("#461482"),
-                                  blurRadius: 3,
-                                  offset: Offset(3, 5),
-                                ),
-                              ],
-                            ),
-                            margin: const EdgeInsets.fromLTRB(30, 20, 30, 5),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  border:
-                                      Border.all(width: 1, color: Colors.black),
-                                  borderRadius: BorderRadius.circular(20)),
-                              width: 110,
-                              height: 110,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.white,
-                                  onPrimary: Colors.black,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
-                                onPressed: () {
-                                  Navigator.pushReplacement(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return Flash_Fruit();
-                                  }));
-                                },
-                                child: Row(
-                                  children: <Widget>[
-                                    Image.network(
-                                      "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Ffruits.png?alt=media&token=548254ec-fbf7-428d-aa57-a1b23beacf56",
-                                      width: MediaQuery.of(context).size.width *
-                                          0.3,
-                                      height: 80,
-                                    ),
-                                    Padding(padding: EdgeInsets.only(top: 50)),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 20),
-                                      child: Text(
-                                        "Fruit (Basic)",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: HexColor("#461482"),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 20, top: 20),
+                                          child: Text(
+                                            "(${recommendLevel})",
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              color: HexColor("#461482"),
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
                                   ],
                                 ),

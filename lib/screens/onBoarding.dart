@@ -24,14 +24,14 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
             body: 'There are many vocabularies which you can learn.',
             image: buildImage(
                 'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/On-boarding%2Fon-boarding1.png?alt=media&token=31d1e429-7955-4053-9cd0-db97c6e73c66'),
-            decoration: getPageDecoration(),
+            decoration: getPageDecoration(context),
           ),
           PageViewModel(
             title: 'Interactive flashcards, quizess will be seen.',
             body: 'Learning through each flashcards',
             image: buildImage(
                 'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/On-boarding%2Fon-boarding2.png?alt=media&token=df82e8fb-8a47-441a-9266-7b5aa06529ac'),
-            decoration: getPageDecoration(),
+            decoration: getPageDecoration(context),
           ),
           PageViewModel(
             title: 'Create your personal notebook',
@@ -39,7 +39,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                 'Make your vocabulary list which you can access them anytime.',
             image: buildImage(
                 'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/On-boarding%2Fon-boarding3.png?alt=media&token=e880ee8a-fab0-421d-a133-d9ce92791281'),
-            decoration: getPageDecoration(),
+            decoration: getPageDecoration(context),
           ),
           PageViewModel(
             title: 'Start Learning',
@@ -49,12 +49,12 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
             footer: MaterialButton(
                 padding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(10.0, 45.0, 10.0, 15.0),
+                  padding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
                   child: Text(
                     "Start",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 80.0,
+                      fontSize: MediaQuery.of(context).textScaleFactor * 32,
                       color: HexColor("#461482"),
                       fontWeight: FontWeight.bold,
                     ),
@@ -66,7 +66,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                     return PreTestScreen();
                   }));
                 }),
-            decoration: getPageDecoration(),
+            decoration: getPageDecoration(context),
           ),
         ],
         done: Padding(
@@ -117,13 +117,15 @@ Widget buildImage(String path) => Padding(
       )),
     );
 
-PageDecoration getPageDecoration() => PageDecoration(
+PageDecoration getPageDecoration(context) => PageDecoration(
       titleTextStyle: TextStyle(
-          fontSize: 40,
+          fontSize: MediaQuery.of(context).textScaleFactor * 32,
           fontWeight: FontWeight.bold,
           color: HexColor("#461482")),
-      bodyTextStyle: TextStyle(fontSize: 22, color: HexColor("#461482")),
-      descriptionPadding: EdgeInsets.fromLTRB(10.0, 45.0, 10.0, 15.0),
+      bodyTextStyle: TextStyle(
+          fontSize: MediaQuery.of(context).textScaleFactor * 20,
+          color: HexColor("#461482")),
+      descriptionPadding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
       imagePadding: EdgeInsets.all(24),
       pageColor: Colors.amber.shade50,
     );
