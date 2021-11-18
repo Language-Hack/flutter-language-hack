@@ -9,6 +9,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:language_hack/model/userScores.dart';
+import 'package:language_hack/screens/ListView/filter_local_list_page.dart';
 import 'package:language_hack/screens/allLessons.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_color.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_fruit.dart';
@@ -417,7 +418,7 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                             onPressed: () {
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) {
-                                return AllLessonScreen();
+                                return FilterLocalListPage();
                               }));
                             },
                             child: Container(
