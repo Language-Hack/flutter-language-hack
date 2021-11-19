@@ -488,7 +488,7 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 20, left: 20),
+                  margin: EdgeInsets.only(top: 15, left: 20),
                   child: Text(
                     "Find your favorite course here",
                     textAlign: TextAlign.left,
@@ -623,7 +623,7 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 20, left: 20),
+                  margin: EdgeInsets.only(top: 13, left: 20),
                   child: Text(
                     "Overall Completion",
                     textAlign: TextAlign.left,
@@ -745,7 +745,7 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 20, left: 20),
+                  margin: EdgeInsets.only(top: 17, left: 20),
                   child: Text(
                     "Recommended Lesson",
                     textAlign: TextAlign.left,
@@ -755,95 +755,87 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 2, color: Colors.black),
-                              borderRadius: BorderRadius.circular(25),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: HexColor("#461482"),
-                                  blurRadius: 3,
-                                  offset: Offset(3, 5),
-                                ),
-                              ],
-                            ),
-                            margin: const EdgeInsets.fromLTRB(30, 20, 30, 5),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  border:
-                                      Border.all(width: 1, color: Colors.black),
-                                  borderRadius: BorderRadius.circular(20)),
-                              width: 110,
-                              height: 110,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.white,
-                                  onPrimary: Colors.black,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
-                                onPressed: () {
-                                  Navigator.pushReplacement(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return route;
-                                  }));
-                                },
-                                child: Row(
-                                  children: <Widget>[
-                                    Image.network(recommendImage,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.3,
-                                        height: 80, errorBuilder:
-                                            (context, error, stackTrace) {
-                                      return const Text(
-                                        'Loading..',
-                                        style: TextStyle(fontSize: 20),
-                                      );
-                                    }),
-                                    Padding(padding: EdgeInsets.only(top: 30)),
-                                    Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 20, left: 20),
-                                          child: Text(
-                                            recommendName,
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              color: HexColor("#461482"),
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 20, top: 20),
-                                          child: Text(
-                                            "(${recommendLevel})",
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              color: HexColor("#461482"),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 2, color: Colors.black),
+                        borderRadius: BorderRadius.circular(25),
+                        boxShadow: [
+                          BoxShadow(
+                            color: HexColor("#461482"),
+                            blurRadius: 3,
+                            offset: Offset(3, 5),
                           ),
                         ],
                       ),
+                      margin: const EdgeInsets.fromLTRB(30, 16, 30, 5),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 1, color: Colors.black),
+                            borderRadius: BorderRadius.circular(20)),
+                        width: 110,
+                        height: 110,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            onPrimary: Colors.black,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                          ),
+                          onPressed: () {
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return route;
+                            }));
+                          },
+                          child: Row(
+                            children: <Widget>[
+                              Image.network(recommendImage,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  height: 80,
+                                  errorBuilder: (context, error, stackTrace) {
+                                return const Text(
+                                  'Loading..',
+                                  style: TextStyle(fontSize: 20),
+                                );
+                              }),
+                              Padding(padding: EdgeInsets.only(top: 30)),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 20, left: 20),
+                                    child: Text(
+                                      recommendName,
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: HexColor("#461482"),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, top: 20),
+                                    child: Text(
+                                      "(${recommendLevel})",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: HexColor("#461482"),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                )
+                  ],
+                ),
               ],
             ),
           ),

@@ -6,13 +6,15 @@ class Book {
   final String level;
   final String urlImage;
   final Widget screen;
+  int score;
 
-  const Book({
+  Book({
     this.id,
     this.level,
     this.title,
     this.urlImage,
     this.screen,
+    this.score,
   });
 
   factory Book.fromJson(Map<String, dynamic> json) => Book(
@@ -21,6 +23,7 @@ class Book {
         title: json['title'],
         urlImage: json['urlImage'],
         screen: json['screen'],
+        score: json['score'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,5 +32,6 @@ class Book {
         'level': level,
         'urlImage': urlImage,
         'screen': screen,
+        'score': score,
       };
 }
