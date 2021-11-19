@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,6 +12,7 @@ import 'package:language_hack/model/quiz.dart';
 import 'package:language_hack/model/userScores.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_fruit.dart';
 import 'package:language_hack/screens/demoPage.dart';
+import 'package:language_hack/screens/flashcardRoute/flashcardRoute.dart';
 import 'package:language_hack/screens/home.dart';
 import 'package:language_hack/screens/login.dart';
 import 'package:language_hack/screens/questions_list/questions_preTest.dart';
@@ -65,6 +68,20 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
       verbs_score: 0,
       weather_score: 0,
       workshop_score: 0);
+
+  String recommendImage = '';
+  String recommendName = '';
+  String recommendLevel = '';
+  Widget route;
+  List<Widget> basic_recommend_page = [];
+  List<String> basic_recommend_image = [];
+  List<String> basic_recommend_name = [];
+  List<Widget> intermediate_recommend_page = [];
+  List<String> intermediate_recommend_image = [];
+  List<String> intermediate_recommend_name = [];
+  List<Widget> advance_recommend_page = [];
+  List<String> advance_recommend_image = [];
+  List<String> advance_recommend_name = [];
 
   CollectionReference scores = FirebaseFirestore.instance.collection('scores');
 
@@ -122,10 +139,238 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
           setState(() {
             allScores = scores;
           });
+          calculateProgress();
           print(bestScore);
         }
       });
     });
+  }
+
+  void calculateProgress() {
+    if (allScores.adjective_score == 0) {
+      basic_recommend_page.add(basic_page[0]);
+      basic_recommend_image.add(basic_image[0]);
+      basic_recommend_name.add(basic_name[0]);
+    }
+    if (allScores.color_score == 0) {
+      basic_recommend_page.add(basic_page[1]);
+      basic_recommend_image.add(basic_image[1]);
+      basic_recommend_name.add(basic_name[1]);
+    }
+    if (allScores.countries_score == 0) {
+      basic_recommend_page.add(basic_page[2]);
+      basic_recommend_image.add(basic_image[2]);
+      basic_recommend_name.add(basic_name[2]);
+    }
+    if (allScores.days_score == 0) {
+      basic_recommend_page.add(basic_page[3]);
+      basic_recommend_image.add(basic_image[3]);
+      basic_recommend_name.add(basic_name[3]);
+    }
+    if (allScores.family_score == 0) {
+      basic_recommend_page.add(basic_page[4]);
+      basic_recommend_image.add(basic_image[4]);
+      basic_recommend_name.add(basic_name[4]);
+    }
+    if (allScores.fruit_score == 0) {
+      basic_recommend_page.add(basic_page[5]);
+      basic_recommend_image.add(basic_image[5]);
+      basic_recommend_name.add(basic_name[5]);
+    }
+    if (allScores.months_score == 0) {
+      basic_recommend_page.add(basic_page[6]);
+      basic_recommend_image.add(basic_image[6]);
+      basic_recommend_name.add(basic_name[6]);
+    }
+    if (allScores.vegetable_score == 0) {
+      basic_recommend_page.add(basic_page[7]);
+      basic_recommend_image.add(basic_image[7]);
+      basic_recommend_name.add(basic_name[7]);
+    }
+    if (allScores.verbs_score == 0) {
+      basic_recommend_page.add(basic_page[8]);
+      basic_recommend_image.add(basic_image[8]);
+      basic_recommend_name.add(basic_name[8]);
+    }
+    if (allScores.clothes_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[0]);
+      intermediate_recommend_image.add(intermediate_image[0]);
+      intermediate_recommend_name.add(intermediate_name[0]);
+    }
+    if (allScores.dbFood_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[1]);
+      intermediate_recommend_image.add(intermediate_image[1]);
+      intermediate_recommend_name.add(intermediate_name[1]);
+    }
+    if (allScores.feeling_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[2]);
+      intermediate_recommend_image.add(intermediate_image[2]);
+      intermediate_recommend_name.add(intermediate_name[2]);
+    }
+    if (allScores.typeFood_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[3]);
+      intermediate_recommend_image.add(intermediate_image[3]);
+      intermediate_recommend_name.add(intermediate_name[3]);
+    }
+    if (allScores.football_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[4]);
+      intermediate_recommend_image.add(intermediate_image[4]);
+      intermediate_recommend_name.add(intermediate_name[4]);
+    }
+    if (allScores.halloween_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[5]);
+      intermediate_recommend_image.add(intermediate_image[5]);
+      intermediate_recommend_name.add(intermediate_name[5]);
+    }
+    if (allScores.music_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[6]);
+      intermediate_recommend_image.add(intermediate_image[6]);
+      intermediate_recommend_name.add(intermediate_name[6]);
+    }
+    if (allScores.office_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[7]);
+      intermediate_recommend_image.add(intermediate_image[7]);
+      intermediate_recommend_name.add(intermediate_name[7]);
+    }
+    if (allScores.sports_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[8]);
+      intermediate_recommend_image.add(intermediate_image[8]);
+      intermediate_recommend_name.add(intermediate_name[8]);
+    }
+    if (allScores.weather_score == 0) {
+      intermediate_recommend_page.add(intermediate_page[9]);
+      intermediate_recommend_image.add(intermediate_image[9]);
+      intermediate_recommend_name.add(intermediate_name[9]);
+    }
+    if (allScores.environment_score == 0) {
+      advance_recommend_page.add(advance_page[0]);
+      advance_recommend_image.add(advance_image[0]);
+      advance_recommend_name.add(advance_name[0]);
+    }
+    if (allScores.ielts_score == 0) {
+      advance_recommend_page.add(advance_page[1]);
+      advance_recommend_image.add(advance_image[1]);
+      advance_recommend_name.add(advance_name[1]);
+    }
+    if (allScores.carPart_score == 0) {
+      advance_recommend_page.add(advance_page[2]);
+      advance_recommend_image.add(advance_image[2]);
+      advance_recommend_name.add(advance_name[2]);
+    }
+    if (allScores.toefl_score == 0) {
+      advance_recommend_page.add(advance_page[3]);
+      advance_recommend_image.add(advance_image[3]);
+      advance_recommend_name.add(advance_name[3]);
+    }
+    if (allScores.workshop_score == 0) {
+      advance_recommend_page.add(advance_page[4]);
+      advance_recommend_image.add(advance_image[4]);
+      advance_recommend_name.add(advance_name[4]);
+    }
+    reccommendLesson();
+  }
+
+  void reccommendLesson() {
+    // User fail the test
+    if (widget.score <= (widget.num_questions * 0.5)) {
+      int index = Random().nextInt(basic_page.length);
+      if ((widget.question_level == 'basic' ||
+              widget.question_level == 'intermediate') &&
+          basic_recommend_name.isNotEmpty) {
+        route = basic_recommend_page[index];
+        recommendImage = basic_recommend_image[index];
+        recommendName = basic_recommend_name[index];
+        recommendLevel = 'basic';
+      } else if (widget.question_level == 'advance' &&
+          intermediate_recommend_name.isNotEmpty) {
+        route = intermediate_recommend_page[index];
+        recommendImage = intermediate_recommend_image[index];
+        recommendName = intermediate_recommend_name[index];
+        recommendLevel = 'intermediate';
+      } else {
+        int random = Random().nextInt(2);
+        if (random == 0 && basic_recommend_name.isNotEmpty) {
+          int index = Random().nextInt(basic_recommend_name.length);
+          recommendName = basic_recommend_name[index];
+          recommendImage = basic_recommend_image[index];
+          route = basic_recommend_page[index];
+          recommendLevel = 'basic';
+        } else if (random == 1 && intermediate_recommend_name.isNotEmpty) {
+          int index = Random().nextInt(intermediate_recommend_name.length);
+          recommendName = intermediate_recommend_name[index];
+          recommendImage = intermediate_recommend_image[index];
+          route = intermediate_recommend_page[index];
+          recommendLevel = 'intermediate';
+        } else {
+          int index = Random().nextInt(advance_recommend_name.length);
+          recommendName = advance_recommend_name[index];
+          recommendImage = advance_recommend_image[index];
+          route = advance_recommend_page[index];
+          recommendLevel = 'advance';
+        }
+      }
+    }
+    // User score is above 50%
+    else if (widget.score > (widget.num_questions * 0.5) &&
+        widget.score <= (widget.num_questions * 0.9)) {
+      int index = Random().nextInt(basic_page.length);
+      if (widget.question_level == 'basic' &&
+          intermediate_recommend_name.isNotEmpty) {
+        recommendName = intermediate_recommend_name[index];
+        recommendImage = intermediate_recommend_image[index];
+        route = intermediate_recommend_page[index];
+        recommendLevel = 'intermediate';
+      } else if (widget.question_level == 'intermediate' &&
+          intermediate_recommend_name.isNotEmpty) {
+        recommendName = intermediate_recommend_name[index];
+        recommendImage = intermediate_recommend_image[index];
+        route = intermediate_recommend_page[index];
+        recommendLevel = 'intermediate';
+      } else {
+        recommendName = advance_recommend_name[index];
+        recommendImage = advance_recommend_image[index];
+        route = advance_recommend_page[index];
+        recommendLevel = 'advance';
+      }
+    }
+    // User get perfect score
+    else {
+      int index = Random().nextInt(basic_page.length);
+      if (widget.question_level == 'basic' &&
+          intermediate_recommend_name.isNotEmpty) {
+        recommendName = intermediate_recommend_name[index];
+        recommendImage = intermediate_recommend_image[index];
+        route = intermediate_recommend_page[index];
+        recommendLevel = 'intermediate';
+      } else if (widget.question_level == 'intermediate' &&
+          advance_recommend_name.isNotEmpty) {
+        recommendName = advance_recommend_name[index];
+        recommendImage = advance_recommend_image[index];
+        route = advance_recommend_page[index];
+        recommendLevel = 'advance';
+      } else {
+        int random = Random().nextInt(2);
+        if (random == 0 && basic_recommend_name.isNotEmpty) {
+          int index = Random().nextInt(basic_recommend_name.length);
+          recommendName = basic_recommend_name[index];
+          recommendImage = basic_recommend_image[index];
+          route = basic_recommend_page[index];
+          recommendLevel = 'basic';
+        } else if (random == 1 && intermediate_recommend_name.isNotEmpty) {
+          int index = Random().nextInt(intermediate_recommend_name.length);
+          recommendName = intermediate_recommend_name[index];
+          recommendImage = intermediate_recommend_image[index];
+          route = intermediate_recommend_page[index];
+          recommendLevel = 'intermediate';
+        } else {
+          int index = Random().nextInt(advance_recommend_name.length);
+          recommendName = advance_recommend_name[index];
+          recommendImage = advance_recommend_image[index];
+          route = advance_recommend_page[index];
+          recommendLevel = 'advance';
+        }
+      }
+    }
   }
 
   String calculatePercent() {
@@ -156,10 +401,10 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
               padding: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.015)),
           Padding(
-            padding: const EdgeInsets.only(left: 20),
+            padding: const EdgeInsets.only(left: 5, top: 10),
             child: Container(
                 width: MediaQuery.of(context).size.width * 0.9,
-                height: MediaQuery.of(context).size.height * 0.8,
+                height: MediaQuery.of(context).size.height * 0.56,
                 padding: EdgeInsets.only(top: 5, left: 20, right: 20),
                 decoration: BoxDecoration(
                     color: Colors.amber.shade100,
@@ -177,18 +422,19 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
                           fontSize:
                               MediaQuery.of(context).textScaleFactor * 30),
                     ),
-                    Padding(padding: EdgeInsets.only(top: 10)),
+                    Padding(padding: EdgeInsets.only(top: 15)),
                     Center(
                       child: CircularPercentIndicator(
                         center: Text(
                           calculatePercent(),
                           style: new TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 20.0,
+                              fontSize:
+                                  25.0 * MediaQuery.of(context).textScaleFactor,
                               color: Colors.green),
                         ),
                         percent: (widget.score * widget.num_questions) / 100,
-                        radius: 120,
+                        radius: MediaQuery.of(context).size.width * 0.25,
                         backgroundColor: Colors.grey,
                         circularStrokeCap: CircularStrokeCap.butt,
                         lineWidth: 10,
@@ -197,7 +443,7 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
                     ),
                     Padding(
                         padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.02)),
+                            top: MediaQuery.of(context).size.height * 0.04)),
                     Row(
                       children: [
                         Text(
@@ -215,7 +461,7 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
                     ),
                     Padding(
                         padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.015)),
+                            top: MediaQuery.of(context).size.height * 0.04)),
                     Row(
                       children: [
                         widget.score > (widget.num_questions * 0.9)
@@ -239,7 +485,7 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
                     ),
                     Container(
                       margin: EdgeInsets.only(
-                          top: 10, left: 20, right: 20, bottom: 10),
+                          top: 30, left: 20, right: 20, bottom: 10),
                       child: SizedBox(
                         height: 40,
                         child: ElevatedButton(
@@ -271,74 +517,102 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
                         ),
                       ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Next Lesson",
-                          style: TextStyle(
-                              fontSize:
-                                  MediaQuery.of(context).textScaleFactor * 20,
-                              color: HexColor("#461482")),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(width: 2, color: Colors.black),
-                            borderRadius: BorderRadius.circular(25),
-                            boxShadow: [
-                              BoxShadow(
-                                color: HexColor("#461482"),
-                                blurRadius: 3,
-                                offset: Offset(3, 5),
+                  ],
+                )),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 15, left: 15),
+            child: Text(
+              "Next Lesson",
+              style: TextStyle(
+                  fontSize: MediaQuery.of(context).textScaleFactor * 30,
+                  color: HexColor("#461482")),
+            ),
+          ),
+          Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 2, color: Colors.black),
+                    borderRadius: BorderRadius.circular(25),
+                    boxShadow: [
+                      BoxShadow(
+                        color: HexColor("#461482"),
+                        blurRadius: 3,
+                        offset: Offset(3, 5),
+                      ),
+                    ],
+                  ),
+                  margin: const EdgeInsets.fromLTRB(30, 10, 30, 5),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.black),
+                        borderRadius: BorderRadius.circular(20)),
+                    width: 110,
+                    height: 110,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.white,
+                        onPrimary: Colors.black,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                      ),
+                      onPressed: () {
+                        if (widget.score > bestScore) {
+                          updateScore();
+                        }
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) {
+                          return route;
+                        }));
+                      },
+                      child: Row(
+                        children: <Widget>[
+                          Image.network(recommendImage,
+                              width: MediaQuery.of(context).size.width * 0.3,
+                              height: 80,
+                              errorBuilder: (context, error, stackTrace) {
+                            return const Text(
+                              'Loading..',
+                              style: TextStyle(fontSize: 20),
+                            );
+                          }),
+                          Padding(padding: EdgeInsets.only(top: 30)),
+                          Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 20, left: 20),
+                                child: Text(
+                                  recommendName,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: HexColor("#461482"),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 20, top: 20),
+                                child: Text(
+                                  "(${recommendLevel})",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: HexColor("#461482"),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
-                          margin: const EdgeInsets.fromLTRB(20, 10, 30, 10),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(width: 2, color: Colors.black),
-                                borderRadius: BorderRadius.circular(20)),
-                            width: 200,
-                            height: 150,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.white,
-                                  onPrimary: Colors.black,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
-                                onPressed: () {
-                                  if (widget.score > bestScore) {
-                                    updateScore();
-                                  }
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return flash_fruit;
-                                  }));
-                                },
-                                child: Column(children: <Widget>[
-                                  Padding(padding: EdgeInsets.only(top: 10)),
-                                  Image.network(
-                                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Ffruits.png?alt=media&token=548254ec-fbf7-428d-aa57-a1b23beacf56",
-                                    width: 80,
-                                    height: 90,
-                                  ),
-                                  Padding(padding: EdgeInsets.only(top: 10)),
-                                  Text(
-                                    "Fruit",
-                                    style: TextStyle(
-                                        fontSize: MediaQuery.of(context)
-                                                .textScaleFactor *
-                                            20),
-                                  )
-                                ])),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ],
-                )),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

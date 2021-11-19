@@ -94,7 +94,7 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
                               color: Colors.green),
                         ),
                         percent: (widget.score * widget.num_questions) / 100,
-                        radius: 120,
+                        radius: MediaQuery.of(context).size.width * 0.25,
                         backgroundColor: Colors.grey,
                         circularStrokeCap: CircularStrokeCap.butt,
                         lineWidth: 10,

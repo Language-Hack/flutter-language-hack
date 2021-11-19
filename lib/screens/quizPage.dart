@@ -252,7 +252,7 @@ class _QuizScreenScreenState extends State<QuizScreen> {
                                           color: HexColor("#461482"),
                                           fontSize: MediaQuery.of(context)
                                                   .textScaleFactor *
-                                              10),
+                                              15),
                                     ),
                                   ),
                                 ),

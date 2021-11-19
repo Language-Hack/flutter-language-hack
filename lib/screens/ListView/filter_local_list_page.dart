@@ -1,8 +1,11 @@
 import 'package:animated_drawer/views/animated_drawer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:language_hack/model/book.dart';
+import 'package:language_hack/model/userScores.dart';
 import 'package:language_hack/screens/ListView/advance_data.dart';
 import 'package:language_hack/screens/ListView/basic_data.dart';
 import 'package:language_hack/screens/ListView/search_widget.dart';
@@ -19,18 +22,91 @@ class FilterLocalListPage extends StatefulWidget {
 
 class FilterLocalListPageState extends State<FilterLocalListPage> {
   final auth = FirebaseAuth.instance;
+  bool pressBasic = false;
+  bool pressIntermediate = false;
+  bool pressAdvance = false;
+  UserScores allScores = new UserScores(
+      adjective_score: 0,
+      carPart_score: 0,
+      clothes_score: 0,
+      color_score: 0,
+      countries_score: 0,
+      days_score: 0,
+      dbFood_score: 0,
+      environment_score: 0,
+      family_score: 0,
+      feeling_score: 0,
+      football_score: 0,
+      fruit_score: 0,
+      halloween_score: 0,
+      ielts_score: 0,
+      months_score: 0,
+      music_score: 0,
+      office_score: 0,
+      place_score: 0,
+      sports_score: 0,
+      toefl_score: 0,
+      typeFood_score: 0,
+      vegetable_score: 0,
+      verbs_score: 0,
+      weather_score: 0,
+      workshop_score: 0);
   List<Book> books;
-  List<Book> books2;
-  List<Book> books3;
   String query = '';
 
   @override
   void initState() {
     super.initState();
-
     books = allBooks;
-    books2 = allBooks2;
-    books3 = allBooks3;
+    readData();
+  }
+
+  Future<Null> readData() async {
+    await Firebase.initializeApp().then((value) async {
+      await FirebaseFirestore.instance
+          .collection("scores")
+          .where("owner",
+              isEqualTo:
+                  FirebaseAuth.instance.currentUser.displayName.toString())
+          .snapshots()
+          .listen((event) {
+        for (var snapshorts in event.docs) {
+          Map<String, dynamic> map = snapshorts.data();
+          UserScores scores = UserScores.fromMap(map);
+          setState(() {
+            allScores = scores;
+          });
+        }
+        updateScore();
+      });
+    });
+  }
+
+  void updateScore() {
+    books[0].score = allScores.adjective_score;
+    books[1].score = allScores.color_score;
+    books[2].score = allScores.countries_score;
+    books[3].score = allScores.days_score;
+    books[4].score = allScores.family_score;
+    books[5].score = allScores.fruit_score;
+    books[6].score = allScores.months_score;
+    books[7].score = allScores.vegetable_score;
+    books[8].score = allScores.verbs_score;
+    books[9].score = allScores.clothes_score;
+    books[10].score = allScores.dbFood_score;
+    books[11].score = allScores.feeling_score;
+    books[12].score = allScores.typeFood_score;
+    books[13].score = allScores.football_score;
+    books[14].score = allScores.halloween_score;
+    books[15].score = allScores.music_score;
+    books[16].score = allScores.office_score;
+    books[17].score = allScores.sports_score;
+    books[18].score = allScores.weather_score;
+    books[19].score = allScores.environment_score;
+    books[20].score = allScores.ielts_score;
+    books[21].score = allScores.carPart_score;
+    books[22].score = allScores.toefl_score;
+    books[23].score = allScores.workshop_score;
   }
 
   @override
@@ -173,6 +249,87 @@ class FilterLocalListPageState extends State<FilterLocalListPage> {
         body: Column(
           children: <Widget>[
             buildSearch(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  height: 40,
+                  child: RaisedButton(
+                    textColor: Colors.white,
+                    color: pressBasic ? Colors.red : HexColor("#461482"),
+                    shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0),
+                    ),
+                    child: Text("Basic", style: TextStyle(fontSize: 15)),
+                    onPressed: () {
+                      setState(() {
+                        pressBasic = !pressBasic;
+                        pressIntermediate = false;
+                        pressAdvance = false;
+                      });
+                      if (pressBasic == true) {
+                        searchBasic();
+                      } else {
+                        searchAll();
+                      }
+                    },
+                  ),
+                ),
+                Padding(padding: EdgeInsets.only(left: 5)),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.33,
+                  height: 40,
+                  child: RaisedButton(
+                    textColor: Colors.white,
+                    color: pressIntermediate ? Colors.red : HexColor("#461482"),
+                    shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0),
+                    ),
+                    child:
+                        Text("Intermediate", style: TextStyle(fontSize: 14.5)),
+                    onPressed: () {
+                      setState(() {
+                        pressBasic = false;
+                        pressIntermediate = !pressIntermediate;
+                        pressAdvance = false;
+                      });
+                      if (pressIntermediate == true) {
+                        searchIntermediate();
+                      } else {
+                        searchAll();
+                      }
+                    },
+                  ),
+                ),
+                Padding(padding: EdgeInsets.only(left: 5)),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  height: 40,
+                  child: RaisedButton(
+                    textColor: Colors.white,
+                    color: pressAdvance ? Colors.red : HexColor("#461482"),
+                    shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0),
+                    ),
+                    child: Text("Advance", style: TextStyle(fontSize: 14.5)),
+                    onPressed: () {
+                      setState(() {
+                        pressBasic = false;
+                        pressIntermediate = false;
+                        pressAdvance = !pressAdvance;
+                      });
+                      if (pressAdvance == true) {
+                        searchAdvanced();
+                      } else {
+                        searchAll();
+                      }
+                    },
+                  ),
+                )
+              ],
+            ),
+            Padding(padding: EdgeInsets.only(top: 10)),
             Expanded(
               child: ListView.builder(
                 itemCount: books.length,
@@ -190,7 +347,7 @@ class FilterLocalListPageState extends State<FilterLocalListPage> {
 
   Widget buildSearch() => SearchWidget(
         text: query,
-        hintText: 'Vocabulary',
+        hintText: 'Category',
         onChanged: searchBook,
       );
 
@@ -198,7 +355,11 @@ class FilterLocalListPageState extends State<FilterLocalListPage> {
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      color: Colors.amber.shade100,
+      color: book.level == '(Basic)'
+          ? Colors.amber.shade100
+          : book.level == '(Intermediate)'
+              ? Colors.blue.shade200
+              : Colors.red.shade200,
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(width: 1, color: Colors.black),
@@ -207,12 +368,31 @@ class FilterLocalListPageState extends State<FilterLocalListPage> {
         child: ListTile(
             leading: Image.network(
               book.urlImage,
-              // fit: BoxFit.fill,
               width: 100,
               height: 100,
             ),
-            title: Text(book.title),
-            subtitle: Text(book.level),
+            title: Text(
+              book.title,
+              style: TextStyle(
+                  color: HexColor("#461482"),
+                  fontSize: 20 * MediaQuery.of(context).textScaleFactor),
+            ),
+            subtitle: Padding(
+              padding: const EdgeInsets.only(top: 7),
+              child: Text(
+                book.level,
+                style: TextStyle(
+                    color: HexColor("#461482"),
+                    fontSize: 15 * MediaQuery.of(context).textScaleFactor),
+              ),
+            ),
+            trailing: book.score > 0
+                ? Image.network(
+                    'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Flashcards%2Fchecked.png?alt=media&token=ebdeb4f7-d7ed-4825-8623-e33f67afc324',
+                    width: 35,
+                    height: 35,
+                  )
+                : null,
             onTap: () =>
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return book.screen;
@@ -233,6 +413,55 @@ class FilterLocalListPageState extends State<FilterLocalListPage> {
 
     setState(() {
       this.query = query;
+      this.books = books;
+    });
+  }
+
+  void searchBasic() {
+    final books = allBooks.where((book) {
+      final authorLower = book.level.toLowerCase();
+
+      return authorLower.contains('basic');
+    }).toList();
+
+    setState(() {
+      this.query = query;
+      this.books = books;
+    });
+  }
+
+  void searchIntermediate() {
+    final books = allBooks.where((book) {
+      final titleLower = book.title.toLowerCase();
+      final authorLower = book.level.toLowerCase();
+
+      return authorLower.contains('intermediate');
+    }).toList();
+
+    setState(() {
+      this.query = query;
+      this.books = books;
+    });
+  }
+
+  void searchAdvanced() {
+    final books = allBooks.where((book) {
+      final titleLower = book.title.toLowerCase();
+      final authorLower = book.level.toLowerCase();
+
+      return authorLower.contains('advance');
+    }).toList();
+
+    setState(() {
+      this.query = query;
+      this.books = books;
+    });
+  }
+
+  void searchAll() {
+    final books = allBooks.toList();
+
+    setState(() {
       this.books = books;
     });
   }

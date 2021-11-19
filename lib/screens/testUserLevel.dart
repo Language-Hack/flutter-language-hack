@@ -245,7 +245,7 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                                         color: HexColor("#461482"),
                                         fontSize: MediaQuery.of(context)
                                                 .textScaleFactor *
-                                            10),
+                                            15),
                                   ),
                                 ),
                               ),
