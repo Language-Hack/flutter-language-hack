@@ -9,7 +9,7 @@ import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:language_hack/model/words.dart';
-import 'package:language_hack/screens/questions_list/questions_basic.dart';
+import 'package:language_hack/screens/questions_list/questions_intermediate.dart';
 import 'package:language_hack/screens/quizPage.dart';
 import 'package:language_hack/screens/user.dart';
 
@@ -215,7 +215,7 @@ Widget notready() {
   );
 }
 
-Widget quizButton() {
+Widget quizButton(BuildContext context) {
   return SizedBox(
     width: 150,
     height: 50,
@@ -227,7 +227,13 @@ Widget quizButton() {
       ),
       icon: Icon(Icons.dashboard),
       label: Text("Quiz", style: TextStyle(fontSize: 15)),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    QuizScreen(clothes, 'clothes_score', 'intermediate')));
+      },
     ),
   );
 }
@@ -572,7 +578,7 @@ class _ShowResultState extends State<ShowResult> {
                 if (cards.isEmpty) ...[ready()] else ...[notready()],
                 Padding(padding: EdgeInsets.only(top: 30)),
                 if (cards.isEmpty) ...[
-                  quizButton()
+                  quizButton(context)
                 ] else ...[
                   tryButton(context)
                 ],
