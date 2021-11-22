@@ -251,6 +251,7 @@ class _RegisterScreensState extends State<RegisterScreens> {
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           hintText: 'Enter Your Display Name',
+          hintStyle: TextStyle(color: Colors.black),
           prefixIcon: Icon(Icons.face),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30.0)),
@@ -280,6 +281,7 @@ class _RegisterScreensState extends State<RegisterScreens> {
           prefixIcon: Icon(Icons.perm_identity),
           border: OutlineInputBorder(),
           hintText: 'Enter Your Email',
+          hintStyle: TextStyle(color: Colors.black),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(30.0)),
               borderSide: BorderSide(color: HexColor("#461482"))),
@@ -304,6 +306,7 @@ class _RegisterScreensState extends State<RegisterScreens> {
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           hintText: 'Enter Your Password',
+          hintStyle: TextStyle(color: Colors.black),
           prefixIcon: Icon(Icons.lock_outline),
           suffixIcon: IconButton(
               icon: Icon(_isHidden ? Icons.visibility_off : Icons.visibility),

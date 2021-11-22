@@ -268,7 +268,7 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
       route = basic_recommend_page[index];
       recommendImage = basic_recommend_image[index];
       recommendName = basic_recommend_name[index];
-      recommendLevel = "basic";
+      recommendLevel = "Basic";
     } else if ((intermediateScore > basicScore) &&
         ((intermediateScore / 2) > advanceScore) &&
         (intermediate_recommend_page.isNotEmpty)) {
@@ -277,7 +277,7 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
       route = intermediate_recommend_page[index];
       recommendImage = intermediate_recommend_image[index];
       recommendName = intermediate_recommend_name[index];
-      recommendLevel = 'intermediate';
+      recommendLevel = 'Intermediate';
     } else if ((advanceScore > (basicScore / 2)) &&
         (advanceScore > (intermediateScore / 2)) &&
         (advance_recommend_page.isNotEmpty)) {
@@ -286,7 +286,7 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
       route = advance_recommend_page[index];
       recommendImage = advance_recommend_image[index];
       recommendName = advance_recommend_name[index];
-      recommendLevel = 'advance';
+      recommendLevel = 'Advance';
     } else {
       // Based on user level
       if (level == 'basic' && basic_recommend_name.isNotEmpty) {
@@ -294,20 +294,20 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
         recommendName = basic_recommend_name[index];
         recommendImage = basic_recommend_image[index];
         route = basic_recommend_page[index];
-        recommendLevel = 'basic';
+        recommendLevel = 'Basic';
       } else if (level == 'intermediate' &&
           intermediate_recommend_name.isNotEmpty) {
         int index = Random().nextInt(intermediate_recommend_name.length);
         recommendName = intermediate_recommend_name[index];
         recommendImage = intermediate_recommend_image[index];
         route = intermediate_recommend_page[index];
-        recommendLevel = 'intermediate';
+        recommendLevel = 'Intermediate';
       } else if (level == 'advance' && advance_recommend_name.isNotEmpty) {
         int index = Random().nextInt(advance_recommend_name.length);
         recommendName = advance_recommend_name[index];
         recommendImage = advance_recommend_image[index];
         route = advance_recommend_page[index];
-        recommendLevel = 'advance';
+        recommendLevel = 'Advance';
       } else {
         int random = Random().nextInt(2);
         if (random == 0 && basic_recommend_name.isNotEmpty) {
@@ -315,19 +315,19 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
           recommendName = basic_recommend_name[index];
           recommendImage = basic_recommend_image[index];
           route = basic_recommend_page[index];
-          recommendLevel = 'basic';
+          recommendLevel = 'Basic';
         } else if (random == 1 && intermediate_recommend_name.isNotEmpty) {
           int index = Random().nextInt(intermediate_recommend_name.length);
           recommendName = intermediate_recommend_name[index];
           recommendImage = intermediate_recommend_image[index];
           route = intermediate_recommend_page[index];
-          recommendLevel = 'intermediate';
+          recommendLevel = 'Intermediate';
         } else {
           int index = Random().nextInt(advance_recommend_name.length);
           recommendName = advance_recommend_name[index];
           recommendImage = advance_recommend_image[index];
           route = advance_recommend_page[index];
-          recommendLevel = 'advance';
+          recommendLevel = 'Advance';
         }
       }
     }

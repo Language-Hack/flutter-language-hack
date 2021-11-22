@@ -72,6 +72,8 @@ dependencies:
 
   percent_indicator: ^3.4.0
 
+  flutter_speed_dial: ^4.6.6
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -95,9 +97,12 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
 
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/add-file.png
+    - assets/bin.png
+    - assets/create folder.png
+    - assets/delete folder.png
+    - assets/reward.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

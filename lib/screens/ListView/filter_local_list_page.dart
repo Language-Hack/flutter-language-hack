@@ -388,7 +388,7 @@ class FilterLocalListPageState extends State<FilterLocalListPage> {
             ),
             trailing: book.score > 0
                 ? Image.network(
-                    'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Flashcards%2Fchecked.png?alt=media&token=ebdeb4f7-d7ed-4825-8623-e33f67afc324',
+                    'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Flashcards%2Freward.png?alt=media&token=92def8cb-dabd-4d79-9012-c0cab6c8e0cc',
                     width: 35,
                     height: 35,
                   )

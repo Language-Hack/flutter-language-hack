@@ -78,19 +78,19 @@ class _DemoScreensScreensState extends State<DemoScreens> {
       recommendName = basic_name[index];
       recommendImage = basic_image[index];
       route = basic_page[index];
-      recommendLevel = 'basic';
+      recommendLevel = 'Basic';
     } else if (widget.level == 'intermediate') {
       int index = Random().nextInt(intermediate_name.length);
       recommendName = intermediate_name[index];
       recommendImage = intermediate_image[index];
       route = intermediate_page[index];
-      recommendLevel = 'intermediate';
+      recommendLevel = 'Intermediate';
     } else {
       int index = Random().nextInt(advance_name.length);
       recommendName = advance_name[index];
       recommendImage = advance_image[index];
       route = advance_page[index];
-      recommendLevel = 'advance';
+      recommendLevel = 'Advance';
     }
   }
 

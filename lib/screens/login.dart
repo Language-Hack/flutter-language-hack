@@ -204,6 +204,7 @@ class _LoginScreensState extends State<LoginScreens> {
         ]),
         decoration: InputDecoration(
           hintText: 'Enter Your Email',
+          hintStyle: TextStyle(color: Colors.black),
           prefixIcon: Icon(Icons.perm_identity),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(30.0)),
@@ -228,6 +229,7 @@ class _LoginScreensState extends State<LoginScreens> {
             RequiredValidator(errorText: "Please fill in the information"),
         decoration: InputDecoration(
           hintText: 'Enter Your Password',
+          hintStyle: TextStyle(color: Colors.black),
           prefixIcon: Icon(Icons.lock_outline),
           suffixIcon: IconButton(
               icon: Icon(_isHidden ? Icons.visibility_off : Icons.visibility),
