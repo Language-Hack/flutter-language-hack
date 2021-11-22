@@ -61,7 +61,8 @@ class _RegisterScreensState extends State<RegisterScreens> {
                         margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                         child: SizedBox(
                           height: 60,
-                          child: ElevatedButton(
+                          child: ElevatedButton.icon(
+                            icon: Icon(Icons.account_box_outlined),
                             style: ElevatedButton.styleFrom(
                               primary: HexColor("#461482"),
                               onPrimary: Colors.white,
@@ -70,7 +71,7 @@ class _RegisterScreensState extends State<RegisterScreens> {
                                 borderRadius: BorderRadius.circular(30),
                               ),
                             ),
-                            child: isLoading
+                            label: isLoading
                                 ? Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -84,7 +85,7 @@ class _RegisterScreensState extends State<RegisterScreens> {
                                           style: TextStyle(fontSize: 20))
                                     ],
                                   )
-                                : Text("CREATE ACCOUNT",
+                                : Text("Create Account",
                                     style: TextStyle(fontSize: 20)),
                             onPressed: () async {
                               setState(() {
@@ -137,7 +138,8 @@ class _RegisterScreensState extends State<RegisterScreens> {
                         margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                         child: SizedBox(
                           height: 60,
-                          child: ElevatedButton(
+                          child: ElevatedButton.icon(
+                            icon: Icon(Icons.login),
                             style: ElevatedButton.styleFrom(
                               primary: Colors.white,
                               onPrimary: HexColor("#461482"),
@@ -147,8 +149,8 @@ class _RegisterScreensState extends State<RegisterScreens> {
                                 borderRadius: BorderRadius.circular(30),
                               ),
                             ),
-                            child:
-                                Text("LOGIN", style: TextStyle(fontSize: 20)),
+                            label:
+                                Text("Login", style: TextStyle(fontSize: 20)),
                             onPressed: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
