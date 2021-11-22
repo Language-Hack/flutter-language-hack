@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:language_hack/model/userFlashcard.dart';
 import 'package:language_hack/screens/home.dart';
 import 'package:language_hack/screens/user.dart';
@@ -21,15 +23,53 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
   // Create a collection
   CollectionReference words = FirebaseFirestore.instance.collection('words');
 
-  String value;
+  CollectionReference categories =
+      FirebaseFirestore.instance.collection('categories');
+
+  String value = "Uncategorize";
 
   // Display on the screen
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('words')
       .where("owner",
           isEqualTo: FirebaseAuth.instance.currentUser.displayName.toString())
-      // .where("category", isEqualTo: "")
       .snapshots();
+
+  Future deleteFlashcards() async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection("words")
+        .where("owner",
+            isEqualTo: FirebaseAuth.instance.currentUser.displayName.toString())
+        .where("category", isEqualTo: value)
+        .get();
+    for (int i = 0; i < querySnapshot.docs.length; i++) {
+      var a = querySnapshot.docs[i];
+      words
+          .doc(a.id)
+          .delete()
+          .then((value) => print("Delete Flashcard Successfully."))
+          .catchError((error) => print("Failed to delete Flashcard: $error"));
+    }
+  }
+
+  Future deleteCategory() async {
+    items.removeWhere((item) => item == value);
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection("categories")
+        .where("owner",
+            isEqualTo: FirebaseAuth.instance.currentUser.displayName.toString())
+        .where("category", isEqualTo: value)
+        .get();
+    for (int i = 0; i < querySnapshot.docs.length; i++) {
+      var a = querySnapshot.docs[i];
+      categories
+          .doc(a.id)
+          .delete()
+          .then((value) => print("Delete Category Successfully."))
+          .catchError((error) => print("Failed to delete category: $error"));
+      ;
+    }
+  }
 
   UserFlashcard userFlashcard =
       new UserFlashcard(sentence: '', translation: '', word: '', category: '');
@@ -38,13 +78,43 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
   TextEditingController _sentence = TextEditingController();
   TextEditingController _translation = TextEditingController();
   TextEditingController _category = TextEditingController();
+  TextEditingController _createCategory = TextEditingController();
 
-  List<String> items = ["ITEM1", "ITEM2", "ITEM3", "Test"];
-  int index = 0;
+  List<String> items = ["Uncategorize"];
 
-  void getIndex() {
+  @override
+  void initState() {
+    super.initState();
+    readData();
+  }
+
+  Future<Null> readData() async {
+    await Firebase.initializeApp().then((value) async {
+      await FirebaseFirestore.instance
+          .collection("categories")
+          .where("owner",
+              isEqualTo:
+                  FirebaseAuth.instance.currentUser.displayName.toString())
+          .snapshots()
+          .listen((event) {
+        for (var snapshorts in event.docs) {
+          Map<String, dynamic> map = snapshorts.data();
+          if (!items.contains(map['category'])) {
+            items.add(map['category']);
+          }
+          setState(() {
+            items.toSet().toList();
+          });
+          getCategory();
+        }
+      });
+    });
+  }
+
+  void getCategory() {
     setState(() {
-      index = items.indexWhere((element) => element == value);
+      items.toSet().toList();
+      items.sort();
     });
   }
 
@@ -52,168 +122,206 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
 
-    final wordField = TextFormField(
-      controller: _word,
+    final wordField = Container(
+      margin: EdgeInsets.only(top: 10),
+      child: TextFormField(
+        controller: _word,
+        style: TextStyle(
+          color: Colors.black,
+        ),
+        cursorColor: Colors.blue,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(left: 20),
+          hintText: 'Word',
+          hintStyle: TextStyle(color: Colors.black),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(color: HexColor("#461482"))),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(color: HexColor("#461482"))),
+        ),
+      ),
+    );
+
+    final translationField = Container(
+      margin: EdgeInsets.only(top: 20),
+      child: TextFormField(
+        controller: _translation,
+        style: TextStyle(
+          color: Colors.black,
+        ),
+        cursorColor: Colors.blue,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(left: 20),
+          hintText: 'Translation',
+          hintStyle: TextStyle(color: Colors.black),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(color: HexColor("#461482"))),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(color: HexColor("#461482"))),
+        ),
+      ),
+    );
+
+    final sentenceField = Container(
+      margin: EdgeInsets.only(top: 20),
+      child: TextFormField(
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(left: 20),
+          hintText: 'Sentence',
+          hintStyle: TextStyle(color: Colors.black),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(color: HexColor("#461482"))),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(color: HexColor("#461482"))),
+        ),
+        controller: _sentence,
+        style: TextStyle(
+          color: Colors.black,
+        ),
+        cursorColor: Colors.blue,
+      ),
+    );
+
+    final createCategoryField = TextFormField(
+      controller: _createCategory,
       style: TextStyle(
         color: Colors.black,
       ),
       cursorColor: Colors.blue,
       decoration: InputDecoration(
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.red,
-          ),
-        ),
-        labelText: "คำศัพท์",
-        labelStyle: TextStyle(
-          color: Colors.blue,
-        ),
-        hintStyle: TextStyle(
-          color: Colors.black,
-        ),
+        contentPadding: EdgeInsets.only(left: 20),
+        hintText: 'Category',
+        hintStyle: TextStyle(color: Colors.black),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            borderSide: BorderSide(color: HexColor("#461482"))),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            borderSide: BorderSide(color: HexColor("#461482"))),
       ),
     );
 
-    final translationField = TextFormField(
-      controller: _translation,
-      style: TextStyle(
-        color: Colors.black,
-      ),
-      cursorColor: Colors.blue,
-      decoration: InputDecoration(
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.red,
-          ),
-        ),
-        labelText: "คำแปล",
-        labelStyle: TextStyle(
-          color: Colors.blue,
-        ),
-        hintStyle: TextStyle(
-          color: Colors.black,
-        ),
-      ),
-    );
-
-    final sentenceField = TextFormField(
-      controller: _sentence,
-      style: TextStyle(
-        color: Colors.black,
-      ),
-      cursorColor: Colors.blue,
-      decoration: InputDecoration(
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.red,
-          ),
-        ),
-        labelText: "ประโยค",
-        labelStyle: TextStyle(
-          color: Colors.blue,
-        ),
-        hintStyle: TextStyle(
-          color: Colors.black,
-        ),
-      ),
-    );
-
-    final categoryField = TextFormField(
-      controller: _category,
-      style: TextStyle(
-        color: Colors.black,
-      ),
-      cursorColor: Colors.blue,
-      decoration: InputDecoration(
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.red,
-          ),
-        ),
-        labelText: "category",
-        labelStyle: TextStyle(
-          color: Colors.blue,
-        ),
-        hintStyle: TextStyle(
-          color: Colors.black,
-        ),
-      ),
-    );
-
-    final addButton = Material(
-      elevation: 5.0,
-      borderRadius: BorderRadius.circular(25.0),
-      color: Colors.green,
-      child: MaterialButton(
-        minWidth: mq.size.width / 1.2,
-        padding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
-        child: Text(
-          "Add",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 20.0,
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        onPressed: () {
-          setState(() {
-            if (_word.text != '') {
-              userFlashcard.word = _word.text;
-              userFlashcard.sentence = _sentence.text;
-              userFlashcard.translation = _translation.text;
-              userFlashcard.category = _category.text;
-              // _flashcards.add(userFlashcard);
-            }
-            words.add({
-              'word': userFlashcard.word,
-              'sentence': userFlashcard.sentence,
-              'translation': userFlashcard.translation,
-              'category': userFlashcard.category,
-              'owner': auth.currentUser.displayName.toString(),
-            }).catchError((error) => print("Failed to add user: $error"));
-          });
-          userFlashcard = new UserFlashcard(
-              word: "", sentence: "", translation: "", category: "");
-          _word.text = "";
-          _sentence.text = "";
-          _translation.text = "";
-          _category.text = "";
-          Navigator.of(context).pop();
-        },
-      ),
-    );
-
-    final cancleButton = Material(
-      elevation: 5.0,
-      borderRadius: BorderRadius.circular(25.0),
-      color: Colors.red,
-      child: MaterialButton(
-          minWidth: mq.size.width / 1.2,
-          padding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
-          child: Text(
-            "Cancle",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20.0,
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
+    final addButton = Container(
+      child: SizedBox(
+        width: mq.size.width * 0.9,
+        height: 55,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: HexColor("#461482"),
+            onPrimary: Colors.white,
+            side: BorderSide(width: 2, color: Colors.black),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
             ),
           ),
+          child: Text("Create", style: TextStyle(fontSize: 20)),
           onPressed: () {
+            setState(() {
+              if (_word.text != '') {
+                userFlashcard.word = _word.text;
+                userFlashcard.sentence = _sentence.text;
+                userFlashcard.translation = _translation.text;
+                userFlashcard.category = _category.text;
+              }
+              words.add({
+                'word': userFlashcard.word,
+                'sentence': userFlashcard.sentence,
+                'translation': userFlashcard.translation,
+                'category': value,
+                'owner': auth.currentUser.displayName.toString(),
+              }).catchError((error) => print("Failed to add user: $error"));
+            });
+            userFlashcard = new UserFlashcard(
+                word: "", sentence: "", translation: "", category: "");
+            _word.text = "";
+            _sentence.text = "";
+            _translation.text = "";
+            _category.text = "";
             Navigator.of(context).pop();
-          }),
+          },
+        ),
+      ),
+    );
+
+    final createCategryButton = Container(
+      margin: EdgeInsets.only(top: 10),
+      child: SizedBox(
+        width: mq.size.width * 0.9,
+        height: 55,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: HexColor("#461482"),
+            onPrimary: Colors.white,
+            side: BorderSide(width: 2, color: Colors.black),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+          ),
+          child: Text("Create", style: TextStyle(fontSize: 20)),
+          onPressed: () {
+            if (_createCategory.text != "") {
+              categories.add({
+                'owner': auth.currentUser.displayName.toString(),
+                'category': _createCategory.text,
+              }).catchError((error) => print("Failed to add category: $error"));
+            } else {
+              categories.add({
+                'owner': auth.currentUser.displayName.toString(),
+                'category': "Uncategorize",
+              }).catchError((error) => print("Failed to add category: $error"));
+            }
+            value = _createCategory.text;
+            _createCategory.text = "";
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
+    );
+
+    final cancleButton = Container(
+      child: SizedBox(
+        width: mq.size.width * 0.9,
+        height: 55,
+        child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.white,
+              onPrimary: HexColor("#461482"),
+              side: BorderSide(width: 2, color: HexColor("#461482")),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+            ),
+            child: Text("Cancle", style: TextStyle(fontSize: 20)),
+            onPressed: () {
+              Navigator.of(context).pop();
+            }),
+      ),
     );
 
     final fields = Padding(
-      padding: EdgeInsets.only(top: 10.0),
+      padding: EdgeInsets.only(top: 1.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           wordField,
           translationField,
           sentenceField,
-          categoryField
+        ],
+      ),
+    );
+
+    final createCategoryFields = Padding(
+      padding: EdgeInsets.only(top: 10.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          createCategoryField,
         ],
       ),
     );
@@ -230,290 +338,706 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
       ],
     );
 
+    final createCategorybottom = Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        createCategryButton,
+        Padding(
+          padding: EdgeInsets.all(8.0),
+        ),
+        cancleButton,
+      ],
+    );
+
     DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
           value: item,
           child: Text(item,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: HexColor("#461482"))),
         );
 
     return Scaffold(
         backgroundColor: Colors.amber.shade50,
-        appBar:
-            // AppBar(
-            //   backgroundColor: Colors.amber.shade100,
-            //   title: Center(
-            //     child: Container(
-            //       margin: const EdgeInsets.fromLTRB(30.0, 0.0, 0.0, 0.0),
-            //       padding: EdgeInsets.symmetric(horizontal: 25, vertical: 1),
-            //       decoration: BoxDecoration(
-            //           borderRadius: BorderRadius.circular(12),
-            //           border: Border.all(color: Colors.black)),
-            //       child: DropdownButtonHideUnderline(
-            //         child: DropdownButton<String>(
-            //           value: value,
-            //           hint: Text("Uncategorize"),
-            //           icon: Icon(Icons.arrow_drop_down),
-            //           items: items.map(buildMenuItem).toList(),
-            //           onChanged: (value) => setState(() => this.value = value),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            //   actions: [
-            //     IconButton(onPressed: () {}, icon: Icon(Icons.folder)),
-            //     IconButton(onPressed: () {}, icon: Icon(Icons.add))
-            //   ],
-            // ),
-            PreferredSize(
-                preferredSize: const Size.fromHeight(60),
-                child: AppBar(
-                  title: Image.network(
-                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2Flogo.png?alt=media&token=75cfc4fa-1400-43ed-96d5-2b85ad733971",
-                    width: 110,
-                    height: 110,
-                  ),
-                  backgroundColor: Colors.amber.shade100,
-                  iconTheme: IconThemeData(color: Colors.black),
-                  actions: [
-                    IconButton(onPressed: () {}, icon: Icon(Icons.folder)),
-                  ],
-                )),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              DrawerHeader(
-                  // decoration: const BoxDecoration(
-                  //     image: DecorationImage(
-                  //         fit: BoxFit.fill,
-                  //         image: AssetImage("assets/bg.png"))),
-                  child: Stack(children: <Widget>[
-
-                    const Positioned(
-                      bottom: 40.0,
-                      child: Text("Welcome!",
-                          style: TextStyle(
-                              fontSize: 20.0, fontWeight: FontWeight.bold)),
+        appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(60),
+            child: AppBar(
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back_ios, color: HexColor("#461482")),
+                onPressed: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
+                    return WelcomeScreens();
+                  }));
+                },
+              ),
+              title: Center(
+                child: Container(
+                  margin: const EdgeInsets.only(right: 40),
+                  padding: EdgeInsets.symmetric(horizontal: 19, vertical: 1),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: HexColor("#461482"), width: 2)),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      value: value,
+                      icon: Icon(Icons.arrow_drop_down,
+                          color: HexColor("#461482")),
+                      items: items.map(buildMenuItem).toList(),
+                      onChanged: (value) => setState(() => this.value = value),
                     ),
-                    Positioned(
-                      bottom: 12.0,
-                      child: Text(
-                        auth.currentUser.displayName.toString(),
-                        style: const TextStyle(
-                            fontSize: 20.0, fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ])),
-
-              ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      fixedSize: Size(20, 60),
-                      primary: Colors.white,
-                      onPrimary: Colors.black,
-                      side: BorderSide(color: Colors.white),
-                      alignment: Alignment.centerLeft),
-                  onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) {
-                      return UserScreen();
-                    }));
-                  },
-                  icon: Icon(Icons.person),
-                  label: const Text(
-                    "User Profile",
-                    style: TextStyle(fontSize: 20, color: Colors.black),
-                    textAlign: TextAlign.left,
-                  )),
-              ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      fixedSize: Size(20, 60),
-                      primary: Colors.white,
-                      onPrimary: Colors.black,
-                      side: BorderSide(color: Colors.white),
-                      alignment: Alignment.centerLeft),
-                  onPressed: () {
-                    // Navigator.pushReplacement(context,
-                    //     MaterialPageRoute(builder: (context) {
-                    //   return WelcomeScreens();
-                    // }));
-                  },
-                  icon: Icon(Icons.dashboard),
-                  label: const Text(
-                    "Dashboard",
-                    style: TextStyle(fontSize: 20, color: Colors.black),
-                    textAlign: TextAlign.left,
-                  )),
-              ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      fixedSize: Size(20, 60),
-                      primary: Colors.white,
-                      onPrimary: Colors.black,
-                      side: BorderSide(color: Colors.white),
-                      alignment: Alignment.centerLeft),
-                  onPressed: () {
-                    auth.signOut().then((value) => Navigator.pushReplacement(
-                            context, MaterialPageRoute(builder: (context) {
-                          return const HomeScreen();
-                        })));
-                  },
-                  icon: Icon(Icons.logout),
-                  label: const Text(
-                    "Log out",
-                    style: TextStyle(fontSize: 20, color: Colors.black),
-                    textAlign: TextAlign.left,
-                  )),
-            ],
-          ),
-        ),
-        floatingActionButton: ElevatedButton(
-          child: Icon(Icons.add, color: Colors.white),
-          style: ElevatedButton.styleFrom(
-            shape: CircleBorder(),
-            padding: EdgeInsets.all(20),
-            primary: Colors.blue, // <-- Button color
-            onPrimary: Colors.red, // <-- Splash color
-          ),
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  final TextEditingController _text = TextEditingController();
-                  return AlertDialog(
-                      title: Text(
-                        "Add Card",
-                        style: TextStyle(
-                          color: Colors.red,
-                        ),
-                      ),
-                      backgroundColor: Colors.green.shade100,
-                      content: Form(
-                          child: SingleChildScrollView(
-                        child: Container(
-                          height: 400,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              fields,
-                              Padding(
-                                padding: EdgeInsets.only(top: 10),
-                                child: bottom,
-                              ),
-                            ],
-                          ),
-                        ),
-                      )));
-                });
-          },
-        ),
-        body: StreamBuilder<QuerySnapshot>(
-          stream: _usersStream,
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError) {
-              return Text('Something went wrong');
-            }
-
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: Text("Loading"));
-            }
-
-            return ListView(
-              children: snapshot.data.docs.map((DocumentSnapshot document) {
-                Map<String, dynamic> data =
-                    document.data() as Map<String, dynamic>;
-                return Card(
-                  elevation: 8,
-                  shadowColor: Colors.green,
-                  margin: EdgeInsets.all(15),
-                  shape: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.green, width: 1)),
-                  child: ListTile(
-                    title: Text(data['word']),
-                    onTap: () => {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            final TextEditingController _text =
-                                TextEditingController();
-                            return AlertDialog(
-                                title: Text(
-                                  "Flashcard Detail",
-                                  style: TextStyle(
-                                    color: Colors.red,
+                  ),
+                ),
+              ),
+              backgroundColor: Colors.amber.shade100,
+              iconTheme: IconThemeData(color: HexColor("#461482")),
+            )),
+        floatingActionButton: SpeedDial(
+            animatedIcon: AnimatedIcons.menu_close,
+            backgroundColor: Colors.black,
+            overlayColor: Colors.black,
+            spacing: 12,
+            spaceBetweenChildren: 12,
+            children: [
+              SpeedDialChild(
+                child: Image.network(
+                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CreateFlashcard%2Fadd-file%20(1).png?alt=media&token=f0f23e80-9d47-446a-b3c5-48cdbbd7a001",
+                    width: 30,
+                    height: 30, errorBuilder: (context, error, stackTrace) {
+                  return Text(
+                    'Loading..',
+                    style: TextStyle(fontSize: 20),
+                  );
+                }),
+                label: "Create Flashcard",
+                labelStyle: TextStyle(color: HexColor("#461482"), fontSize: 18),
+                onTap: () => {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Dialog(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0)),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            height: MediaQuery.of(context).size.height * 0.7,
+                            decoration: BoxDecoration(
+                                color: Colors.amber.shade100,
+                                border:
+                                    Border.all(color: Colors.black, width: 3.0),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(16))),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: Center(
+                                    child: Text(
+                                      "Create Flashcard",
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold,
+                                          color: HexColor("#461482")),
+                                    ),
                                   ),
                                 ),
-                                actions: [
-                                  FlatButton(
-                                    onPressed: () => Navigator.of(context)
-                                        .pop(), // passing true
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: CircleAvatar(
-                                        radius: 18.0,
-                                        backgroundColor: Colors.green,
-                                        child: Icon(
-                                          Icons.check,
-                                          color: Colors.black,
+                                const Padding(
+                                    padding: EdgeInsets.only(top: 10)),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Form(
+                                      child: SingleChildScrollView(
+                                    child: Container(
+                                      height: 370,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          fields,
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 15),
+                                            child: bottom,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      })
+                },
+              ),
+              SpeedDialChild(
+                child: Image.network(
+                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CreateFlashcard%2Ffolder%20(1).png?alt=media&token=2620210b-3e51-4f0e-8df6-fcc04c566643",
+                    width: 30,
+                    height: 30, errorBuilder: (context, error, stackTrace) {
+                  return Text(
+                    'Loading..',
+                    style: TextStyle(fontSize: 20),
+                  );
+                }),
+                label: "Create Category",
+                labelStyle: TextStyle(color: HexColor("#461482"), fontSize: 18),
+                onTap: () => {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Dialog(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0)),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            height: MediaQuery.of(context).size.height * 0.45,
+                            decoration: BoxDecoration(
+                                color: Colors.amber.shade100,
+                                border:
+                                    Border.all(color: Colors.black, width: 3.0),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(16))),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: Center(
+                                    child: Text(
+                                      "Create Category",
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold,
+                                          color: HexColor("#461482")),
+                                    ),
+                                  ),
+                                ),
+                                const Padding(
+                                    padding: EdgeInsets.only(top: 10)),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Form(
+                                      child: SingleChildScrollView(
+                                    child: Container(
+                                      height: 220,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          createCategoryFields,
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 10),
+                                            child: createCategorybottom,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      })
+                },
+              ),
+              SpeedDialChild(
+                child: Image.network(
+                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CreateFlashcard%2Fdelete%20folder.png?alt=media&token=7bf2c72a-0962-41fd-a532-39a4fb05743b",
+                    width: 30,
+                    height: 30, errorBuilder: (context, error, stackTrace) {
+                  return Text(
+                    'Loading..',
+                    style: TextStyle(fontSize: 20),
+                  );
+                }),
+                label: "Delete Category",
+                labelStyle: TextStyle(color: HexColor("#461482"), fontSize: 18),
+                onTap: () => {
+                  value != "Uncategorize"
+                      ? showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0)),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.3,
+                                decoration: BoxDecoration(
+                                    color: Colors.amber.shade100,
+                                    border: Border.all(
+                                        color: Colors.black, width: 3.0),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(16))),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5),
+                                      child: Center(
+                                        child: Text(
+                                          "Delete ${value} ?",
+                                          style: TextStyle(
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.bold,
+                                              color: HexColor("#461482")),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                                backgroundColor: Colors.green.shade100,
-                                content: Form(
-                                    child: SingleChildScrollView(
-                                  child: Container(
-                                    height: 150,
-                                    width: 300,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          "คำศัพท์: " + data['word'],
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.black),
+                                    const Padding(
+                                        padding: EdgeInsets.only(top: 25)),
+                                    Container(
+                                      child: SizedBox(
+                                        width: 130,
+                                        height: 40,
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            primary: HexColor("#461482"),
+                                            onPrimary: Colors.white,
+                                            side: BorderSide(
+                                                width: 2, color: Colors.black),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0),
+                                            ),
+                                          ),
+                                          child: Text("Yes",
+                                              style: TextStyle(fontSize: 20)),
+                                          onPressed: () {
+                                            deleteFlashcards();
+                                            deleteCategory();
+                                            value = "Uncategorize";
+                                            Navigator.of(context).pop();
+                                          },
                                         ),
-                                        Text(
-                                          "แปลว่า: " + data['translation'],
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.black),
-                                        ),
-                                        Text(
-                                          "ตัวอย่างประโยค: " + data['sentence'],
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.black),
-                                        ),
-                                        Text(
-                                          "Category: " + data['category'],
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.black),
-                                        ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                )));
+                                    const Padding(
+                                        padding: EdgeInsets.only(top: 20)),
+                                    Container(
+                                      child: SizedBox(
+                                        width: 130,
+                                        height: 40,
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            primary: Colors.white,
+                                            onPrimary: HexColor("#461482"),
+                                            side: BorderSide(
+                                                width: 2,
+                                                color: HexColor("#461482")),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0),
+                                            ),
+                                          ),
+                                          child: Text("No",
+                                              style: TextStyle(fontSize: 20)),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
                           })
-                    },
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete),
-                      color: Colors.red,
-                      onPressed: () {
-                        words.doc(document.reference.id).delete();
-                      },
-                    ),
-                  ),
-                );
-              }).toList(),
-            );
-          },
+                      : showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0)),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.3,
+                                decoration: BoxDecoration(
+                                    color: Colors.amber.shade100,
+                                    border: Border.all(
+                                        color: Colors.black, width: 3.0),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(16))),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8),
+                                      child: Center(
+                                        child: Text(
+                                          "Sorry, you cannot delete ${value}!",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              color: HexColor("#461482")),
+                                        ),
+                                      ),
+                                    ),
+                                    const Padding(
+                                        padding: EdgeInsets.only(top: 25)),
+                                    Container(
+                                      child: SizedBox(
+                                        width: 130,
+                                        height: 40,
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            primary: HexColor("#461482"),
+                                            onPrimary: Colors.white,
+                                            side: BorderSide(
+                                                width: 2, color: Colors.black),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0),
+                                            ),
+                                          ),
+                                          child: Text("Continue",
+                                              style: TextStyle(fontSize: 20)),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          })
+                },
+              ),
+            ]),
+        body: Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: StreamBuilder<QuerySnapshot>(
+            stream: _usersStream,
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return Text('Something went wrong');
+              }
+
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: Text("Loading"));
+              }
+
+              return ListView(
+                children: snapshot.data.docs.map((DocumentSnapshot document) {
+                  Map<String, dynamic> data =
+                      document.data() as Map<String, dynamic>;
+                  return data['category'] == value
+                      ? Card(
+                          elevation: 8,
+                          shadowColor: HexColor("#461482"),
+                          margin: EdgeInsets.all(15),
+                          shape: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide:
+                                  BorderSide(color: Colors.black, width: 1)),
+                          child: ListTile(
+                            title: Text(
+                              data['word'],
+                              style: TextStyle(
+                                  color: HexColor("#461482"),
+                                  fontSize:
+                                      MediaQuery.of(context).textScaleFactor *
+                                          20),
+                            ),
+                            onTap: () => {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return Dialog(
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.3,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.45,
+                                        decoration: BoxDecoration(
+                                            color: Colors.amber.shade100,
+                                            border: Border.all(
+                                                color: Colors.black,
+                                                width: 3.0),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(16))),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Align(
+                                              alignment: Alignment.topRight,
+                                              child: IconButton(
+                                                icon: Icon(
+                                                  Icons.close,
+                                                  color: Colors.red,
+                                                  size: 25,
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5, top: 5),
+                                              child: Center(
+                                                child: Text(
+                                                  "Flashcard Details",
+                                                  style: TextStyle(
+                                                      fontSize: 25,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          HexColor("#461482")),
+                                                ),
+                                              ),
+                                            ),
+                                            const Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 25)),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
+                                              child: Form(
+                                                  child: SingleChildScrollView(
+                                                child: Container(
+                                                  height: 150,
+                                                  width: 300,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: [
+                                                      Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  top: 5)),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            "Word: ",
+                                                            style: TextStyle(
+                                                                fontSize: 20,
+                                                                color: Colors
+                                                                    .black),
+                                                          ),
+                                                          Text(
+                                                            data['word'],
+                                                            style: TextStyle(
+                                                                fontSize: 20,
+                                                                color: HexColor(
+                                                                    "#461482")),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  top: 17)),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            "Translation: ",
+                                                            style: TextStyle(
+                                                                fontSize: 20,
+                                                                color: Colors
+                                                                    .black),
+                                                          ),
+                                                          Text(
+                                                            data['translation'],
+                                                            style: TextStyle(
+                                                                fontSize: 20,
+                                                                color: HexColor(
+                                                                    "#461482")),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  top: 17)),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            "Example Sentence: ",
+                                                            style: TextStyle(
+                                                                fontSize: 20,
+                                                                color: Colors
+                                                                    .black),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  top: 15)),
+                                                      Text(
+                                                        data['sentence'],
+                                                        style: TextStyle(
+                                                            fontSize: 20,
+                                                            color: HexColor(
+                                                                "#461482")),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  })
+                            },
+                            trailing: IconButton(
+                              icon: Image.network(
+                                  "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CreateFlashcard%2Fbin.png?alt=media&token=971d192e-8b08-40e4-839d-1a267faa2858"),
+                              iconSize: 30,
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return Dialog(
+                                        elevation: 0,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0)),
+                                        child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.3,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.3,
+                                          decoration: BoxDecoration(
+                                              color: Colors.amber.shade100,
+                                              border: Border.all(
+                                                  color: Colors.black,
+                                                  width: 3.0),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(16))),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 5),
+                                                child: Center(
+                                                  child: Text(
+                                                    "Delete this flashcard ?",
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: HexColor(
+                                                            "#461482")),
+                                                  ),
+                                                ),
+                                              ),
+                                              const Padding(
+                                                  padding:
+                                                      EdgeInsets.only(top: 25)),
+                                              Container(
+                                                child: SizedBox(
+                                                  width: 130,
+                                                  height: 40,
+                                                  child: ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      primary:
+                                                          HexColor("#461482"),
+                                                      onPrimary: Colors.white,
+                                                      side: BorderSide(
+                                                          width: 2,
+                                                          color: Colors.black),
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30.0),
+                                                      ),
+                                                    ),
+                                                    child: Text("Yes",
+                                                        style: TextStyle(
+                                                            fontSize: 20)),
+                                                    onPressed: () {
+                                                      words
+                                                          .doc(document
+                                                              .reference.id)
+                                                          .delete();
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              const Padding(
+                                                  padding:
+                                                      EdgeInsets.only(top: 20)),
+                                              Container(
+                                                child: SizedBox(
+                                                  width: 130,
+                                                  height: 40,
+                                                  child: ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      primary: Colors.white,
+                                                      onPrimary:
+                                                          HexColor("#461482"),
+                                                      side: BorderSide(
+                                                          width: 2,
+                                                          color: HexColor(
+                                                              "#461482")),
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30.0),
+                                                      ),
+                                                    ),
+                                                    child: Text("No",
+                                                        style: TextStyle(
+                                                            fontSize: 20)),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    });
+                              },
+                            ),
+                          ),
+                        )
+                      : Padding(padding: EdgeInsets.only(top: 0.1));
+                }).toList(),
+              );
+            },
+          ),
         ));
   }
 }
