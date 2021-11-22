@@ -215,7 +215,8 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
       child: SizedBox(
         width: mq.size.width * 0.9,
         height: 55,
-        child: ElevatedButton(
+        child: ElevatedButton.icon(
+          icon: Icon(Icons.create),
           style: ElevatedButton.styleFrom(
             primary: HexColor("#461482"),
             onPrimary: Colors.white,
@@ -224,7 +225,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
               borderRadius: BorderRadius.circular(30.0),
             ),
           ),
-          child: Text("Create", style: TextStyle(fontSize: 20)),
+          label: Text("Create", style: TextStyle(fontSize: 20)),
           onPressed: () {
             setState(() {
               if (_word.text != '') {
@@ -258,7 +259,8 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
       child: SizedBox(
         width: mq.size.width * 0.9,
         height: 55,
-        child: ElevatedButton(
+        child: ElevatedButton.icon(
+          icon: Icon(Icons.create),
           style: ElevatedButton.styleFrom(
             primary: HexColor("#461482"),
             onPrimary: Colors.white,
@@ -267,7 +269,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
               borderRadius: BorderRadius.circular(30.0),
             ),
           ),
-          child: Text("Create", style: TextStyle(fontSize: 20)),
+          label: Text("Create", style: TextStyle(fontSize: 20)),
           onPressed: () {
             if (_createCategory.text != "") {
               categories.add({
@@ -292,7 +294,8 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
       child: SizedBox(
         width: mq.size.width * 0.9,
         height: 55,
-        child: ElevatedButton(
+        child: ElevatedButton.icon(
+            icon: Icon(Icons.cancel),
             style: ElevatedButton.styleFrom(
               primary: Colors.white,
               onPrimary: HexColor("#461482"),
@@ -301,7 +304,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                 borderRadius: BorderRadius.circular(30.0),
               ),
             ),
-            child: Text("Cancle", style: TextStyle(fontSize: 20)),
+            label: Text("Cancel", style: TextStyle(fontSize: 20)),
             onPressed: () {
               Navigator.of(context).pop();
             }),
@@ -312,7 +315,8 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
       child: SizedBox(
         width: mq.size.width * 0.9,
         height: 55,
-        child: ElevatedButton(
+        child: ElevatedButton.icon(
+            icon: Icon(Icons.rotate_right),
             style: ElevatedButton.styleFrom(
               primary: HexColor("#461482"),
               onPrimary: Colors.white,
@@ -321,7 +325,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                 borderRadius: BorderRadius.circular(30.0),
               ),
             ),
-            child: Text("Continue", style: TextStyle(fontSize: 20)),
+            label: Text("Continue", style: TextStyle(fontSize: 20)),
             onPressed: () {
               Navigator.of(context).pop();
             }),
@@ -618,7 +622,8 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                       child: SizedBox(
                                         width: 130,
                                         height: 40,
-                                        child: ElevatedButton(
+                                        child: ElevatedButton.icon(
+                                          icon: Icon(Icons.check),
                                           style: ElevatedButton.styleFrom(
                                             primary: HexColor("#461482"),
                                             onPrimary: Colors.white,
@@ -629,7 +634,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                                   BorderRadius.circular(30.0),
                                             ),
                                           ),
-                                          child: Text("Yes",
+                                          label: Text("Yes",
                                               style: TextStyle(fontSize: 20)),
                                           onPressed: () {
                                             deleteFlashcards();
@@ -646,7 +651,8 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                       child: SizedBox(
                                         width: 130,
                                         height: 40,
-                                        child: ElevatedButton(
+                                        child: ElevatedButton.icon(
+                                          icon: Icon(Icons.cancel),
                                           style: ElevatedButton.styleFrom(
                                             primary: Colors.white,
                                             onPrimary: HexColor("#461482"),
@@ -658,7 +664,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                                   BorderRadius.circular(30.0),
                                             ),
                                           ),
-                                          child: Text("No",
+                                          label: Text("No",
                                               style: TextStyle(fontSize: 20)),
                                           onPressed: () {
                                             Navigator.of(context).pop();
@@ -1007,7 +1013,8 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                                 child: SizedBox(
                                                   width: 130,
                                                   height: 40,
-                                                  child: ElevatedButton(
+                                                  child: ElevatedButton.icon(
+                                                    icon: Icon(Icons.check),
                                                     style: ElevatedButton
                                                         .styleFrom(
                                                       primary:
@@ -1023,7 +1030,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                                                 .circular(30.0),
                                                       ),
                                                     ),
-                                                    child: Text("Yes",
+                                                    label: Text("Yes",
                                                         style: TextStyle(
                                                             fontSize: 20)),
                                                     onPressed: () {
@@ -1044,7 +1051,8 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                                 child: SizedBox(
                                                   width: 130,
                                                   height: 40,
-                                                  child: ElevatedButton(
+                                                  child: ElevatedButton.icon(
+                                                    icon: Icon(Icons.cancel),
                                                     style: ElevatedButton
                                                         .styleFrom(
                                                       primary: Colors.white,
@@ -1061,7 +1069,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                                                 .circular(30.0),
                                                       ),
                                                     ),
-                                                    child: Text("No",
+                                                    label: Text("No",
                                                         style: TextStyle(
                                                             fontSize: 20)),
                                                     onPressed: () {

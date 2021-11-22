@@ -489,7 +489,7 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
                       child: SizedBox(
                         height: 40,
                         child: ElevatedButton.icon(
-                          icon: Icon(Icons.arrow_right_alt_rounded),
+                          icon: Icon(Icons.rotate_right),
                           style: ElevatedButton.styleFrom(
                             shadowColor: Colors.black,
                             elevation: 10,

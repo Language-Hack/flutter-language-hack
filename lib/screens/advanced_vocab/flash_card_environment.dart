@@ -209,6 +209,9 @@ Widget quizButton(BuildContext context) {
         primary: Colors.white,
         onPrimary: HexColor("#461482"),
         side: BorderSide(width: 2, color: Colors.black),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
       ),
       icon: Icon(Icons.dashboard),
       label: Text("Quiz", style: TextStyle(fontSize: 15)),
@@ -232,6 +235,9 @@ Widget tryButton(context) {
         primary: Colors.white,
         onPrimary: Colors.red,
         side: BorderSide(width: 2, color: Colors.black),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
       ),
       icon: Icon(Icons.login),
       label: Text("Try Again", style: TextStyle(fontSize: 15)),

@@ -230,6 +230,9 @@ Widget quizButton(BuildContext context) {
         primary: Colors.white,
         onPrimary: HexColor("#461482"),
         side: BorderSide(width: 2, color: Colors.black),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
       ),
       icon: Icon(Icons.dashboard),
       label: Text("Quiz", style: TextStyle(fontSize: 15)),
@@ -253,6 +256,9 @@ Widget tryButton(context) {
         primary: Colors.white,
         onPrimary: Colors.red,
         side: BorderSide(width: 2, color: Colors.black),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
       ),
       icon: Icon(Icons.login),
       label: Text("Try Again", style: TextStyle(fontSize: 15)),
@@ -330,7 +336,8 @@ Future<void> showExitDialog(BuildContext context) async {
                   child: SizedBox(
                     width: 130,
                     height: 40,
-                    child: ElevatedButton(
+                    child: ElevatedButton.icon(
+                      icon: Icon(Icons.check),
                       style: ElevatedButton.styleFrom(
                         primary: HexColor("#461482"),
                         onPrimary: Colors.white,
@@ -339,7 +346,7 @@ Future<void> showExitDialog(BuildContext context) async {
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                       ),
-                      child: Text("Yes", style: TextStyle(fontSize: 20)),
+                      label: Text("Yes", style: TextStyle(fontSize: 20)),
                       onPressed: () {
                         Navigator.pushReplacement(
                             context,
@@ -355,7 +362,8 @@ Future<void> showExitDialog(BuildContext context) async {
                   child: SizedBox(
                     width: 130,
                     height: 40,
-                    child: ElevatedButton(
+                    child: ElevatedButton.icon(
+                      icon: Icon(Icons.cancel),
                       style: ElevatedButton.styleFrom(
                         primary: Colors.white,
                         onPrimary: HexColor("#461482"),
@@ -364,7 +372,7 @@ Future<void> showExitDialog(BuildContext context) async {
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                       ),
-                      child: Text("No", style: TextStyle(fontSize: 20)),
+                      label: Text("No", style: TextStyle(fontSize: 20)),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },

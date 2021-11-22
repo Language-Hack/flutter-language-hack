@@ -221,6 +221,9 @@ Widget quizButton(BuildContext context) {
         primary: Colors.white,
         onPrimary: HexColor("#461482"),
         side: BorderSide(width: 2, color: Colors.black),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
       ),
       icon: Icon(Icons.dashboard),
       label: Text("Quiz", style: TextStyle(fontSize: 15)),
@@ -244,6 +247,9 @@ Widget tryButton(context) {
         primary: Colors.white,
         onPrimary: Colors.red,
         side: BorderSide(width: 2, color: Colors.black),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
       ),
       icon: Icon(Icons.login),
       label: Text("Try Again", style: TextStyle(fontSize: 15)),
@@ -304,46 +310,64 @@ Future<void> showExitDialog(BuildContext context) async {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  "Do you want to end this lesson?",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                const Padding(padding: EdgeInsets.only(top: 10)),
-                SizedBox(
-                  width: 130,
-                  height: 40,
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      onPrimary: Colors.red,
-                      side: BorderSide(width: 2, color: Colors.black),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Center(
+                    child: Text(
+                      "End this lesson ?",
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
                     ),
-                    icon: Icon(Icons.check),
-                    label: Text("Yes", style: TextStyle(fontSize: 15)),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  WelcomeScreens()));
-                    },
                   ),
                 ),
-                const Padding(padding: EdgeInsets.only(top: 10)),
-                SizedBox(
-                  width: 130,
-                  height: 40,
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      onPrimary: Colors.red,
-                      side: BorderSide(width: 2, color: Colors.black),
+                const Padding(padding: EdgeInsets.only(top: 25)),
+                Container(
+                  child: SizedBox(
+                    width: 130,
+                    height: 40,
+                    child: ElevatedButton.icon(
+                      icon: Icon(Icons.check),
+                      style: ElevatedButton.styleFrom(
+                        primary: HexColor("#461482"),
+                        onPrimary: Colors.white,
+                        side: BorderSide(width: 2, color: Colors.black),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                      label: Text("Yes", style: TextStyle(fontSize: 20)),
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    WelcomeScreens()));
+                      },
                     ),
-                    icon: Icon(Icons.cancel),
-                    label: Text("No", style: TextStyle(fontSize: 15)),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
+                  ),
+                ),
+                const Padding(padding: EdgeInsets.only(top: 20)),
+                Container(
+                  child: SizedBox(
+                    width: 130,
+                    height: 40,
+                    child: ElevatedButton.icon(
+                      icon: Icon(Icons.cancel),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.white,
+                        onPrimary: HexColor("#461482"),
+                        side: BorderSide(width: 2, color: HexColor("#461482")),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                      label: Text("No", style: TextStyle(fontSize: 20)),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
                   ),
                 ),
               ],

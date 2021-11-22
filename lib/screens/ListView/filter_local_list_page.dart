@@ -111,242 +111,127 @@ class FilterLocalListPageState extends State<FilterLocalListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedDrawer(
-      homePageXValue: 150,
-      homePageYValue: 80,
-      homePageAngle: -0.2,
-      homePageSpeed: 250,
-      shadowXValue: 122,
-      shadowYValue: 110,
-      shadowAngle: -0.275,
-      shadowSpeed: 550,
-      openIcon: Icon(Icons.menu, color: Color(0xFF1f186f)),
-      closeIcon: Icon(Icons.arrow_back_ios, color: Color(0xFF1f186f)),
-      shadowColor: Color(0xFF665BB2),
-      backgroundGradient: LinearGradient(
-        colors: [Color(0xFF4c41a3), HexColor("#461482")],
-      ),
-      menuPageContent: Padding(
-        padding: const EdgeInsets.only(top: 100, left: 15),
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      backgroundColor: Colors.amber.shade50,
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: AppBar(
+            title: Image.network(
+              "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2Flogo.png?alt=media&token=75cfc4fa-1400-43ed-96d5-2b85ad733971",
+              width: 110,
+              height: 110,
+              color: HexColor("#461482"),
+            ),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios, color: HexColor("#461482")),
+              onPressed: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) {
+                  return WelcomeScreens();
+                }));
+              },
+            ),
+            backgroundColor: Colors.amber.shade100,
+            iconTheme: IconThemeData(color: HexColor("#461482")),
+          )),
+      body: Column(
+        children: <Widget>[
+          buildSearch(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.network(
-                "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2Flogo.png?alt=media&token=75cfc4fa-1400-43ed-96d5-2b85ad733971",
-                width: MediaQuery.of(context).size.width * 0.4,
-                color: Colors.white,
-              ),
-              Row(
-                children: [
-                  const Text(
-                    "WEL",
-                    style: TextStyle(
-                        fontSize: 17,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.3,
+                height: 40,
+                child: RaisedButton(
+                  textColor: Colors.black,
+                  color: pressBasic
+                      ? Colors.amber.shade200
+                      : Colors.amber.shade100,
+                  shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(30.0),
                   ),
-                  Text(
-                    "COME!",
-                    style: TextStyle(
-                        fontSize: 17,
-                        color: Colors.blue[200],
-                        fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    auth.currentUser.displayName.toString(),
-                    style: const TextStyle(
-                        fontSize: 17.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                ],
-              ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 40),
-              ),
-              TextButton.icon(
+                  child: Text("Basic", style: TextStyle(fontSize: 15)),
                   onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) {
-                      return WelcomeScreens();
-                    }));
+                    setState(() {
+                      pressBasic = !pressBasic;
+                      pressIntermediate = false;
+                      pressAdvance = false;
+                    });
+                    if (pressBasic == true) {
+                      searchBasic();
+                    } else {
+                      searchAll();
+                    }
                   },
-                  icon: const Icon(
-                    Icons.dashboard,
-                    color: Colors.white,
-                  ),
-                  label: const Text(
-                    "Dashboard",
-                    style: TextStyle(color: Colors.white),
-                  )),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20),
+                ),
               ),
-              TextButton.icon(
+              Padding(padding: EdgeInsets.only(left: 5)),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.33,
+                height: 40,
+                child: RaisedButton(
+                  textColor: Colors.black,
+                  color: pressIntermediate
+                      ? Colors.blue.shade300
+                      : Colors.blue.shade200,
+                  shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(30.0),
+                  ),
+                  child: Text("Intermediate", style: TextStyle(fontSize: 14.5)),
                   onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) {
-                      return CreateFlashcardScreens();
-                    }));
+                    setState(() {
+                      pressBasic = false;
+                      pressIntermediate = !pressIntermediate;
+                      pressAdvance = false;
+                    });
+                    if (pressIntermediate == true) {
+                      searchIntermediate();
+                    } else {
+                      searchAll();
+                    }
                   },
-                  icon: const Icon(
-                    Icons.book,
-                    color: Colors.white,
+                ),
+              ),
+              Padding(padding: EdgeInsets.only(left: 5)),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.3,
+                height: 40,
+                child: RaisedButton(
+                  textColor: Colors.black,
+                  color:
+                      pressAdvance ? Colors.red.shade300 : Colors.red.shade200,
+                  shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(30.0),
                   ),
-                  label: const Text(
-                    "User Notebook",
-                    style: TextStyle(color: Colors.white),
-                  )),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20),
-              ),
-              const Divider(
-                color: Color(0xFF5950a0),
-                thickness: 2,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 5),
-              ),
-              TextButton.icon(
+                  child: Text("Advance", style: TextStyle(fontSize: 14.5)),
                   onPressed: () {
-                    auth.signOut().then((value) => Navigator.pushReplacement(
-                            context, MaterialPageRoute(builder: (context) {
-                          return const HomeScreen();
-                        })));
+                    setState(() {
+                      pressBasic = false;
+                      pressIntermediate = false;
+                      pressAdvance = !pressAdvance;
+                    });
+                    if (pressAdvance == true) {
+                      searchAdvanced();
+                    } else {
+                      searchAll();
+                    }
                   },
-                  icon: const Icon(
-                    Icons.logout,
-                    color: Colors.white,
-                  ),
-                  label: const Text(
-                    "logout",
-                    style: TextStyle(color: Colors.white),
-                  ))
+                ),
+              )
             ],
           ),
-        ),
-      ),
-      homePageContent: Scaffold(
-        backgroundColor: Colors.amber.shade50,
-        appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(60),
-            child: AppBar(
-              title: Image.network(
-                "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Logo%2Flogo.png?alt=media&token=75cfc4fa-1400-43ed-96d5-2b85ad733971",
-                width: 110,
-                height: 110,
-                color: HexColor("#461482"),
-              ),
-              automaticallyImplyLeading: false,
-              backgroundColor: Colors.amber.shade100,
-              iconTheme: IconThemeData(color: HexColor("#461482")),
-            )),
-        body: Column(
-          children: <Widget>[
-            buildSearch(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.3,
-                  height: 40,
-                  child: RaisedButton(
-                    textColor: Colors.black,
-                    color: pressBasic
-                        ? Colors.amber.shade200
-                        : Colors.amber.shade100,
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0),
-                    ),
-                    child: Text("Basic", style: TextStyle(fontSize: 15)),
-                    onPressed: () {
-                      setState(() {
-                        pressBasic = !pressBasic;
-                        pressIntermediate = false;
-                        pressAdvance = false;
-                      });
-                      if (pressBasic == true) {
-                        searchBasic();
-                      } else {
-                        searchAll();
-                      }
-                    },
-                  ),
-                ),
-                Padding(padding: EdgeInsets.only(left: 5)),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.33,
-                  height: 40,
-                  child: RaisedButton(
-                    textColor: Colors.black,
-                    color: pressIntermediate
-                        ? Colors.blue.shade300
-                        : Colors.blue.shade200,
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0),
-                    ),
-                    child:
-                        Text("Intermediate", style: TextStyle(fontSize: 14.5)),
-                    onPressed: () {
-                      setState(() {
-                        pressBasic = false;
-                        pressIntermediate = !pressIntermediate;
-                        pressAdvance = false;
-                      });
-                      if (pressIntermediate == true) {
-                        searchIntermediate();
-                      } else {
-                        searchAll();
-                      }
-                    },
-                  ),
-                ),
-                Padding(padding: EdgeInsets.only(left: 5)),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.3,
-                  height: 40,
-                  child: RaisedButton(
-                    textColor: Colors.black,
-                    color: pressAdvance
-                        ? Colors.red.shade300
-                        : Colors.red.shade200,
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0),
-                    ),
-                    child: Text("Advance", style: TextStyle(fontSize: 14.5)),
-                    onPressed: () {
-                      setState(() {
-                        pressBasic = false;
-                        pressIntermediate = false;
-                        pressAdvance = !pressAdvance;
-                      });
-                      if (pressAdvance == true) {
-                        searchAdvanced();
-                      } else {
-                        searchAll();
-                      }
-                    },
-                  ),
-                )
-              ],
+          Padding(padding: EdgeInsets.only(top: 10)),
+          Expanded(
+            child: ListView.builder(
+              itemCount: books.length,
+              itemBuilder: (context, index) {
+                final book = books[index];
+                return buildBook(book);
+              },
             ),
-            Padding(padding: EdgeInsets.only(top: 10)),
-            Expanded(
-              child: ListView.builder(
-                itemCount: books.length,
-                itemBuilder: (context, index) {
-                  final book = books[index];
-                  return buildBook(book);
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
