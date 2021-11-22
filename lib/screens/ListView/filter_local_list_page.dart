@@ -256,8 +256,10 @@ class FilterLocalListPageState extends State<FilterLocalListPage> {
                   width: MediaQuery.of(context).size.width * 0.3,
                   height: 40,
                   child: RaisedButton(
-                    textColor: Colors.white,
-                    color: pressBasic ? Colors.red : HexColor("#461482"),
+                    textColor: Colors.black,
+                    color: pressBasic
+                        ? Colors.amber.shade200
+                        : Colors.amber.shade100,
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30.0),
                     ),
@@ -281,8 +283,10 @@ class FilterLocalListPageState extends State<FilterLocalListPage> {
                   width: MediaQuery.of(context).size.width * 0.33,
                   height: 40,
                   child: RaisedButton(
-                    textColor: Colors.white,
-                    color: pressIntermediate ? Colors.red : HexColor("#461482"),
+                    textColor: Colors.black,
+                    color: pressIntermediate
+                        ? Colors.blue.shade300
+                        : Colors.blue.shade200,
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30.0),
                     ),
@@ -307,8 +311,10 @@ class FilterLocalListPageState extends State<FilterLocalListPage> {
                   width: MediaQuery.of(context).size.width * 0.3,
                   height: 40,
                   child: RaisedButton(
-                    textColor: Colors.white,
-                    color: pressAdvance ? Colors.red : HexColor("#461482"),
+                    textColor: Colors.black,
+                    color: pressAdvance
+                        ? Colors.red.shade300
+                        : Colors.red.shade200,
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30.0),
                     ),
@@ -374,7 +380,7 @@ class FilterLocalListPageState extends State<FilterLocalListPage> {
             title: Text(
               book.title,
               style: TextStyle(
-                  color: HexColor("#461482"),
+                  color: Colors.black,
                   fontSize: 20 * MediaQuery.of(context).textScaleFactor),
             ),
             subtitle: Padding(
@@ -382,7 +388,7 @@ class FilterLocalListPageState extends State<FilterLocalListPage> {
               child: Text(
                 book.level,
                 style: TextStyle(
-                    color: HexColor("#461482"),
+                    color: Colors.black,
                     fontSize: 15 * MediaQuery.of(context).textScaleFactor),
               ),
             ),

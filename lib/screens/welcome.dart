@@ -545,12 +545,12 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                                   );
                                 }),
                                 const Padding(
-                                    padding: EdgeInsets.only(top: 10)),
+                                    padding: EdgeInsets.only(top: 12)),
                                 Text(
                                   "Notebook",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 19,
                                       fontWeight: FontWeight.bold,
                                       color: HexColor("#461482")),
                                 ),
@@ -604,12 +604,12 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                                     );
                                   }),
                                   const Padding(
-                                      padding: EdgeInsets.only(top: 10)),
+                                      padding: EdgeInsets.only(top: 12)),
                                   Text(
                                     "All Lessons",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 18,
+                                        fontSize: 19,
                                         fontWeight: FontWeight.bold,
                                         color: HexColor("#461482")),
                                   ),
@@ -807,25 +807,16 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        top: 20, left: 20),
-                                    child: Text(
-                                      recommendName,
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: HexColor("#461482"),
+                                        top: 38, left: 20),
+                                    child: Column(children: [
+                                      Text(
+                                        recommendName,
+                                        style: TextStyle(
+                                          fontSize: 25,
+                                          color: HexColor("#461482"),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 20, top: 20),
-                                    child: Text(
-                                      "(${recommendLevel})",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: HexColor("#461482"),
-                                      ),
-                                    ),
+                                    ]),
                                   ),
                                 ],
                               ),

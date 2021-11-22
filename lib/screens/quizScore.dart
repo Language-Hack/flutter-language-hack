@@ -585,25 +585,16 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
                             children: [
                               Padding(
                                 padding:
-                                    const EdgeInsets.only(top: 20, left: 20),
-                                child: Text(
-                                  recommendName,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: HexColor("#461482"),
+                                    const EdgeInsets.only(top: 38, left: 20),
+                                child: Column(children: [
+                                  Text(
+                                    recommendName,
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      color: HexColor("#461482"),
+                                    ),
                                   ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 20, top: 20),
-                                child: Text(
-                                  "(${recommendLevel})",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: HexColor("#461482"),
-                                  ),
-                                ),
+                                ]),
                               ),
                             ],
                           ),

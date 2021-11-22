@@ -392,25 +392,28 @@ class _UserScreenState extends State<UserScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top: 50, left: 20),
-                        child: Text(
-                          "This is your information",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              fontSize:
-                                  MediaQuery.of(context).textScaleFactor * 27,
-                              color: HexColor("#461482"),
-                              fontWeight: FontWeight.bold),
+                        margin: EdgeInsets.only(top: 30, left: 20),
+                        child: Center(
+                          child: Text(
+                            "User information",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize:
+                                    MediaQuery.of(context).textScaleFactor * 30,
+                                color: HexColor("#461482"),
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+                        margin: EdgeInsets.only(top: 25, left: 20, right: 20),
                         child: Text(
                           "Display name:",
                           style: TextStyle(
                               fontSize:
-                                  MediaQuery.of(context).textScaleFactor * 20,
-                              color: HexColor("#461482")),
+                                  MediaQuery.of(context).textScaleFactor * 22,
+                              color: HexColor("#461482"),
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                       Container(
@@ -443,13 +446,14 @@ class _UserScreenState extends State<UserScreen> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+                        margin: EdgeInsets.only(top: 25, left: 20, right: 20),
                         child: Text(
                           "Email address:",
                           style: TextStyle(
                               fontSize:
-                                  MediaQuery.of(context).textScaleFactor * 20,
-                              color: HexColor("#461482")),
+                                  MediaQuery.of(context).textScaleFactor * 22,
+                              color: HexColor("#461482"),
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                       Container(
@@ -482,7 +486,7 @@ class _UserScreenState extends State<UserScreen> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 30, left: 20),
+                        margin: EdgeInsets.only(top: 25, left: 20),
                         child: Text(
                           "Overall Completion",
                           textAlign: TextAlign.left,

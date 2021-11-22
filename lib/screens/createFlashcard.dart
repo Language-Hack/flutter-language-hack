@@ -125,6 +125,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
     final wordField = Container(
       margin: EdgeInsets.only(top: 10),
       child: TextFormField(
+        textCapitalization: TextCapitalization.sentences,
         controller: _word,
         style: TextStyle(
           color: Colors.black,
@@ -147,6 +148,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
     final translationField = Container(
       margin: EdgeInsets.only(top: 20),
       child: TextFormField(
+        textCapitalization: TextCapitalization.sentences,
         controller: _translation,
         style: TextStyle(
           color: Colors.black,
@@ -169,6 +171,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
     final sentenceField = Container(
       margin: EdgeInsets.only(top: 20),
       child: TextFormField(
+        textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: 20),
           hintText: 'Sentence',
@@ -189,6 +192,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
     );
 
     final createCategoryField = TextFormField(
+      textCapitalization: TextCapitalization.sentences,
       controller: _createCategory,
       style: TextStyle(
         color: Colors.black,
@@ -304,6 +308,26 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
       ),
     );
 
+    final continueButton = Container(
+      child: SizedBox(
+        width: mq.size.width * 0.9,
+        height: 55,
+        child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: HexColor("#461482"),
+              onPrimary: Colors.white,
+              side: BorderSide(width: 2, color: Colors.black),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+            ),
+            child: Text("Continue", style: TextStyle(fontSize: 20)),
+            onPressed: () {
+              Navigator.of(context).pop();
+            }),
+      ),
+    );
+
     final fields = Padding(
       padding: EdgeInsets.only(top: 1.0),
       child: Column(
@@ -378,11 +402,12 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                   margin: const EdgeInsets.only(right: 40),
                   padding: EdgeInsets.symmetric(horizontal: 19, vertical: 1),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(15),
                       border: Border.all(color: HexColor("#461482"), width: 2)),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton<String>(
                       value: value,
+                      dropdownColor: Colors.amber.shade100,
                       icon: Icon(Icons.arrow_drop_down,
                           color: HexColor("#461482")),
                       items: items.map(buildMenuItem).toList(),
@@ -402,15 +427,13 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
             spaceBetweenChildren: 12,
             children: [
               SpeedDialChild(
-                child: Image.network(
-                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CreateFlashcard%2Fadd-file%20(1).png?alt=media&token=f0f23e80-9d47-446a-b3c5-48cdbbd7a001",
-                    width: 30,
-                    height: 30, errorBuilder: (context, error, stackTrace) {
-                  return Text(
-                    'Loading..',
-                    style: TextStyle(fontSize: 20),
-                  );
-                }),
+                child: Image.asset(
+                  "assets/add-file.png",
+                  width: 30,
+                  height: 30,
+                ),
+                backgroundColor: Colors.amber.shade100,
+                labelBackgroundColor: Colors.amber.shade100,
                 label: "Create Flashcard",
                 labelStyle: TextStyle(color: HexColor("#461482"), fontSize: 18),
                 onTap: () => {
@@ -434,7 +457,8 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 5),
+                                  padding:
+                                      const EdgeInsets.only(left: 5, top: 15),
                                   child: Center(
                                     child: Text(
                                       "Create Flashcard",
@@ -445,8 +469,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                     ),
                                   ),
                                 ),
-                                const Padding(
-                                    padding: EdgeInsets.only(top: 10)),
+                                const Padding(padding: EdgeInsets.only(top: 2)),
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: Form(
@@ -475,15 +498,13 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                 },
               ),
               SpeedDialChild(
-                child: Image.network(
-                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CreateFlashcard%2Ffolder%20(1).png?alt=media&token=2620210b-3e51-4f0e-8df6-fcc04c566643",
-                    width: 30,
-                    height: 30, errorBuilder: (context, error, stackTrace) {
-                  return Text(
-                    'Loading..',
-                    style: TextStyle(fontSize: 20),
-                  );
-                }),
+                child: Image.asset(
+                  "assets/create folder.png",
+                  width: 30,
+                  height: 30,
+                ),
+                backgroundColor: Colors.amber.shade100,
+                labelBackgroundColor: Colors.amber.shade100,
                 label: "Create Category",
                 labelStyle: TextStyle(color: HexColor("#461482"), fontSize: 18),
                 onTap: () => {
@@ -507,7 +528,8 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 5),
+                                  padding:
+                                      const EdgeInsets.only(left: 5, top: 15),
                                   child: Center(
                                     child: Text(
                                       "Create Category",
@@ -518,8 +540,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                     ),
                                   ),
                                 ),
-                                const Padding(
-                                    padding: EdgeInsets.only(top: 10)),
+                                const Padding(padding: EdgeInsets.only(top: 2)),
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: Form(
@@ -548,15 +569,13 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                 },
               ),
               SpeedDialChild(
-                child: Image.network(
-                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CreateFlashcard%2Fdelete%20folder.png?alt=media&token=7bf2c72a-0962-41fd-a532-39a4fb05743b",
-                    width: 30,
-                    height: 30, errorBuilder: (context, error, stackTrace) {
-                  return Text(
-                    'Loading..',
-                    style: TextStyle(fontSize: 20),
-                  );
-                }),
+                child: Image.asset(
+                  "assets/delete folder.png",
+                  width: 30,
+                  height: 30,
+                ),
+                backgroundColor: Colors.amber.shade100,
+                labelBackgroundColor: Colors.amber.shade100,
                 label: "Delete Category",
                 labelStyle: TextStyle(color: HexColor("#461482"), fontSize: 18),
                 onTap: () => {
@@ -587,7 +606,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                         child: Text(
                                           "Delete ${value} ?",
                                           style: TextStyle(
-                                              fontSize: 22,
+                                              fontSize: 25,
                                               fontWeight: FontWeight.bold,
                                               color: HexColor("#461482")),
                                         ),
@@ -678,7 +697,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                         child: Text(
                                           "Sorry, you cannot delete ${value}!",
                                           style: TextStyle(
-                                              fontSize: 20,
+                                              fontSize: 25,
                                               fontWeight: FontWeight.bold,
                                               color: HexColor("#461482")),
                                         ),
@@ -686,29 +705,33 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                     ),
                                     const Padding(
                                         padding: EdgeInsets.only(top: 25)),
-                                    Container(
-                                      child: SizedBox(
-                                        width: 130,
-                                        height: 40,
-                                        child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            primary: HexColor("#461482"),
-                                            onPrimary: Colors.white,
-                                            side: BorderSide(
-                                                width: 2, color: Colors.black),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0),
-                                            ),
-                                          ),
-                                          child: Text("Continue",
-                                              style: TextStyle(fontSize: 20)),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      ),
-                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: continueButton,
+                                    )
+                                    // Container(
+                                    //   child: SizedBox(
+                                    //     width: 130,
+                                    //     height: 40,
+                                    //     child: ElevatedButton(
+                                    //       style: ElevatedButton.styleFrom(
+                                    //         primary: HexColor("#461482"),
+                                    //         onPrimary: Colors.white,
+                                    //         side: BorderSide(
+                                    //             width: 2, color: Colors.black),
+                                    //         shape: RoundedRectangleBorder(
+                                    //           borderRadius:
+                                    //               BorderRadius.circular(30.0),
+                                    //         ),
+                                    //       ),
+                                    //       child: Text("Continue",
+                                    //           style: TextStyle(fontSize: 20)),
+                                    //       onPressed: () {
+                                    //         Navigator.of(context).pop();
+                                    //       },
+                                    //     ),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ),
@@ -808,9 +831,15 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                                 ),
                                               ),
                                             ),
+                                            Divider(
+                                              color: Colors.black,
+                                              indent: 20,
+                                              endIndent: 20,
+                                              thickness: 3,
+                                            ),
                                             const Padding(
                                                 padding:
-                                                    EdgeInsets.only(top: 25)),
+                                                    EdgeInsets.only(top: 5)),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(10.0),
@@ -834,15 +863,21 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                                             "Word: ",
                                                             style: TextStyle(
                                                                 fontSize: 20,
-                                                                color: Colors
-                                                                    .black),
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: HexColor(
+                                                                    "#461482")),
                                                           ),
                                                           Text(
                                                             data['word'],
                                                             style: TextStyle(
                                                                 fontSize: 20,
-                                                                color: HexColor(
-                                                                    "#461482")),
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .black),
                                                           ),
                                                         ],
                                                       ),
@@ -856,15 +891,21 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                                             "Translation: ",
                                                             style: TextStyle(
                                                                 fontSize: 20,
-                                                                color: Colors
-                                                                    .black),
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: HexColor(
+                                                                    "#461482")),
                                                           ),
                                                           Text(
                                                             data['translation'],
                                                             style: TextStyle(
                                                                 fontSize: 20,
-                                                                color: HexColor(
-                                                                    "#461482")),
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .black),
                                                           ),
                                                         ],
                                                       ),
@@ -878,8 +919,11 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                                             "Example Sentence: ",
                                                             style: TextStyle(
                                                                 fontSize: 20,
-                                                                color: Colors
-                                                                    .black),
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: HexColor(
+                                                                    "#461482")),
                                                           ),
                                                         ],
                                                       ),
@@ -891,8 +935,10 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                                         data['sentence'],
                                                         style: TextStyle(
                                                             fontSize: 20,
-                                                            color: HexColor(
-                                                                "#461482")),
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color:
+                                                                Colors.black),
                                                       ),
                                                     ],
                                                   ),
@@ -906,8 +952,9 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                   })
                             },
                             trailing: IconButton(
-                              icon: Image.network(
-                                  "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CreateFlashcard%2Fbin.png?alt=media&token=971d192e-8b08-40e4-839d-1a267faa2858"),
+                              icon: Image.asset(
+                                "assets/bin.png",
+                              ),
                               iconSize: 30,
                               onPressed: () {
                                 showDialog(
@@ -945,7 +992,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                                   child: Text(
                                                     "Delete this flashcard ?",
                                                     style: TextStyle(
-                                                        fontSize: 20,
+                                                        fontSize: 22,
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         color: HexColor(
