@@ -345,11 +345,7 @@ Future<void> showExitDialog(BuildContext context) async {
                     icon: Icon(Icons.cancel),
                     label: Text("No", style: TextStyle(fontSize: 15)),
                     onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  MainContainer()));
+                      Navigator.of(context).pop();
                     },
                   ),
                 ),

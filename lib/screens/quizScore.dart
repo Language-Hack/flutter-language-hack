@@ -488,7 +488,8 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
                           top: 30, left: 20, right: 20, bottom: 10),
                       child: SizedBox(
                         height: 40,
-                        child: ElevatedButton(
+                        child: ElevatedButton.icon(
+                          icon: Icon(Icons.arrow_right_alt_rounded),
                           style: ElevatedButton.styleFrom(
                             shadowColor: Colors.black,
                             elevation: 10,
@@ -500,7 +501,7 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),
-                          child: Text("Continue",
+                          label: Text("Continue",
                               style: TextStyle(
                                   fontSize:
                                       MediaQuery.of(context).textScaleFactor *

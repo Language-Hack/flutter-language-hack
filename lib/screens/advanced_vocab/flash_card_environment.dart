@@ -318,26 +318,7 @@ Future<void> showExitDialog(BuildContext context) async {
                   ),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 10)),
-                SizedBox(
-                  width: 130,
-                  height: 40,
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      onPrimary: Colors.red,
-                      side: BorderSide(width: 2, color: Colors.black),
-                    ),
-                    icon: Icon(Icons.cancel),
-                    label: Text("No", style: TextStyle(fontSize: 15)),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  MainContainer()));
-                    },
-                  ),
-                ),
+                quizButton(context)
               ],
             ),
           ),

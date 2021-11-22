@@ -56,7 +56,8 @@ class _LoginScreensState extends State<LoginScreens> {
                         margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                         child: SizedBox(
                           height: 60,
-                          child: ElevatedButton(
+                          child: ElevatedButton.icon(
+                            icon: Icon(Icons.login),
                             style: ElevatedButton.styleFrom(
                               primary: Colors.white,
                               onPrimary: HexColor("#461482"),
@@ -66,7 +67,7 @@ class _LoginScreensState extends State<LoginScreens> {
                                 borderRadius: BorderRadius.circular(30),
                               ),
                             ),
-                            child: isLoading
+                            label: isLoading
                                 ? Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -80,8 +81,7 @@ class _LoginScreensState extends State<LoginScreens> {
                                           style: TextStyle(fontSize: 20))
                                     ],
                                   )
-                                : Text("LOG IN",
-                                    style: TextStyle(fontSize: 20)),
+                                : Text("Login", style: TextStyle(fontSize: 20)),
                             onPressed: () async {
                               setState(() {
                                 isLoading = !isLoading;
@@ -133,7 +133,8 @@ class _LoginScreensState extends State<LoginScreens> {
                         margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                         child: SizedBox(
                           height: 60,
-                          child: ElevatedButton(
+                          child: ElevatedButton.icon(
+                            icon: Icon(Icons.app_registration),
                             style: ElevatedButton.styleFrom(
                               primary: HexColor("#461482"),
                               onPrimary: Colors.white,
@@ -142,7 +143,7 @@ class _LoginScreensState extends State<LoginScreens> {
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
                             ),
-                            child: Text("REGISTER",
+                            label: Text("Register",
                                 style: TextStyle(fontSize: 20)),
                             onPressed: () {
                               Navigator.push(context,
