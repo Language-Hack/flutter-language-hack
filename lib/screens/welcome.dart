@@ -812,7 +812,7 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
                                       Text(
                                         recommendName,
                                         style: TextStyle(
-                                          fontSize: 25,
+                                          fontSize: 22,
                                           color: HexColor("#461482"),
                                         ),
                                       ),

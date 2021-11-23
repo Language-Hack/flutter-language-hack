@@ -277,14 +277,13 @@ Widget cancelButton(BuildContext context) {
           newData.clear();
           cards.clear();
           showExitDialog(context);
-          // Navigator.pushReplacement(context,
-          //     MaterialPageRoute(builder: (context) {
-          //   return WelcomeScreens();
-          // }));
         },
       ),
       const Padding(padding: EdgeInsets.only(top: 5)),
-      Text("Exit")
+      Text(
+        "Exit",
+        style: TextStyle(color: Colors.red),
+      )
     ],
   );
 }

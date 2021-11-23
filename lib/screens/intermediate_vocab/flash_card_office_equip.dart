@@ -154,7 +154,7 @@ Widget messageCongratualation() {
 
 Widget messageNot() {
   return const Text(
-    "Try Again!!",
+    "Almost there!!",
     style:
         TextStyle(fontSize: 30, color: Colors.red, fontWeight: FontWeight.bold),
   );
@@ -170,7 +170,7 @@ Widget learnAll() {
 
 Widget notlearnAll() {
   return const Text(
-    "You still have to learn",
+    "You still can't remember",
     style:
         TextStyle(fontSize: 20, color: Colors.red, fontWeight: FontWeight.bold),
   );
@@ -194,7 +194,7 @@ Widget someFlashcards() {
 
 Widget ready() {
   return Text(
-    "Ready for a quiz?",
+    "Ready for a quiz ?",
     style: TextStyle(
         fontSize: 20, color: HexColor("#461482"), fontWeight: FontWeight.bold),
   );
@@ -283,7 +283,10 @@ Widget cancelButton(BuildContext context) {
         },
       ),
       const Padding(padding: EdgeInsets.only(top: 5)),
-      Text("Exit")
+      Text(
+        "Exit",
+        style: TextStyle(color: Colors.red),
+      )
     ],
   );
 }
@@ -314,7 +317,7 @@ Future<void> showExitDialog(BuildContext context) async {
                       style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                          color: HexColor("#461482")),
                     ),
                   ),
                 ),
@@ -593,7 +596,9 @@ class _ShowResultState extends State<ShowResult> {
                 if (cards.isEmpty) ...[
                   quizButton(context)
                 ] else ...[
-                  tryButton(context)
+                  tryButton(context),
+                  Padding(padding: EdgeInsets.only(top: 20)),
+                  quizButton(context)
                 ],
               ],
             ),
