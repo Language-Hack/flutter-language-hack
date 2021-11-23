@@ -52,11 +52,11 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
       body: Container(
           child: Column(
         children: [
-          Padding(padding: const EdgeInsets.only(top: 30)),
+          Padding(padding: const EdgeInsets.only(top: 10)),
           Center(
             child: Container(
               width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.8,
+              height: MediaQuery.of(context).size.height * 0.84,
               padding: EdgeInsets.only(top: 20, left: 20, right: 20),
               decoration: BoxDecoration(
                   color: Colors.amber.shade100,
@@ -179,76 +179,79 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: status == ''
-                                      ? null
-                                      : Row(
-                                          children: [
-                                            checkAnswer(),
-                                            status == "Correct! "
-                                                ? Image.network(
-                                                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/quiz%2Fcorrect.png?alt=media&token=d6eb9864-e039-4279-ad80-55e5d74ac2bd",
-                                                    height: 40,
-                                                    width: 40,
-                                                  )
-                                                : Image.network(
-                                                    "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/quiz%2Fcross.png?alt=media&token=87529f57-c466-46b3-9f18-a4127b335c40",
-                                                    height: 40,
-                                                    width: 40,
-                                                  ),
-                                          ],
-                                        )),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.3,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.4,
-                                decoration: BoxDecoration(
-                                  border:
-                                      Border.all(width: 2, color: Colors.black),
-                                  borderRadius: BorderRadius.circular(25),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black,
-                                      blurRadius: 2,
-                                      offset: Offset(3, 5),
-                                    ),
-                                  ],
-                                ),
-                                child: OutlinedButton(
-                                  style: OutlinedButton.styleFrom(
-                                      shape: StadiumBorder(),
-                                      backgroundColor: isPressed
-                                          ? Colors.white
-                                          : Colors.grey),
-                                  onPressed: isPressed
-                                      ? index + 1 == questions.length
-                                          ? () {
-                                              Navigator.push(context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) {
-                                                return PreTestScoreScreen(
-                                                    score, questions.length);
-                                              }));
-                                            }
-                                          : () {
-                                              _controller.nextPage(
-                                                  duration: Duration(
-                                                      milliseconds: 100),
-                                                  curve: Curves.linear);
-                                            }
-                                      : null,
-                                  child: Text(
-                                    index + 1 == questions.length
-                                        ? "See Result"
-                                        : "Next Question",
-                                    style: TextStyle(
-                                        color: HexColor("#461482"),
-                                        fontSize: MediaQuery.of(context)
-                                                .textScaleFactor *
-                                            15),
-                                  ),
-                                ),
+                                padding: const EdgeInsets.only(left: 70),
+                                child: Center(
+                                    child: status == ''
+                                        ? null
+                                        : Row(
+                                            children: [
+                                              checkAnswer(),
+                                              status == "Correct! "
+                                                  ? Image.network(
+                                                      "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/quiz%2Fcorrect.png?alt=media&token=d6eb9864-e039-4279-ad80-55e5d74ac2bd",
+                                                      height: 30,
+                                                      width: 30,
+                                                    )
+                                                  : Image.network(
+                                                      "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/quiz%2Fcross.png?alt=media&token=87529f57-c466-46b3-9f18-a4127b335c40",
+                                                      height: 30,
+                                                      width: 30,
+                                                    ),
+                                            ],
+                                          )),
                               ),
+                              // *** Fix this (Padding)***
+                              // Container(
+                              //   width: MediaQuery.of(context).size.width * 0.3,
+                              //   height:
+                              //       MediaQuery.of(context).size.height * 0.4,
+                              //   decoration: BoxDecoration(
+                              //     border:
+                              //         Border.all(width: 2, color: Colors.black),
+                              //     borderRadius: BorderRadius.circular(25),
+                              //     boxShadow: [
+                              //       BoxShadow(
+                              //         color: Colors.black,
+                              //         blurRadius: 2,
+                              //         offset: Offset(3, 5),
+                              //       ),
+                              //     ],
+                              //   ),
+                              //   child: OutlinedButton(
+                              //     style: OutlinedButton.styleFrom(
+                              //         shape: StadiumBorder(),
+                              //         backgroundColor: isPressed
+                              //             ? Colors.white
+                              //             : Colors.grey),
+                              //     onPressed: isPressed
+                              //         ? index + 1 == questions.length
+                              //             ? () {
+                              //                 Navigator.push(context,
+                              //                     MaterialPageRoute(
+                              //                         builder: (context) {
+                              //                   return PreTestScoreScreen(
+                              //                       score, questions.length);
+                              //                 }));
+                              //               }
+                              //             : () {
+                              //                 _controller.nextPage(
+                              //                     duration: Duration(
+                              //                         milliseconds: 100),
+                              //                     curve: Curves.linear);
+                              //               }
+                              //         : null,
+                              //     child: Text(
+                              //       index + 1 == questions.length
+                              //           ? "See Result"
+                              //           : "Next Question",
+                              //       style: TextStyle(
+                              //           color: HexColor("#461482"),
+                              //           fontSize: MediaQuery.of(context)
+                              //                   .textScaleFactor *
+                              //               15),
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                         )
@@ -269,7 +272,7 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
               ColorizeAnimatedText(
                 '${status}',
                 textStyle: TextStyle(
-                  fontSize: 25,
+                  fontSize: 30,
                 ),
                 colors: [
                   Colors.green,
@@ -287,7 +290,7 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
               ColorizeAnimatedText(
                 '${status}',
                 textStyle: TextStyle(
-                  fontSize: 25,
+                  fontSize: 30,
                 ),
                 colors: [
                   Colors.red,

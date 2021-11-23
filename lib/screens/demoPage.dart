@@ -48,6 +48,7 @@ class _DemoScreensScreensState extends State<DemoScreens> {
   final keyOne = GlobalKey();
   final keyTwo = GlobalKey();
   final keyThree = GlobalKey();
+  final keyFour = GlobalKey();
   BuildContext myContext;
   int basicScore = 0;
   int intermediateScore = 0;
@@ -67,6 +68,7 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                 keyOne,
                 keyTwo,
                 keyThree,
+                keyFour,
               ]));
     });
   }
@@ -236,8 +238,8 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                     iconTheme: IconThemeData(color: HexColor("#461482")),
                     actions: [
                       Showcase(
-                        key: keyThree,
-                        description: "View Your Profile",
+                        key: keyFour,
+                        description: "View your profile.",
                         child: IconButton(
                             onPressed: () {
                               Navigator.pushReplacement(context,
@@ -303,7 +305,7 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                                   child: Showcase(
                                     key: keyTwo,
                                     description:
-                                        "Access Your Personal Notebook",
+                                        "Access your personal notebook.",
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -364,7 +366,7 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                                   },
                                   child: Showcase(
                                     key: keyOne,
-                                    description: "Access All the Lessons",
+                                    description: "Access all the lessons.",
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -538,103 +540,6 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      // Expanded(
-                      //   child: SingleChildScrollView(
-                      //     child: Container(
-                      //       child: Column(
-                      //         crossAxisAlignment: CrossAxisAlignment.stretch,
-                      //         children: [
-                      //           Container(
-                      //             decoration: BoxDecoration(
-                      //               border: Border.all(
-                      //                   width: 2, color: Colors.black),
-                      //               borderRadius: BorderRadius.circular(25),
-                      //               boxShadow: [
-                      //                 BoxShadow(
-                      //                   color: HexColor("#461482"),
-                      //                   blurRadius: 3,
-                      //                   offset: Offset(3, 5),
-                      //                 ),
-                      //               ],
-                      //             ),
-                      //             margin:
-                      //                 const EdgeInsets.fromLTRB(30, 20, 30, 5),
-                      //             child: Container(
-                      //               decoration: BoxDecoration(
-                      //                   border: Border.all(
-                      //                       width: 1, color: Colors.black),
-                      //                   borderRadius:
-                      //                       BorderRadius.circular(20)),
-                      //               width: 110,
-                      //               height: 110,
-                      //               child: ElevatedButton(
-                      //                 style: ElevatedButton.styleFrom(
-                      //                   primary: Colors.white,
-                      //                   onPrimary: Colors.black,
-                      //                   shape: RoundedRectangleBorder(
-                      //                       borderRadius:
-                      //                           BorderRadius.circular(20)),
-                      //                 ),
-                      //                 onPressed: () {
-                      //                   Navigator.pushReplacement(context,
-                      //                       MaterialPageRoute(
-                      //                           builder: (context) {
-                      //                     return route;
-                      //                   }));
-                      //                 },
-                      //                 child: Row(
-                      //                   children: <Widget>[
-                      //                     Image.network(recommendImage,
-                      //                         width: MediaQuery.of(context)
-                      //                                 .size
-                      //                                 .width *
-                      //                             0.3,
-                      //                         height: 80, errorBuilder:
-                      //                             (context, error, stackTrace) {
-                      //                       return Text(
-                      //                         'Loading..',
-                      //                         style: TextStyle(fontSize: 20),
-                      //                       );
-                      //                     }),
-                      //                     Padding(
-                      //                         padding:
-                      //                             EdgeInsets.only(top: 30)),
-                      //                     Column(
-                      //                       children: [
-                      //                         Padding(
-                      //                           padding: const EdgeInsets.only(
-                      //                               top: 20, left: 20),
-                      //                           child: Text(
-                      //                             recommendName,
-                      //                             style: TextStyle(
-                      //                               fontSize: 20,
-                      //                               color: HexColor("#461482"),
-                      //                             ),
-                      //                           ),
-                      //                         ),
-                      //                         Padding(
-                      //                           padding: const EdgeInsets.only(
-                      //                               left: 20, top: 20),
-                      //                           child: Text(
-                      //                             "(${recommendLevel})",
-                      //                             style: TextStyle(
-                      //                               fontSize: 20,
-                      //                               color: HexColor("#461482"),
-                      //                             ),
-                      //                           ),
-                      //                         ),
-                      //                       ],
-                      //                     ),
-                      //                   ],
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ),
-                      // )
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -659,52 +564,59 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                               width: 110,
                               height: 110,
                               child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.white,
-                                  onPrimary: Colors.black,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
-                                onPressed: () {
-                                  Navigator.pushReplacement(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return route;
-                                  }));
-                                },
-                                child: Row(
-                                  children: <Widget>[
-                                    Image.network(recommendImage,
-                                        width:
-                                            MediaQuery.of(context).size.width *
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.white,
+                                    onPrimary: Colors.black,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pushReplacement(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return route;
+                                    }));
+                                  },
+                                  child: Showcase(
+                                    key: keyThree,
+                                    description:
+                                        "Recommended lesson just for you.",
+                                    child: Row(
+                                      children: <Widget>[
+                                        Image.network(recommendImage,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
                                                 0.3,
-                                        height: 80, errorBuilder:
-                                            (context, error, stackTrace) {
-                                      return const Text(
-                                        'Loading..',
-                                        style: TextStyle(fontSize: 20),
-                                      );
-                                    }),
-                                    Padding(padding: EdgeInsets.only(top: 30)),
-                                    Column(
-                                      children: [
+                                            height: 80, errorBuilder:
+                                                (context, error, stackTrace) {
+                                          return const Text(
+                                            'Loading..',
+                                            style: TextStyle(fontSize: 20),
+                                          );
+                                        }),
                                         Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 38, left: 20),
-                                          child: Column(children: [
-                                            Text(
-                                              recommendName,
-                                              style: TextStyle(
-                                                fontSize: 25,
-                                                color: HexColor("#461482"),
-                                              ),
+                                            padding: EdgeInsets.only(top: 30)),
+                                        Column(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 38, left: 20),
+                                              child: Column(children: [
+                                                Text(
+                                                  recommendName,
+                                                  style: TextStyle(
+                                                    fontSize: 25,
+                                                    color: HexColor("#461482"),
+                                                  ),
+                                                ),
+                                              ]),
                                             ),
-                                          ]),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              ),
+                                  )),
                             ),
                           ),
                         ],

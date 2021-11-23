@@ -220,7 +220,7 @@ Widget quizButton(BuildContext context) {
             context,
             MaterialPageRoute(
                 builder: (BuildContext context) =>
-                    QuizScreen(environment, 'environment_score', 'advanced')));
+                    QuizScreen(environment, 'environment_score', 'advance')));
       },
     ),
   );

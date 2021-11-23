@@ -221,7 +221,7 @@ Widget quizButton(context) {
             context,
             MaterialPageRoute(
                 builder: (BuildContext context) =>
-                    QuizScreen(ielts, 'ielts_score', 'advanced')));
+                    QuizScreen(ielts, 'ielts_score', 'advance')));
       },
     ),
   );

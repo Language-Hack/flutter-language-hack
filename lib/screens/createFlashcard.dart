@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:language_hack/model/userFlashcard.dart';
 import 'package:language_hack/screens/home.dart';
@@ -285,6 +286,8 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
             value = _createCategory.text;
             _createCategory.text = "";
             Navigator.of(context).pop();
+            Fluttertoast.showToast(
+                msg: "Create Sucessfully", gravity: ToastGravity.CENTER);
           },
         ),
       ),
@@ -641,6 +644,9 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                             deleteCategory();
                                             value = "Uncategorize";
                                             Navigator.of(context).pop();
+                                            Fluttertoast.showToast(
+                                                msg: "Delete Sucessfully",
+                                                gravity: ToastGravity.CENTER);
                                           },
                                         ),
                                       ),
