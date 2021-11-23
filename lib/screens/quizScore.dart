@@ -147,122 +147,122 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
   }
 
   void calculateProgress() {
-    if (allScores.adjective_score == 0) {
+    if (allScores.adjective_score < 5) {
       basic_recommend_page.add(basic_page[0]);
       basic_recommend_image.add(basic_image[0]);
       basic_recommend_name.add(basic_name[0]);
     }
-    if (allScores.color_score == 0) {
+    if (allScores.color_score < 5) {
       basic_recommend_page.add(basic_page[1]);
       basic_recommend_image.add(basic_image[1]);
       basic_recommend_name.add(basic_name[1]);
     }
-    if (allScores.countries_score == 0) {
+    if (allScores.countries_score < 5) {
       basic_recommend_page.add(basic_page[2]);
       basic_recommend_image.add(basic_image[2]);
       basic_recommend_name.add(basic_name[2]);
     }
-    if (allScores.days_score == 0) {
+    if (allScores.days_score < 4) {
       basic_recommend_page.add(basic_page[3]);
       basic_recommend_image.add(basic_image[3]);
       basic_recommend_name.add(basic_name[3]);
     }
-    if (allScores.family_score == 0) {
+    if (allScores.family_score < 5) {
       basic_recommend_page.add(basic_page[4]);
       basic_recommend_image.add(basic_image[4]);
       basic_recommend_name.add(basic_name[4]);
     }
-    if (allScores.fruit_score == 0) {
+    if (allScores.fruit_score < 5) {
       basic_recommend_page.add(basic_page[5]);
       basic_recommend_image.add(basic_image[5]);
       basic_recommend_name.add(basic_name[5]);
     }
-    if (allScores.months_score == 0) {
+    if (allScores.months_score < 6) {
       basic_recommend_page.add(basic_page[6]);
       basic_recommend_image.add(basic_image[6]);
       basic_recommend_name.add(basic_name[6]);
     }
-    if (allScores.vegetable_score == 0) {
+    if (allScores.vegetable_score < 5) {
       basic_recommend_page.add(basic_page[7]);
       basic_recommend_image.add(basic_image[7]);
       basic_recommend_name.add(basic_name[7]);
     }
-    if (allScores.verbs_score == 0) {
+    if (allScores.verbs_score < 5) {
       basic_recommend_page.add(basic_page[8]);
       basic_recommend_image.add(basic_image[8]);
       basic_recommend_name.add(basic_name[8]);
     }
-    if (allScores.clothes_score == 0) {
+    if (allScores.clothes_score < 5) {
       intermediate_recommend_page.add(intermediate_page[0]);
       intermediate_recommend_image.add(intermediate_image[0]);
       intermediate_recommend_name.add(intermediate_name[0]);
     }
-    if (allScores.dbFood_score == 0) {
+    if (allScores.dbFood_score < 5) {
       intermediate_recommend_page.add(intermediate_page[1]);
       intermediate_recommend_image.add(intermediate_image[1]);
       intermediate_recommend_name.add(intermediate_name[1]);
     }
-    if (allScores.feeling_score == 0) {
+    if (allScores.feeling_score < 5) {
       intermediate_recommend_page.add(intermediate_page[2]);
       intermediate_recommend_image.add(intermediate_image[2]);
       intermediate_recommend_name.add(intermediate_name[2]);
     }
-    if (allScores.typeFood_score == 0) {
+    if (allScores.typeFood_score < 5) {
       intermediate_recommend_page.add(intermediate_page[3]);
       intermediate_recommend_image.add(intermediate_image[3]);
       intermediate_recommend_name.add(intermediate_name[3]);
     }
-    if (allScores.football_score == 0) {
+    if (allScores.football_score < 5) {
       intermediate_recommend_page.add(intermediate_page[4]);
       intermediate_recommend_image.add(intermediate_image[4]);
       intermediate_recommend_name.add(intermediate_name[4]);
     }
-    if (allScores.halloween_score == 0) {
+    if (allScores.halloween_score < 5) {
       intermediate_recommend_page.add(intermediate_page[5]);
       intermediate_recommend_image.add(intermediate_image[5]);
       intermediate_recommend_name.add(intermediate_name[5]);
     }
-    if (allScores.music_score == 0) {
+    if (allScores.music_score < 5) {
       intermediate_recommend_page.add(intermediate_page[6]);
       intermediate_recommend_image.add(intermediate_image[6]);
       intermediate_recommend_name.add(intermediate_name[6]);
     }
-    if (allScores.office_score == 0) {
+    if (allScores.office_score < 5) {
       intermediate_recommend_page.add(intermediate_page[7]);
       intermediate_recommend_image.add(intermediate_image[7]);
       intermediate_recommend_name.add(intermediate_name[7]);
     }
-    if (allScores.sports_score == 0) {
+    if (allScores.sports_score < 5) {
       intermediate_recommend_page.add(intermediate_page[8]);
       intermediate_recommend_image.add(intermediate_image[8]);
       intermediate_recommend_name.add(intermediate_name[8]);
     }
-    if (allScores.weather_score == 0) {
+    if (allScores.weather_score < 3) {
       intermediate_recommend_page.add(intermediate_page[9]);
       intermediate_recommend_image.add(intermediate_image[9]);
       intermediate_recommend_name.add(intermediate_name[9]);
     }
-    if (allScores.environment_score == 0) {
+    if (allScores.environment_score < 3) {
       advance_recommend_page.add(advance_page[0]);
       advance_recommend_image.add(advance_image[0]);
       advance_recommend_name.add(advance_name[0]);
     }
-    if (allScores.ielts_score == 0) {
+    if (allScores.ielts_score < 3) {
       advance_recommend_page.add(advance_page[1]);
       advance_recommend_image.add(advance_image[1]);
       advance_recommend_name.add(advance_name[1]);
     }
-    if (allScores.carPart_score == 0) {
+    if (allScores.carPart_score < 3) {
       advance_recommend_page.add(advance_page[2]);
       advance_recommend_image.add(advance_image[2]);
       advance_recommend_name.add(advance_name[2]);
     }
-    if (allScores.toefl_score == 0) {
+    if (allScores.toefl_score < 3) {
       advance_recommend_page.add(advance_page[3]);
       advance_recommend_image.add(advance_image[3]);
       advance_recommend_name.add(advance_name[3]);
     }
-    if (allScores.workshop_score == 0) {
+    if (allScores.workshop_score < 3) {
       advance_recommend_page.add(advance_page[4]);
       advance_recommend_image.add(advance_image[4]);
       advance_recommend_name.add(advance_name[4]);
@@ -374,8 +374,8 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
   }
 
   String calculatePercent() {
-    int percent = widget.score * widget.num_questions;
-    String stringPercent = percent.toString() + ' %';
+    double percent = (widget.score / widget.num_questions) * 100;
+    String stringPercent = percent.toStringAsFixed(0) + ' %';
     return stringPercent;
   }
 
@@ -433,7 +433,7 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
                                   25.0 * MediaQuery.of(context).textScaleFactor,
                               color: Colors.green),
                         ),
-                        percent: (widget.score * widget.num_questions) / 100,
+                        percent: widget.score / widget.num_questions,
                         radius: MediaQuery.of(context).size.width * 0.25,
                         backgroundColor: Colors.grey,
                         circularStrokeCap: CircularStrokeCap.butt,

@@ -225,7 +225,7 @@ Widget quizButton(BuildContext context) {
             context,
             MaterialPageRoute(
                 builder: (BuildContext context) =>
-                    QuizScreen(toefl, 'toefl_score', 'advanced')));
+                    QuizScreen(toefl, 'toefl_score', 'advance')));
       },
     ),
   );

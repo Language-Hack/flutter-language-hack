@@ -277,13 +277,22 @@ class FilterLocalListPageState extends State<FilterLocalListPage> {
                     fontSize: 15 * MediaQuery.of(context).textScaleFactor),
               ),
             ),
-            trailing: book.score > 0
-                ? Image.network(
-                    'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Flashcards%2Freward.png?alt=media&token=92def8cb-dabd-4d79-9012-c0cab6c8e0cc',
-                    width: 35,
-                    height: 35,
-                  )
-                : null,
+            // Fix this line
+            trailing: book.level == '(Advance)'
+                ? book.score > 3
+                    ? Image.network(
+                        'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Flashcards%2Freward.png?alt=media&token=92def8cb-dabd-4d79-9012-c0cab6c8e0cc',
+                        width: 35,
+                        height: 35,
+                      )
+                    : null
+                : book.score > 5
+                    ? Image.network(
+                        'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Flashcards%2Freward.png?alt=media&token=92def8cb-dabd-4d79-9012-c0cab6c8e0cc',
+                        width: 35,
+                        height: 35,
+                      )
+                    : null,
             onTap: () =>
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return book.screen;

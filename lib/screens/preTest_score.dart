@@ -66,7 +66,7 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
             padding: const EdgeInsets.only(left: 20),
             child: Container(
                 width: MediaQuery.of(context).size.width * 0.92,
-                height: MediaQuery.of(context).size.height * 0.72,
+                height: MediaQuery.of(context).size.height * 0.68,
                 padding: EdgeInsets.only(top: 20, left: 20, right: 20),
                 decoration: BoxDecoration(
                     color: Colors.amber.shade100,
@@ -93,7 +93,7 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
                                   25.0 * MediaQuery.of(context).textScaleFactor,
                               color: Colors.green),
                         ),
-                        percent: (widget.score * widget.num_questions) / 100,
+                        percent: widget.score / widget.num_questions,
                         radius: MediaQuery.of(context).size.width * 0.25,
                         backgroundColor: Colors.grey,
                         circularStrokeCap: CircularStrokeCap.butt,
@@ -127,11 +127,45 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
                       ],
                     ),
                     Padding(padding: EdgeInsets.only(top: 20)),
+                    // Container(
+                    //   margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+                    //   child: SizedBox(
+                    //     height: 60,
+                    //     child: ElevatedButton(
+                    //       style: ElevatedButton.styleFrom(
+                    //         shadowColor: Colors.black,
+                    //         elevation: 10,
+                    //         primary: Colors.white,
+                    //         onPrimary: HexColor("#461482"),
+                    //         side: BorderSide(
+                    //             width: 2, color: HexColor("#461482")),
+                    //         shape: RoundedRectangleBorder(
+                    //           borderRadius: BorderRadius.circular(30),
+                    //         ),
+                    //       ),
+                    //       child:
+                    //           Text("Continue", style: TextStyle(fontSize: 20)),
+                    //       onPressed: () {
+                    //         level.add({
+                    //           'level': userLevel,
+                    //           'owner': userDisplayname,
+                    //         }).catchError(
+                    //             (error) => print("Failed to add user: $error"));
+                    //         Navigator.push(context,
+                    //             MaterialPageRoute(builder: (context) {
+                    //           return DemoScreens(userLevel);
+                    //         }));
+                    //       },
+                    //     ),
+                    //   ),
+                    // ),
                     Container(
-                      margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+                      margin: EdgeInsets.only(
+                          top: 30, left: 20, right: 20, bottom: 10),
                       child: SizedBox(
-                        height: 60,
-                        child: ElevatedButton(
+                        height: 40,
+                        child: ElevatedButton.icon(
+                          icon: Icon(Icons.rotate_right),
                           style: ElevatedButton.styleFrom(
                             shadowColor: Colors.black,
                             elevation: 10,
@@ -143,8 +177,11 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),
-                          child:
-                              Text("Continue", style: TextStyle(fontSize: 20)),
+                          label: Text("Continue",
+                              style: TextStyle(
+                                  fontSize:
+                                      MediaQuery.of(context).textScaleFactor *
+                                          20)),
                           onPressed: () {
                             level.add({
                               'level': userLevel,

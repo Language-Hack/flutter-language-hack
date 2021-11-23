@@ -224,7 +224,7 @@ Widget quizButton(BuildContext context) {
             context,
             MaterialPageRoute(
                 builder: (BuildContext context) =>
-                    QuizScreen(workshop, 'workshop_score', 'advanced')));
+                    QuizScreen(workshop, 'workshop_score', 'advance')));
       },
     ),
   );
