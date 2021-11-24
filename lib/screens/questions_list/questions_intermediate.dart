@@ -52,6 +52,12 @@ List<Quiz> foodType = [
       'Dairy Products (ผลิตภัณฑ์ที่ทำจากนม)'),
   randomQuestions('เนื้อสัตว์', 'Meat', 'Meat (เนื้อสัตว์)'),
   randomQuestions('ผลไม้', 'Vegetables', 'Vegetables (ผลไม้)'),
+  randomQuestions('ของหวาน', 'Dessert', 'Dessert (ของหวาน)'),
+  randomQuestions('อาหารทะเล', 'Seafood', 'Seafood (อาหารทะเล)'),
+  randomQuestions('ผลิตภัณฑ์ที่ทำจากนม', 'Dairy Products',
+      'Dairy Products (ผลิตภัณฑ์ที่ทำจากนม)'),
+  randomQuestions('เนื้อสัตว์', 'Meat', 'Meat (เนื้อสัตว์)'),
+  randomQuestions('ผลไม้', 'Vegetables', 'Vegetables (ผลไม้)'),
 ];
 
 List<Quiz> football = [
@@ -99,14 +105,20 @@ List<Quiz> music = [
 List<Quiz> office = [
   randomQuestions('ไม้บรรทัด', 'Ruler', 'Ruler (ไม้บรรทัด)'),
   randomQuestions('เครื่องคิดเลข', 'Calculator', 'Calculator (เครื่องคิดเลข)'),
+  randomQuestions('เครื่องคิดเลข', 'Calculator', 'Calculator (เครื่องคิดเลข)'),
   randomQuestions('ปากกา', 'Pen', 'Pen (ปากกา)'),
   randomQuestions('กรรไกร', 'Scissors', 'Scissors (กรรไกร)'),
+  randomQuestions('กรรไกร', 'Scissors', 'Scissors (กรรไกร)'),
   randomQuestions('ที่เย็บกระดาษ', 'Stapler', 'Stapler (ที่เย็บกระดาษ)'),
+  randomQuestions('ดินสอ', 'Pencil', 'Pencil (ดินสอ)'),
   randomQuestions('ดินสอ', 'Pencil', 'Pencil (ดินสอ)'),
   randomQuestions('ยางลบ', 'Eraser', 'Eraser (ยางลบ)'),
 ];
 
 List<Quiz> sport = [
+  randomQuestions('กีฬาฟุตบอล', 'Football', 'Football (กีฬาฟุตบอล)'),
+  randomQuestions('บาสเกตบอล', 'Basketball', 'Basketball (บาสเกตบอล)'),
+  randomQuestions('ดำน้ำ', 'Diving', 'Diving (ดำน้ำ)'),
   randomQuestions('กีฬาฟุตบอล', 'Football', 'Football (กีฬาฟุตบอล)'),
   randomQuestions('บาสเกตบอล', 'Basketball', 'Basketball (บาสเกตบอล)'),
   randomQuestions('ดำน้ำ', 'Diving', 'Diving (ดำน้ำ)'),
@@ -119,6 +131,10 @@ List<Quiz> sport = [
 List<Quiz> weather = [
   randomQuestions('มีแสงแดดมาก', 'Sunny', 'Sunny (มีแสงแดดมาก)'),
   randomQuestions('หมอก', 'Fog', 'Fog (หมอก)'),
+  randomQuestions('ปกคลุมด้วยหิมะ', 'Snow', 'Snow (ปกคลุมด้วยหิมะ)'),
+  randomQuestions('ปกคลุมด้วยเมฆ', 'Cloudy', 'Cloudy (ปกคลุมด้วยเมฆ)'),
+  randomQuestions('ฝน', 'Rain', 'Rain (ฝน)'),
+  randomQuestions('มีลมแรง', 'Windy', 'Windy (มีลมแรง)'),
   randomQuestions('ปกคลุมด้วยหิมะ', 'Snow', 'Snow (ปกคลุมด้วยหิมะ)'),
   randomQuestions('ปกคลุมด้วยเมฆ', 'Cloudy', 'Cloudy (ปกคลุมด้วยเมฆ)'),
   randomQuestions('ฝน', 'Rain', 'Rain (ฝน)'),

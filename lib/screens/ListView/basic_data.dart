@@ -10,6 +10,7 @@ import 'package:language_hack/screens/basic_vocab/flash_card_vegetables.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_verbs.dart';
 import 'package:language_hack/screens/intermediate_vocab/flash_card_clothes.dart';
 import 'package:language_hack/screens/intermediate_vocab/flash_card_describing_food.dart';
+import 'package:language_hack/screens/intermediate_vocab/flash_card_feelings.dart';
 import 'package:language_hack/screens/intermediate_vocab/flash_card_foodtype.dart';
 import 'package:language_hack/screens/intermediate_vocab/flash_card_football.dart';
 import 'package:language_hack/screens/intermediate_vocab/flash_card_halloween.dart';
@@ -129,7 +130,7 @@ final allBooks = <Book>[
     title: 'Feelings and Emotions',
     urlImage:
         'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Femotions.png?alt=media&token=d0c7152f-861e-4933-9d8f-515110a04ad3',
-    screen: Flash_Countries(),
+    screen: Flash_Feelings(),
     score: 0,
   ),
   Book(
@@ -197,7 +198,7 @@ final allBooks = <Book>[
   ),
   Book(
     id: 20,
-    level: '(Advanced)',
+    level: '(Advance)',
     title: 'The environment',
     urlImage:
         'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Fenvironment.png?alt=media&token=386129ad-7bed-4fb9-86ef-a4a8f457289e',
@@ -206,7 +207,7 @@ final allBooks = <Book>[
   ),
   Book(
     id: 21,
-    level: '(Advanced)',
+    level: '(Advance)',
     title: 'IELTS Academic Writing',
     urlImage:
         "https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Fielts.png?alt=media&token=48d81ba1-b317-414b-a1f6-3277c1962ccc",
@@ -215,7 +216,7 @@ final allBooks = <Book>[
   ),
   Book(
     id: 22,
-    level: '(Advanced)',
+    level: '(Advance)',
     title: 'Parts of Car',
     urlImage:
         'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2FpartOfCars.png?alt=media&token=178d19b9-bae7-4bd5-a6b0-19d8a8b00ecc',
@@ -224,7 +225,7 @@ final allBooks = <Book>[
   ),
   Book(
     id: 23,
-    level: '(Advanced)',
+    level: '(Advance)',
     title: 'TOEFL',
     urlImage:
         'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Ftoefl.png?alt=media&token=65d2fbef-7209-4482-ac1c-366dfdf84061',
@@ -233,7 +234,7 @@ final allBooks = <Book>[
   ),
   Book(
     id: 24,
-    level: '(Advanced)',
+    level: '(Advance)',
     title: 'Workshop',
     urlImage:
         'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/CoverPage%2Fworkshop.png?alt=media&token=932f5a68-c452-41f3-84bc-b336dbd3c902',

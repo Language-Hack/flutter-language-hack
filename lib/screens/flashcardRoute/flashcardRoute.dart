@@ -100,14 +100,14 @@ List<Widget> intermediate_page = [
 
 List<String> intermediate_name = [
   'Clothes',
-  'Describe Food',
+  'Foods',
   'Feelings',
-  'Type of Food',
+  'Type of Foods',
   'Football',
   'Halloween',
   'Music',
-  'Office Equipments',
-  'Type of Sports',
+  'Equipments',
+  'Sports',
   'Weather'
 ];
 

@@ -12,7 +12,6 @@ import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:language_hack/model/userScores.dart';
 import 'package:language_hack/screens/ListView/filter_local_list_page.dart';
-import 'package:language_hack/screens/allLessons.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_color.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_fruit.dart';
 import 'package:language_hack/screens/createFlashcard.dart';
@@ -310,23 +309,23 @@ class _WelcomeScreensState extends State<WelcomeScreens> {
         recommendLevel = 'Advance';
       } else {
         int random = Random().nextInt(2);
-        if (random == 0 && basic_recommend_name.isNotEmpty) {
-          int index = Random().nextInt(basic_recommend_name.length);
-          recommendName = basic_recommend_name[index];
-          recommendImage = basic_recommend_image[index];
-          route = basic_recommend_page[index];
+        if (random == 0 && basic_name.isNotEmpty) {
+          int index = Random().nextInt(basic_name.length);
+          recommendName = basic_name[index];
+          recommendImage = basic_image[index];
+          route = basic_page[index];
           recommendLevel = 'Basic';
-        } else if (random == 1 && intermediate_recommend_name.isNotEmpty) {
-          int index = Random().nextInt(intermediate_recommend_name.length);
-          recommendName = intermediate_recommend_name[index];
-          recommendImage = intermediate_recommend_image[index];
-          route = intermediate_recommend_page[index];
+        } else if (random == 1 && intermediate_name.isNotEmpty) {
+          int index = Random().nextInt(intermediate_name.length);
+          recommendName = intermediate_name[index];
+          recommendImage = intermediate_image[index];
+          route = intermediate_page[index];
           recommendLevel = 'Intermediate';
         } else {
-          int index = Random().nextInt(advance_recommend_name.length);
-          recommendName = advance_recommend_name[index];
-          recommendImage = advance_recommend_image[index];
-          route = advance_recommend_page[index];
+          int index = Random().nextInt(advance_name.length);
+          recommendName = advance_name[index];
+          recommendImage = advance_image[index];
+          route = advance_page[index];
           recommendLevel = 'Advance';
         }
       }
