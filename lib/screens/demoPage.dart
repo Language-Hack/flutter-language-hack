@@ -12,6 +12,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:language_hack/model/userScores.dart';
+import 'package:language_hack/screens/ListView/filter_local_list_page.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_adjectives.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_color.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_countries.dart';
@@ -22,7 +23,6 @@ import 'package:language_hack/screens/basic_vocab/flash_card_months.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_vegetables.dart';
 import 'package:language_hack/screens/basic_vocab/flash_card_verbs.dart';
 import 'package:language_hack/screens/createFlashcard.dart';
-import 'package:language_hack/screens/flashcard01.dart';
 import 'package:language_hack/screens/flashcardRoute/flashcardRoute.dart';
 import 'package:language_hack/screens/home.dart';
 import 'package:language_hack/screens/user.dart';
@@ -361,7 +361,7 @@ class _DemoScreensScreensState extends State<DemoScreens> {
                                   onPressed: () {
                                     Navigator.pushReplacement(context,
                                         MaterialPageRoute(builder: (context) {
-                                      return CreateFlashcardScreens();
+                                      return FilterLocalListPage();
                                     }));
                                   },
                                   child: Showcase(

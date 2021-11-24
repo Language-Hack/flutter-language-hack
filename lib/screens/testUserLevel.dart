@@ -111,7 +111,7 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                         Padding(padding: EdgeInsets.only(top: 9.0)),
                         for (int i = 0; i < questions[index].answer.length; i++)
                           Padding(
-                            padding: const EdgeInsets.all(12.0),
+                            padding: const EdgeInsets.all(9.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 border:
@@ -168,8 +168,8 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                           ),
                         Padding(
                             padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.0)),
-
+                                top: MediaQuery.of(context).size.height *
+                                    0.025)),
                         Padding(
                           padding: const EdgeInsets.only(left: 70),
                           child: Center(
@@ -249,59 +249,6 @@ class _TestUserLevelScreenState extends State<TestUserLevelScreen> {
                             ),
                           ),
                         ),
-
-                        // *** Fix this (Padding)***
-                        // Container(
-                        //   width: MediaQuery.of(context).size.width * 0.3,
-                        //   height:
-                        //       MediaQuery.of(context).size.height * 0.4,
-                        //   decoration: BoxDecoration(
-                        //     border:
-                        //         Border.all(width: 2, color: Colors.black),
-                        //     borderRadius: BorderRadius.circular(25),
-                        //     boxShadow: [
-                        //       BoxShadow(
-                        //         color: Colors.black,
-                        //         blurRadius: 2,
-                        //         offset: Offset(3, 5),
-                        //       ),
-                        //     ],
-                        //   ),
-                        //   child: OutlinedButton(
-                        //     style: OutlinedButton.styleFrom(
-                        //         shape: StadiumBorder(),
-                        //         backgroundColor: isPressed
-                        //             ? Colors.white
-                        //             : Colors.grey),
-                        //     onPressed: isPressed
-                        //         ? index + 1 == questions.length
-                        //             ? () {
-                        //                 Navigator.push(context,
-                        //                     MaterialPageRoute(
-                        //                         builder: (context) {
-                        //                   return PreTestScoreScreen(
-                        //                       score, questions.length);
-                        //                 }));
-                        //               }
-                        //             : () {
-                        //                 _controller.nextPage(
-                        //                     duration: Duration(
-                        //                         milliseconds: 100),
-                        //                     curve: Curves.linear);
-                        //               }
-                        //         : null,
-                        //     child: Text(
-                        //       index + 1 == questions.length
-                        //           ? "See Result"
-                        //           : "Next Question",
-                        //       style: TextStyle(
-                        //           color: HexColor("#461482"),
-                        //           fontSize: MediaQuery.of(context)
-                        //                   .textScaleFactor *
-                        //               15),
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     );
                   }),

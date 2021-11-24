@@ -71,7 +71,7 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
 
   String recommendImage = '';
   String recommendName = '';
-  String recommendLevel = '';
+  // String recommendLevel = '';
   Widget route;
   List<Widget> basic_recommend_page = [];
   List<String> basic_recommend_image = [];
@@ -280,13 +280,13 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
         route = basic_recommend_page[index];
         recommendImage = basic_recommend_image[index];
         recommendName = basic_recommend_name[index];
-        recommendLevel = 'basic';
+        // recommendLevel = 'basic';
       } else if (widget.question_level == 'advance' &&
           intermediate_recommend_name.isNotEmpty) {
         route = intermediate_recommend_page[index];
         recommendImage = intermediate_recommend_image[index];
         recommendName = intermediate_recommend_name[index];
-        recommendLevel = 'intermediate';
+        // recommendLevel = 'intermediate';
       } else {
         int random = Random().nextInt(2);
         if (random == 0 && basic_recommend_name.isNotEmpty) {
@@ -294,19 +294,19 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
           recommendName = basic_recommend_name[index];
           recommendImage = basic_recommend_image[index];
           route = basic_recommend_page[index];
-          recommendLevel = 'basic';
+          // recommendLevel = 'basic';
         } else if (random == 1 && intermediate_recommend_name.isNotEmpty) {
           int index = Random().nextInt(intermediate_recommend_name.length);
           recommendName = intermediate_recommend_name[index];
           recommendImage = intermediate_recommend_image[index];
           route = intermediate_recommend_page[index];
-          recommendLevel = 'intermediate';
+          // recommendLevel = 'intermediate';
         } else {
           int index = Random().nextInt(advance_recommend_name.length);
           recommendName = advance_recommend_name[index];
           recommendImage = advance_recommend_image[index];
           route = advance_recommend_page[index];
-          recommendLevel = 'advance';
+          // recommendLevel = 'advance';
         }
       }
     }
@@ -319,18 +319,18 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
         recommendName = intermediate_recommend_name[index];
         recommendImage = intermediate_recommend_image[index];
         route = intermediate_recommend_page[index];
-        recommendLevel = 'intermediate';
+        // recommendLevel = 'intermediate';
       } else if (widget.question_level == 'intermediate' &&
           intermediate_recommend_name.isNotEmpty) {
         recommendName = intermediate_recommend_name[index];
         recommendImage = intermediate_recommend_image[index];
         route = intermediate_recommend_page[index];
-        recommendLevel = 'intermediate';
+        // recommendLevel = 'intermediate';
       } else {
         recommendName = advance_recommend_name[index];
         recommendImage = advance_recommend_image[index];
         route = advance_recommend_page[index];
-        recommendLevel = 'advance';
+        // recommendLevel = 'advance';
       }
     }
     // User get perfect score
@@ -341,13 +341,13 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
         recommendName = intermediate_recommend_name[index];
         recommendImage = intermediate_recommend_image[index];
         route = intermediate_recommend_page[index];
-        recommendLevel = 'intermediate';
+        // recommendLevel = 'intermediate';
       } else if (widget.question_level == 'intermediate' &&
           advance_recommend_name.isNotEmpty) {
         recommendName = advance_recommend_name[index];
         recommendImage = advance_recommend_image[index];
         route = advance_recommend_page[index];
-        recommendLevel = 'advance';
+        // recommendLevel = 'advance';
       } else {
         int random = Random().nextInt(2);
         if (random == 0 && basic_recommend_name.isNotEmpty) {
@@ -355,19 +355,19 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
           recommendName = basic_recommend_name[index];
           recommendImage = basic_recommend_image[index];
           route = basic_recommend_page[index];
-          recommendLevel = 'basic';
+          // recommendLevel = 'basic';
         } else if (random == 1 && intermediate_recommend_name.isNotEmpty) {
           int index = Random().nextInt(intermediate_recommend_name.length);
           recommendName = intermediate_recommend_name[index];
           recommendImage = intermediate_recommend_image[index];
           route = intermediate_recommend_page[index];
-          recommendLevel = 'intermediate';
+          // recommendLevel = 'intermediate';
         } else {
           int index = Random().nextInt(advance_recommend_name.length);
           recommendName = advance_recommend_name[index];
           recommendImage = advance_recommend_image[index];
           route = advance_recommend_page[index];
-          recommendLevel = 'advance';
+          // recommendLevel = 'advance';
         }
       }
     }

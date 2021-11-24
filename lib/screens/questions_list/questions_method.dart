@@ -155,7 +155,7 @@ String randomAlphabetBlank(String value) {
 String replaceAlphabetBlank(String value, String alphabet) {
   var split = value.split('');
 
-  if (split[0] != '_') {
+  if (split[0] != alphabet.toUpperCase()) {
     var lowerCase = value;
     var new_val = lowerCase.replaceAll(alphabet, '_');
 

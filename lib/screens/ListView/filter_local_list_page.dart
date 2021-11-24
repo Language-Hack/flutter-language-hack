@@ -286,7 +286,7 @@ class FilterLocalListPageState extends State<FilterLocalListPage> {
                         height: 35,
                       )
                     : null
-                : book.score > 5
+                : book.score >= 5
                     ? Image.network(
                         'https://firebasestorage.googleapis.com/v0/b/flutter-language-hack.appspot.com/o/Flashcards%2Freward.png?alt=media&token=92def8cb-dabd-4d79-9012-c0cab6c8e0cc',
                         width: 35,

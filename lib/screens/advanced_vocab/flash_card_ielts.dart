@@ -204,7 +204,7 @@ Widget notready() {
   );
 }
 
-Widget quizButton(context) {
+Widget quizButton(BuildContext context) {
   return SizedBox(
     width: 150,
     height: 50,
@@ -213,6 +213,9 @@ Widget quizButton(context) {
         primary: Colors.white,
         onPrimary: HexColor("#461482"),
         side: BorderSide(width: 2, color: Colors.black),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
       ),
       icon: Icon(Icons.dashboard),
       label: Text("Quiz", style: TextStyle(fontSize: 15)),
