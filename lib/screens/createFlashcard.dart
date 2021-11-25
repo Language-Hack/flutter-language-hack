@@ -80,6 +80,9 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
   TextEditingController _translation = TextEditingController();
   TextEditingController _category = TextEditingController();
   TextEditingController _createCategory = TextEditingController();
+  TextEditingController _wordEdit = TextEditingController();
+  TextEditingController _sentenceEdit = TextEditingController();
+  TextEditingController _translationEdit = TextEditingController();
 
   List<String> items = ["Uncategorize"];
 
@@ -212,6 +215,66 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
       ),
     );
 
+    final editWordField = TextFormField(
+      textCapitalization: TextCapitalization.sentences,
+      controller: _wordEdit,
+      style: TextStyle(
+        color: Colors.black,
+      ),
+      cursorColor: Colors.blue,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.only(left: 20),
+        hintText: 'Word',
+        hintStyle: TextStyle(color: Colors.black),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            borderSide: BorderSide(color: HexColor("#461482"))),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            borderSide: BorderSide(color: HexColor("#461482"))),
+      ),
+    );
+
+    final editTranslationField = TextFormField(
+      textCapitalization: TextCapitalization.sentences,
+      controller: _translationEdit,
+      style: TextStyle(
+        color: Colors.black,
+      ),
+      cursorColor: Colors.blue,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.only(left: 20),
+        hintText: 'Translation',
+        hintStyle: TextStyle(color: Colors.black),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            borderSide: BorderSide(color: HexColor("#461482"))),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            borderSide: BorderSide(color: HexColor("#461482"))),
+      ),
+    );
+
+    final editSentenceField = TextFormField(
+      textCapitalization: TextCapitalization.sentences,
+      controller: _sentenceEdit,
+      style: TextStyle(
+        color: Colors.black,
+      ),
+      cursorColor: Colors.blue,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.only(left: 20),
+        hintText: 'Sentence',
+        hintStyle: TextStyle(color: Colors.black),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            borderSide: BorderSide(color: HexColor("#461482"))),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            borderSide: BorderSide(color: HexColor("#461482"))),
+      ),
+    );
+
     final addButton = Container(
       child: SizedBox(
         width: mq.size.width * 0.9,
@@ -255,7 +318,50 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
       ),
     );
 
-    final createCategryButton = Container(
+    final editButton = Container(
+      child: SizedBox(
+        width: mq.size.width * 0.9,
+        height: 55,
+        child: ElevatedButton.icon(
+          icon: Icon(Icons.create),
+          style: ElevatedButton.styleFrom(
+            primary: HexColor("#461482"),
+            onPrimary: Colors.white,
+            side: BorderSide(width: 2, color: Colors.black),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+          ),
+          label: Text("Confirm", style: TextStyle(fontSize: 20)),
+          onPressed: () {
+            setState(() {
+              if (_word.text != '') {
+                userFlashcard.word = _word.text;
+                userFlashcard.sentence = _sentence.text;
+                userFlashcard.translation = _translation.text;
+                userFlashcard.category = _category.text;
+              }
+              words.add({
+                'word': userFlashcard.word,
+                'sentence': userFlashcard.sentence,
+                'translation': userFlashcard.translation,
+                'category': value,
+                'owner': auth.currentUser.displayName.toString(),
+              }).catchError((error) => print("Failed to add user: $error"));
+            });
+            userFlashcard = new UserFlashcard(
+                word: "", sentence: "", translation: "", category: "");
+            _word.text = "";
+            _sentence.text = "";
+            _translation.text = "";
+            _category.text = "";
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
+    );
+
+    final createCategoryButton = Container(
       margin: EdgeInsets.only(top: 10),
       child: SizedBox(
         width: mq.size.width * 0.9,
@@ -347,6 +453,20 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
       ),
     );
 
+    final editFields = Padding(
+      padding: EdgeInsets.only(top: 20.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          editWordField,
+          Padding(padding: EdgeInsets.only(top: 20.0)),
+          editTranslationField,
+          Padding(padding: EdgeInsets.only(top: 20.0)),
+          editSentenceField,
+        ],
+      ),
+    );
+
     final createCategoryFields = Padding(
       padding: EdgeInsets.only(top: 10.0),
       child: Column(
@@ -373,7 +493,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        createCategryButton,
+        createCategoryButton,
         Padding(
           padding: EdgeInsets.all(8.0),
         ),
@@ -942,7 +1062,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                                       Padding(
                                                           padding:
                                                               EdgeInsets.only(
-                                                                  top: 15)),
+                                                                  top: 10)),
                                                       Text(
                                                         data['sentence'],
                                                         style: TextStyle(
@@ -963,134 +1083,322 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                     );
                                   })
                             },
-                            trailing: IconButton(
-                              icon: Image.asset(
-                                "assets/bin.png",
-                              ),
-                              iconSize: 30,
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return Dialog(
-                                        elevation: 0,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15.0)),
-                                        child: Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.3,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.3,
-                                          decoration: BoxDecoration(
-                                              color: Colors.amber.shade100,
-                                              border: Border.all(
-                                                  color: Colors.black,
-                                                  width: 3.0),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(16))),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 5),
-                                                child: Center(
-                                                  child: Text(
-                                                    "Delete this flashcard ?",
-                                                    style: TextStyle(
-                                                        fontSize: 22,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: HexColor(
-                                                            "#461482")),
-                                                  ),
-                                                ),
-                                              ),
-                                              const Padding(
-                                                  padding:
-                                                      EdgeInsets.only(top: 25)),
-                                              Container(
-                                                child: SizedBox(
-                                                  width: 130,
-                                                  height: 40,
-                                                  child: ElevatedButton.icon(
-                                                    icon: Icon(Icons.check),
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      primary:
-                                                          HexColor("#461482"),
-                                                      onPrimary: Colors.white,
-                                                      side: BorderSide(
-                                                          width: 2,
-                                                          color: Colors.black),
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30.0),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: Image.asset(
+                                    "assets/pencil.png",
+                                  ),
+                                  iconSize: 30,
+                                  onPressed: () {
+                                    _wordEdit.text = data['word'];
+                                    _translationEdit.text = data['translation'];
+                                    _sentenceEdit.text = data['sentence'];
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return Dialog(
+                                            elevation: 0,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        15.0)),
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.9,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.7,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.amber.shade100,
+                                                  border: Border.all(
+                                                      color: Colors.black,
+                                                      width: 3.0),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(16))),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 5, top: 15),
+                                                    child: Center(
+                                                      child: Text(
+                                                        "Edit Flashcard",
+                                                        style: TextStyle(
+                                                            fontSize: 25,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: HexColor(
+                                                                "#461482")),
                                                       ),
                                                     ),
-                                                    label: Text("Yes",
-                                                        style: TextStyle(
-                                                            fontSize: 20)),
-                                                    onPressed: () {
-                                                      words
-                                                          .doc(document
-                                                              .reference.id)
-                                                          .delete();
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
                                                   ),
-                                                ),
+                                                  const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: 2)),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10.0),
+                                                    child: Form(
+                                                        child:
+                                                            SingleChildScrollView(
+                                                      child: Container(
+                                                        height: 370,
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: <Widget>[
+                                                            editFields,
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 15),
+                                                              child: Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .start,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .stretch,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Container(
+                                                                    child:
+                                                                        SizedBox(
+                                                                      width: mq
+                                                                              .size
+                                                                              .width *
+                                                                          0.9,
+                                                                      height:
+                                                                          55,
+                                                                      child: ElevatedButton
+                                                                          .icon(
+                                                                        icon: Icon(
+                                                                            Icons.create),
+                                                                        style: ElevatedButton
+                                                                            .styleFrom(
+                                                                          primary:
+                                                                              HexColor("#461482"),
+                                                                          onPrimary:
+                                                                              Colors.white,
+                                                                          side: BorderSide(
+                                                                              width: 2,
+                                                                              color: Colors.black),
+                                                                          shape:
+                                                                              RoundedRectangleBorder(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(30.0),
+                                                                          ),
+                                                                        ),
+                                                                        label: Text(
+                                                                            "Confirm",
+                                                                            style:
+                                                                                TextStyle(fontSize: 20)),
+                                                                        onPressed:
+                                                                            () {
+                                                                          setState(
+                                                                              () {
+                                                                            if (_wordEdit.text !=
+                                                                                '') {
+                                                                              words
+                                                                                  .doc(document.reference.id)
+                                                                                  .set(
+                                                                                    {
+                                                                                      "word": _wordEdit.text,
+                                                                                      "sentence": _sentenceEdit.text,
+                                                                                      "translation": _translationEdit.text,
+                                                                                      "category": value,
+                                                                                      "owner": auth.currentUser.displayName.toString(),
+                                                                                    },
+                                                                                    SetOptions(merge: true),
+                                                                                  )
+                                                                                  .then((value) => print("Edit Changed"))
+                                                                                  .catchError((error) => print("Failed to edit: $error"));
+                                                                            }
+                                                                          });
+                                                                          _wordEdit.text =
+                                                                              "";
+                                                                          _sentenceEdit.text =
+                                                                              "";
+                                                                          _translationEdit.text =
+                                                                              "";
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        EdgeInsets.all(
+                                                                            8.0),
+                                                                  ),
+                                                                  cancleButton,
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    )),
+                                                  )
+                                                ],
                                               ),
-                                              const Padding(
-                                                  padding:
-                                                      EdgeInsets.only(top: 20)),
-                                              Container(
-                                                child: SizedBox(
-                                                  width: 130,
-                                                  height: 40,
-                                                  child: ElevatedButton.icon(
-                                                    icon: Icon(Icons.cancel),
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      primary: Colors.white,
-                                                      onPrimary:
-                                                          HexColor("#461482"),
-                                                      side: BorderSide(
-                                                          width: 2,
-                                                          color: HexColor(
-                                                              "#461482")),
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30.0),
+                                            ),
+                                          );
+                                        });
+                                  },
+                                ),
+                                IconButton(
+                                  icon: Image.asset(
+                                    "assets/bin.png",
+                                  ),
+                                  iconSize: 30,
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return Dialog(
+                                            elevation: 0,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        15.0)),
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.3,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.3,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.amber.shade100,
+                                                  border: Border.all(
+                                                      color: Colors.black,
+                                                      width: 3.0),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(16))),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 5),
+                                                    child: Center(
+                                                      child: Text(
+                                                        "Delete this flashcard ?",
+                                                        style: TextStyle(
+                                                            fontSize: 22,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: HexColor(
+                                                                "#461482")),
                                                       ),
                                                     ),
-                                                    label: Text("No",
-                                                        style: TextStyle(
-                                                            fontSize: 20)),
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
                                                   ),
-                                                ),
+                                                  const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: 25)),
+                                                  Container(
+                                                    child: SizedBox(
+                                                      width: 130,
+                                                      height: 40,
+                                                      child:
+                                                          ElevatedButton.icon(
+                                                        icon: Icon(Icons.check),
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          primary: HexColor(
+                                                              "#461482"),
+                                                          onPrimary:
+                                                              Colors.white,
+                                                          side: BorderSide(
+                                                              width: 2,
+                                                              color:
+                                                                  Colors.black),
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30.0),
+                                                          ),
+                                                        ),
+                                                        label: Text("Yes",
+                                                            style: TextStyle(
+                                                                fontSize: 20)),
+                                                        onPressed: () {
+                                                          words
+                                                              .doc(document
+                                                                  .reference.id)
+                                                              .delete();
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: 20)),
+                                                  Container(
+                                                    child: SizedBox(
+                                                      width: 130,
+                                                      height: 40,
+                                                      child:
+                                                          ElevatedButton.icon(
+                                                        icon:
+                                                            Icon(Icons.cancel),
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          primary: Colors.white,
+                                                          onPrimary: HexColor(
+                                                              "#461482"),
+                                                          side: BorderSide(
+                                                              width: 2,
+                                                              color: HexColor(
+                                                                  "#461482")),
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30.0),
+                                                          ),
+                                                        ),
+                                                        label: Text("No",
+                                                            style: TextStyle(
+                                                                fontSize: 20)),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    });
-                              },
+                                            ),
+                                          );
+                                        });
+                                  },
+                                ),
+                              ],
                             ),
                           ),
                         )
