@@ -17,6 +17,8 @@ class _ResetScreenState extends State<ResetScreen> {
 
   var _email = '';
 
+  TextEditingController _userEmail = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +30,7 @@ class _ResetScreenState extends State<ResetScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              margin: EdgeInsets.only(top: 90, left: 20),
+              margin: EdgeInsets.only(top: 60, left: 15, bottom: 10),
               child: Text(
                 "Reset Password",
                 textAlign: TextAlign.left,
@@ -38,12 +40,25 @@ class _ResetScreenState extends State<ResetScreen> {
             Padding(
               padding: const EdgeInsets.all(25.0),
               child: TextFormField(
+                controller: _userEmail,
+                style: TextStyle(
+                  color: Colors.black,
+                ),
                 validator: MultiValidator([
                   RequiredValidator(errorText: "Please fill in your email."),
                   EmailValidator(errorText: "This is not an email.")
                 ]),
+                cursorColor: Colors.blue,
                 decoration: InputDecoration(
-                  hintText: "Enter Your Email",
+                  contentPadding: EdgeInsets.only(left: 20),
+                  hintText: 'Enter your email',
+                  hintStyle: TextStyle(color: Colors.black),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                      borderSide: BorderSide(color: HexColor("#461482"))),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                      borderSide: BorderSide(color: HexColor("#461482"))),
                 ),
                 onChanged: (value) {
                   setState(() {
@@ -53,10 +68,11 @@ class _ResetScreenState extends State<ResetScreen> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+              margin: EdgeInsets.only(top: 10, left: 20, right: 20),
               child: SizedBox(
                 height: 60,
-                child: ElevatedButton(
+                child: ElevatedButton.icon(
+                  icon: Icon(Icons.check),
                   style: ElevatedButton.styleFrom(
                     primary: HexColor("#461482"),
                     onPrimary: Colors.white,
@@ -65,8 +81,7 @@ class _ResetScreenState extends State<ResetScreen> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  child: const Text("Send Request",
-                      style: TextStyle(fontSize: 20)),
+                  label: Text("Send Request", style: TextStyle(fontSize: 20)),
                   onPressed: () async {
                     if (formKey.currentState.validate()) {
                       try {
@@ -88,7 +103,8 @@ class _ResetScreenState extends State<ResetScreen> {
               margin: EdgeInsets.only(top: 30, left: 20, right: 20),
               child: SizedBox(
                 height: 60,
-                child: ElevatedButton(
+                child: ElevatedButton.icon(
+                  icon: Icon(Icons.cancel),
                   style: ElevatedButton.styleFrom(
                     primary: Colors.white,
                     onPrimary: HexColor("#461482"),
@@ -97,9 +113,7 @@ class _ResetScreenState extends State<ResetScreen> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  child: Text("Cancle",
-                      style:
-                          TextStyle(fontSize: 20, color: HexColor("#461482"))),
+                  label: Text("Cancle", style: TextStyle(fontSize: 20)),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },

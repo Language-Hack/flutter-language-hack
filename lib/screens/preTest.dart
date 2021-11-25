@@ -44,7 +44,7 @@ class _PreTestScreenScreenState extends State<PreTestScreen> {
       body: Center(
         child: Column(
           children: <Widget>[
-            Padding(padding: EdgeInsets.only(top: 50)),
+            Padding(padding: EdgeInsets.only(top: 30)),
             Container(
               padding: EdgeInsets.only(top: 5),
               decoration: BoxDecoration(
@@ -52,7 +52,7 @@ class _PreTestScreenScreenState extends State<PreTestScreen> {
                 border: Border.all(color: Colors.black, width: 3.0),
               ),
               width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.75,
+              height: MediaQuery.of(context).size.height * 0.77,
               child: Column(
                 children: [
                   Padding(
