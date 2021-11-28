@@ -113,7 +113,7 @@ class _ResetScreenState extends State<ResetScreen> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  label: Text("Cancle", style: TextStyle(fontSize: 20)),
+                  label: Text("Cancel", style: TextStyle(fontSize: 20)),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
