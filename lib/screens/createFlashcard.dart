@@ -1,3 +1,5 @@
+import 'package:cherry_toast/cherry_toast.dart';
+import 'package:cherry_toast/resources/arrays.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -392,8 +394,17 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
             value = _createCategory.text;
             _createCategory.text = "";
             Navigator.of(context).pop();
-            Fluttertoast.showToast(
-                msg: "Create Sucessfully", gravity: ToastGravity.CENTER);
+            CherryToast(
+              title: "Create Sucessfully",
+              descriptionStyle: TextStyle(color: Colors.green),
+              icon: Icons.check,
+              themeColor: Colors.green,
+              animationDuration: Duration(milliseconds: 500),
+              toastDuration: Duration(milliseconds: 1000),
+              toastPosition: POSITION.TOP,
+              animationType: ANIMATION_TYPE.FROM_RIGHT,
+              autoDismiss: true,
+            ).show(context);
           },
         ),
       ),
@@ -764,9 +775,21 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                                             deleteCategory();
                                             value = "Uncategorize";
                                             Navigator.of(context).pop();
-                                            Fluttertoast.showToast(
-                                                msg: "Delete Sucessfully",
-                                                gravity: ToastGravity.CENTER);
+                                            CherryToast(
+                                              title: "Delete Sucessfully",
+                                              descriptionStyle: TextStyle(
+                                                  color: Colors.green),
+                                              icon: Icons.check,
+                                              themeColor: Colors.red,
+                                              animationDuration:
+                                                  Duration(milliseconds: 500),
+                                              toastDuration:
+                                                  Duration(milliseconds: 1000),
+                                              toastPosition: POSITION.TOP,
+                                              animationType:
+                                                  ANIMATION_TYPE.FROM_LEFT,
+                                              autoDismiss: true,
+                                            ).show(context);
                                           },
                                         ),
                                       ),
