@@ -8,7 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:language_hack/model/userFlashcard.dart';
 import 'package:language_hack/screens/home.dart';
-import 'package:language_hack/screens/user.dart';
+import 'package:language_hack/screens/user_flashcard_screen.dart';
 import 'package:language_hack/screens/welcome.dart';
 
 class CreateFlashcardScreens extends StatefulWidget {
@@ -103,6 +103,7 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
           .listen((event) {
         for (var snapshorts in event.docs) {
           Map<String, dynamic> map = snapshorts.data();
+          print(map);
           if (!items.contains(map['category'])) {
             items.add(map['category']);
           }
@@ -871,7 +872,28 @@ class _CreateFlashcardScreensState extends State<CreateFlashcardScreens> {
                           })
                 },
               ),
+
+              ////////// this will be a button to play the flashcard  ///////////////////////////
+              SpeedDialChild(
+                child: Image.asset(
+                  "assets/play.png",
+                  width: 30,
+                  height: 30,
+                ),
+                backgroundColor: Colors.amber.shade100,
+                labelBackgroundColor: Colors.amber.shade100,
+                label: "Generated Flashcard",
+                labelStyle: TextStyle(color: HexColor("#461482"), fontSize: 18),
+                onTap: () => {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              UserFlashcardScreen(value)))
+                },
+              ),
             ]),
+        //////////////////////////////////////////////////////////////////////////////////////////
         body: Padding(
           padding: const EdgeInsets.only(top: 10),
           child: StreamBuilder<QuerySnapshot>(
