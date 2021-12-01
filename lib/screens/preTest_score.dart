@@ -76,7 +76,7 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
                   children: [
                     Padding(padding: EdgeInsets.only(top: 15)),
                     Text(
-                      "Pre-Test Result",
+                      "Pretest Result",
                       style: TextStyle(
                           color: HexColor("#461482"),
                           fontSize:
@@ -127,38 +127,6 @@ class _PreTestScoreScreenState extends State<PreTestScoreScreen> {
                       ],
                     ),
                     Padding(padding: EdgeInsets.only(top: 20)),
-                    // Container(
-                    //   margin: EdgeInsets.only(top: 20, left: 20, right: 20),
-                    //   child: SizedBox(
-                    //     height: 60,
-                    //     child: ElevatedButton(
-                    //       style: ElevatedButton.styleFrom(
-                    //         shadowColor: Colors.black,
-                    //         elevation: 10,
-                    //         primary: Colors.white,
-                    //         onPrimary: HexColor("#461482"),
-                    //         side: BorderSide(
-                    //             width: 2, color: HexColor("#461482")),
-                    //         shape: RoundedRectangleBorder(
-                    //           borderRadius: BorderRadius.circular(30),
-                    //         ),
-                    //       ),
-                    //       child:
-                    //           Text("Continue", style: TextStyle(fontSize: 20)),
-                    //       onPressed: () {
-                    //         level.add({
-                    //           'level': userLevel,
-                    //           'owner': userDisplayname,
-                    //         }).catchError(
-                    //             (error) => print("Failed to add user: $error"));
-                    //         Navigator.push(context,
-                    //             MaterialPageRoute(builder: (context) {
-                    //           return DemoScreens(userLevel);
-                    //         }));
-                    //       },
-                    //     ),
-                    //   ),
-                    // ),
                     Container(
                       margin: EdgeInsets.only(
                           top: 30, left: 20, right: 20, bottom: 10),
